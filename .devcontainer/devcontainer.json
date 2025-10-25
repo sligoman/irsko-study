@@ -1,0 +1,50 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/docker-existing-docker-compose
+{
+	"name": "Existing Docker Compose (Extend)",
+
+	// Update the 'dockerComposeFile' list to include the correct docker-compose.yml file.
+	"dockerComposeFile": [
+		"../../../docker/docker-compose.yml"
+	],
+
+	// The 'service' property is the name of the service for the container that VS Code should
+	// use. Update this value to the PHP service name.
+	"service": "php",
+
+	// The optional 'workspaceFolder' property is the path VS Code should open by default when
+	// connected. This is typically a file mount in docker-compose.yml.
+	"workspaceFolder": "/home/sites/irskostudy_cz",
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	"forwardPorts": [9000, 3306, 8080],
+
+	// Uncomment the next line if you want to start specific services in your Docker Compose config.
+	"runServices": ["php", "nginx", "mariadb"],
+
+	// Uncomment the next line if you want to keep your containers running after VS Code shuts down.
+	"shutdownAction": "none",
+
+	// Uncomment the next line to run commands after the container is created.
+	// "postCreateCommand": "cat /etc/os-release",
+
+	// Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"php.validate.executablePath": "/usr/local/bin/php"
+			},
+			"extensions": [
+				"bmewburn.vscode-intelephense-client",
+				"ms-azuretools.vscode-docker",
+				"Vue.volar"
+			]
+		}
+	},
+
+	// Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "laravel"
+}
