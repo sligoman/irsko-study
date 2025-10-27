@@ -9,23 +9,17 @@
     </ul>
   </div>
 </template>
+<script setup>
+import { ref, onMounted } from 'vue';
 
-<script>
-export default {
-  name: 'BlogDynamic',
-  data() {
-    return { posts: [] };
-  },
-  mounted() {
-    // placeholder: in a real app fetch from API
-    this.posts = [
-      { id: 1, title: 'Jak podat přihlášku', excerpt: 'Krátký návod, krok za krokem.' },
-      { id: 2, title: 'Práce při studiu', excerpt: 'Možnosti a pravidla pro studenty.' },
+const posts = ref([]);
+
+onMounted(() => {
+    posts.value = [
+        { id: 1, title: 'Jak podat přihlášku', excerpt: 'Krátký návod, krok za krokem.' },
+        { id: 2, title: 'Práce při studiu', excerpt: 'Možnosti a pravidla pro studenty.' },
     ];
-  },
-};
+});
 </script>
 
-<style scoped>
-</style>
-        <p class="text-sm text-gray-600">{{ post.excerpt }}</p>
+

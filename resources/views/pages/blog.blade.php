@@ -8,15 +8,4 @@
     <blog-dynamic />
   </div>
 @endsection
-@extends('layouts.app')
 
-@section('title', 'Blog — IrskoStudy')
-
-@section('content')
-  <h1 class="text-2xl font-bold">Blog</h1>
-  <p class="mt-2">Aktuality a články o studiu v Irsku.</p>
-
-  <blog-dynamic />
-
-  @include('components.cta')
-@endsection

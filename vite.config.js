@@ -13,6 +13,12 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    resolve: {
+        alias: {
+            // use the esm-bundler build so runtime template compilation is available when needed
+            'vue': 'vue/dist/vue.esm-bundler.js',
+        },
+    },
     server: {
         host: '0.0.0.0',
         port: 5189, // Match the port in your error (5182)
@@ -22,5 +28,5 @@ export default defineConfig({
             port: 5189,
             protocol: 'ws',
         },
-    }
+    },
 });

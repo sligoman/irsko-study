@@ -9,13 +9,11 @@
     <meta name="description" content="IrskoStudy — pomoc s přihláškami, ubytováním a studiem v Irsku pro studenty z ČR a SK">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
-<body class="antialiased font-sans bg-gray-50 text-gray-900">
+<body  id="app" class="antialiased font-sans bg-gray-50 text-gray-900">
     @include('components.navbar')
 
     <main class="min-h-screen">
-        <div id="app">
             @yield('content')
-        </div>
     </main>
 
     @include('components.footer')
