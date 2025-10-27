@@ -3,9 +3,11 @@
     <div v-for="(item, idx) in items" :key="idx" class="bg-white p-4 rounded shadow">
       <button @click="toggle(idx)" class="w-full text-left flex justify-between items-center">
         <span class="font-semibold">{{ item.question }}</span>
-        <span class="text-xl">{{ open === idx ? '−' : '+' }}</span>
+        <span class="text-xl transition-transform duration-200" :class="{'rotate-180': open === idx}">{{ open === idx ? '−' : '+' }}</span>
       </button>
-      <div v-if="open === idx" class="mt-2 text-gray-700" v-html="item.answer"></div>
+      <transition name="accordion" appear>
+        <div v-show="open === idx" class="mt-2 text-gray-700 overflow-hidden" v-html="item.answer"></div>
+      </transition>
     </div>
   </div>
 </template>
@@ -90,4 +92,19 @@ export default {
 
 <style scoped>
 summary { cursor: pointer; }
+
+/* simple accordion height transition */
+.accordion-enter-active, .accordion-leave-active {
+  transition: max-height 300ms cubic-bezier(.4,0,.2,1), opacity 250ms ease;
+}
+.accordion-enter-from, .accordion-leave-to {
+  max-height: 0;
+  opacity: 0;
+}
+.accordion-enter-to, .accordion-leave-from {
+  max-height: 400px; /* reasonable max for answer content */
+  opacity: 1;
+}
+
+.text-xl.rotate-180 { transform: rotate(180deg); }
 </style>
