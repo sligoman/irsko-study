@@ -1,6 +1,23 @@
+/* Import a clean system-like font - must come before other rules for PostCSS */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
 @import "tailwindcss";
 
 :root {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    --color-primary: #064D45; /* dark green */
+    --color-emerald: #5FBA89;  /* secondary green */
+    --color-cta: #ffcc00;      /* CTA gold */
 }
+
+html, body {
+    font-family: var(--font-sans);
+}
+
+/* Small utilities (kept minimal — prefer Tailwind classes) */
+.site-hero {
+    background: linear-gradient(180deg, rgba(6,77,69,0.03) 0%, rgba(255,255,255,0) 100%);
+}
+
+.brand-link img { height: 48px; }
+

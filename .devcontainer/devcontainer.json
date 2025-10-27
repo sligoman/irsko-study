@@ -40,7 +40,8 @@
 			"extensions": [
 				"bmewburn.vscode-intelephense-client",
 				"ms-azuretools.vscode-docker",
-				"Vue.volar"
+				"Vue.volar",
+				"onecentlin.laravel-blade"
 			]
 		}
 	},

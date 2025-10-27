@@ -1,0 +1,73 @@
+3) Pořadí sekcí na homepage (nadpisy + obsah, bez kódu)
+
+HERO (úvodní banner)
+
+Badge: „Irish-based agentura“
+
+Hlavní nadpis (H1): „Study at a top university in Ireland“
+
+Podnadpis: „Pomůžeme ti od první konzultace až po první den na kampusu – přihlášky, dokumenty, ubytování i podpora po příjezdu.“
+
+Primární CTA: „Domluv si bezplatnou konzultaci“ (vede na Kontakt)
+
+Sekundární CTA: „Zjisti proč studovat v Irsku“ (vede na Proč Irsko)
+
+USP pásek (3 body)
+
+Bod 1: „Sídlo v Irsku — žijeme tu 20+ let a známe univerzity, systém i realitu.“
+
+Bod 2: „Specializace na Irsko — místo ‘celého světa’ dáváme přesné a aktuální poradenství.“
+
+Bod 3: „Osobní podpora — reálné kontakty, setkání po příjezdu, praktická pomoc.“
+
+3 důvody, proč studovat v Irsku
+
+Karta 1 — „Vysoká kvalita vzdělání“: „Prestižní univerzity, moderní kampusy a propojení s praxí. Studium v angličtině bez bariér.“
+
+Karta 2 — „Mezinárodní prostředí“: „Komunity z celého světa, výborná angličtina a kontakty pro kariéru.“
+
+Karta 3 — „Příležitosti po studiu“: „Silný trh práce (IT, farmacie, finance). Možnost pracovat během studia i po něm.“
+
+Textové CTA pod kartami: „Zjisti víc o studiu v Irsku“ (vede na Proč Irsko)
+
+Jak vám pomáháme — krok za krokem (použít komponentu steps)
+
+Krok 1: „Úvodní konzultace — jasný plán, obory a termíny.“
+
+Krok 2: „Výběr školy & přihláška — dokumenty, překlady, CAO, kontrola.“
+
+Krok 3: „Praktická podpora — PPS, ubytování, pojištění, osobní setkání v Irsku.“
+
+Aktuální termíny a novinky (blog-preview nebo statický fallback)
+
+Nadpis: „Aktuální termíny a novinky“
+
+Link vpravo: „Všechny články“ (vede na Blog)
+
+Pokud existují data: zobraz 3 poslední články (tag/label, titulek, krátké shrnutí, odkaz „Číst dál“)
+
+Pokud neexistují data: placeholdery
+
+„Termíny CAO – přehled pro tento rok: co nepromeškat a jak seřadit obory.“
+
+„Jak vybrat správný obor podle kariéry – praktický návod.“
+
+„Školné, contribution fee a životní náklady – realistické příklady.“
+
+Reference studentů (komponenta testimonials)
+
+Reference 1: „Díky IrskoStudy jsem se dostala na University of Galway. Vše šlo hladce od CAO po ubytování.“ — „Anna – Business Studies“
+
+Reference 2: „Praktické rady po příjezdu – PPS, banka, první brigáda. Skvělý osobní přístup.“ — „Petr – Computer Science“
+
+Reference 3: „Vybrali jsme obor s ohledem na kariéru. Žádné fráze, ale fakta.“ — „Veronika – Marketing“
+
+Pod sekcí CTA: „Chci být jedním z úspěšných studentů“ (vede na Kontakt)
+
+Silné CTA na závěr (komponenta cta)
+
+Titulek: „Nezávazná konzultace“
+
+Text: „Každé velké rozhodnutí začíná rozhovorem. Zeptej se na cokoliv – vysvětlíme proces přihlášky, školy i život v Irsku.“
+
+Tlačítko: „Domluvte si bezplatnou konzultaci“ (vede na Kontakt)

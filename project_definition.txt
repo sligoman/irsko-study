@@ -1,0 +1,177 @@
+# === Projekt: IrskoStudy.cz ===
+# Framework: Laravel 12 + Blade + TailwindCSS + Vue 3 (pouze pro reaktivní části)
+# Cíl: Moderní, přehledný a přátelský web o studiu v Irsku
+
+# ----------------------------------------------------------
+# 1. OBECNÝ KONCEPT
+# ----------------------------------------------------------
+- Laravel obstará routing, Blade šablony a obsahové stránky.
+- Vue se použije pouze pro:
+  - Interaktivní části (FAQ, formuláře, dynamický blog)
+  - Drobnou reaktivitu (např. načítání obsahu AJAXem)
+- Každá stránka má vlastní Blade soubor v `resources/views/pages/`
+- Opakující se sekce (header, footer, CTA, reference) jsou jako partials v `resources/views/components/`
+- TailwindCSS pro celý layout a styl
+
+Tone of voice:
+- Přirozený, osobní, přátelský tón
+- Krátké a přehledné texty
+- CTA zaměřená na akci: „Domluvte si konzultaci“, „Zjisti víc“, „Začni plánovat studium“
+
+# ----------------------------------------------------------
+# 2. STRUKTURA PROJEKTU
+# ----------------------------------------------------------
+
+resources/views/
+│
+├── layouts/
+│   └── app.blade.php          # hlavní layout (head, header, yield, footer)
+│
+├── components/
+│   ├── navbar.blade.php       # horní navigace
+│   ├── footer.blade.php       # patička se sociálními odkazy
+│   ├── cta.blade.php          # opakované CTA bloky
+│   ├── testimonials.blade.php # reference studentů
+│   ├── blog-preview.blade.php # 3 nejnovější články
+│   └── steps.blade.php        # kroky spolupráce
+│
+└── pages/
+    ├── home.blade.php
+    ├── about.blade.php
+    ├── why-ireland.blade.php
+    ├── universities.blade.php
+    ├── services.blade.php
+    ├── faq.blade.php
+    ├── contact.blade.php
+    └── blog.blade.php
+
+resources/js/components/
+│
+├── faq-accordion.vue          # interaktivní FAQ sekce
+├── contact-form.vue           # kontaktní formulář s validací
+└── blog-dynamic.vue           # dynamické načítání článků
+
+# ----------------------------------------------------------
+# 3. STRÁNKY (Blade)
+# ----------------------------------------------------------
+
+## HOME (home.blade.php)
+- Hlavní banner (headline + CTA: "Domluvte si bezplatnou konzultaci")
+- Sekce "Proč studovat v Irsku" – 4 boxy (kvalita, angličtina, bezpečí, přátelskost)
+- USP: „Jsme agentura se sídlem v Irsku – žijeme tu, známe místní prostředí.“
+- „Jak vám pomáháme“ – komponenta @include('components.steps')
+- „Reference studentů“ – @include('components.testimonials')
+- „Novinky / Termíny“ – @include('components.blog-preview')
+- CTA blok: @include('components.cta')
+- Footer
+
+## O NÁS (about.blade.php)
+- Hlavní nadpis: „Pomáháme českým a slovenským studentům splnit sen o studiu v Irsku.“
+- Podsekce:
+  - Kdo jsme a proč právě Irsko
+  - Naše filozofie (Nejsme klasická agentura – jsme průvodci)
+  - Náš tým (David Fiala, Michal Chupík)
+  - Naše mise
+- CTA: „Seznam se s naším týmem“
+
+## PROČ IRSKO (why-ireland.blade.php)
+- Důvody pro studium: kvalita, angličtina, bez školného, práce při studiu, bezpečí
+- Praktické výhody: dostupnost, bezvízový režim, uplatnění po studiu
+- CTA: „Zjisti, jak můžeš studovat v Irsku i ty“
+
+## VYSOKÉ ŠKOLY (universities.blade.php)
+- Přehled 7 hlavních univerzit (Trinity, UCD, UCC, Galway, DCU, TU Dublin, Limerick)
+- Struktura:
+  - Název univerzity
+  - Krátký popis a zaměření
+  - Lokace
+- CTA: „Domluv si bezplatnou konzultaci“
+
+## S ČÍM POMÁHÁME (services.blade.php)
+- Úvod: „Pomáháme ti krok za krokem od výběru školy až po první den v Irsku.“
+- Komponenta kroků: @include('components.steps')
+- Sekce „Balíčky služeb“:
+  - START – základní vedení
+  - PREMIUM – kompletní servis
+- CTA: „Vyber si svůj balíček“
+
+## FAQ (faq.blade.php)
+- Vue komponenta: <faq-accordion />
+- Obsahuje 15 nejčastějších otázek
+- Kategorie: Studium, Přihláška, Finance, Život, Služby
+- CTA: „Nenašel/a jsi odpověď? Napiš nám!“
+
+## KONTAKT (contact.blade.php)
+- Krátký text: „Každé velké rozhodnutí začíná rozhovorem.“
+- Vue komponenta: <contact-form />
+- Kontaktní údaje (email, telefon, adresa)
+- CTA: „Domluvte si bezplatnou konzultaci“
+
+## BLOG (blog.blade.php)
+- Hlavní přehled článků
+- Vue komponenta: <blog-dynamic /> – načítá články z API
+- Kategorie: přihlášky, stipendia, život v Irsku
+- CTA: „Přečti si novinky o studiu v Irsku“
+
+# ----------------------------------------------------------
+# 4. DESIGN
+# ----------------------------------------------------------
+- TailwindCSS – minimalistický styl, velké mezery, kontrastní CTA
+
+Tone of voice:
+- Přirozený, osobní, přátelský tón
+- Krátké a přehledné texty
+- CTA zaměřená na akci: „Domluvte si konzultaci“, „Zjisti víc“, „Začni plánovat studium“
+
+# ----------------------------------------------------------
+# 2. BRAND DESIGN A BARVY
+# ----------------------------------------------------------
+
+## Logo
+- Soubor: `/public/images/logo-irsko.png`
+- Barva loga: tmavá zelená `#064D45`
+- Výška loga v navigaci: 48–56 px
+- Použití:
+  - Header vlevo nahoře
+  - Footer (menší nebo monochromatická varianta)
+- Okolo loga nechat minimálně 20 px padding
+
+## Barevná paleta
+| Název | HEX kód | Použití |
+|--------|----------|----------|
+| **Tmavá zelená** | `#064D45` | Primární barva loga, nadpisy, CTA, hlavní prvky |
+| **Zelená** | `#5FBA89` | Sekundární barva, hover efekty, ikony |
+| **Krémová** | `#F2E6CC` | Pozadí sekcí, boxy, CTA podklady |
+| **Bílá** | `#FFFFFF` | Text na tmavém pozadí |
+| **Neutrální šedá** | `#f5f5f5` | Podkladové vrstvy, border |
+
+## Typografie
+- **Primární font:** `Inter` nebo `Nunito Sans`
+- **Sekundární font:** `Open Sans`
+- **Barva textu:** `#064D45`
+- **Line height:** 1.6–1.8
+- Styl komunikace: čistý, moderní, přehledný
+
+
+# ----------------------------------------------------------
+# 5. ROUTING
+# ----------------------------------------------------------
+- Laravel routes/web.php:
+
+Route::view('/', 'pages.home')->name('home');
+Route::view('/o-nas', 'pages.about')->name('about');
+Route::view('/proc-irsko', 'pages.why-ireland')->name('why');
+Route::view('/vysoke-skoly', 'pages.universities')->name('universities');
+Route::view('/sluzby', 'pages.services')->name('services');
+Route::view('/faq', 'pages.faq')->name('faq');
+Route::view('/kontakt', 'pages.contact')->name('contact');
+Route::view('/blog', 'pages.blog')->name('blog');
+
+# ----------------------------------------------------------
+# 7. DOPLŇKY
+# ----------------------------------------------------------
+- Připravit komponentu `navbar.blade.php` s logem a navigací
+- Připravit `footer.blade.php` s odkazy (FAQ, Kontakt, O nás, Sociální sítě)
+- GDPR, Cookies a VOP – samostatné statické Blade šablony
+- Přidat animaci při načtení CTA nebo hover efekty (Tailwind + Animate.css)
+
