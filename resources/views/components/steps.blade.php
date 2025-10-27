@@ -1,8 +1,8 @@
 <section class="py-12 bg-gray-50">
   <div class="max-w-6xl mx-auto px-4">
     <h3 class="text-2xl font-semibold mb-8 text-[color:var(--color-primary)]">Jak to funguje</h3>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transform transition motion-reduce:transform-none hover:-translate-y-2">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+  <div data-reveal-delay="0" class="bg-white p-6 rounded-lg shadow hover:shadow-xl transform transition motion-reduce:transform-none hover:-translate-y-2 reveal reveal-from-left">
         <div class="flex items-start gap-4 mb-4">
           <div class="relative">
             <div class="w-12 h-12 rounded-full bg-[color:var(--color-emerald)] flex items-center justify-center text-white font-semibold">1</div>
@@ -17,7 +17,7 @@
         </div>
       </div>
 
-      <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transform transition motion-reduce:transform-none hover:-translate-y-2">
+  <div data-reveal-delay="80" class="bg-white p-6 rounded-lg shadow hover:shadow-xl transform transition motion-reduce:transform-none hover:-translate-y-2 reveal reveal-from-bottom">
         <div class="flex items-start gap-4 mb-4">
           <div class="relative">
             <div class="w-12 h-12 rounded-full bg-[color:var(--color-emerald)] flex items-center justify-center text-white font-semibold">2</div>
@@ -32,7 +32,7 @@
         </div>
       </div>
 
-      <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transform transition motion-reduce:transform-none hover:-translate-y-2">
+  <div data-reveal-delay="160" class="bg-white p-6 rounded-lg shadow hover:shadow-xl transform transition motion-reduce:transform-none hover:-translate-y-2 reveal reveal-from-right">
         <div class="flex items-start gap-4 mb-4">
           <div class="relative">
             <div class="w-12 h-12 rounded-full bg-[color:var(--color-emerald)] flex items-center justify-center text-white font-semibold">3</div>
@@ -47,7 +47,7 @@
         </div>
       </div>
 
-      <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transform transition motion-reduce:transform-none hover:-translate-y-2">
+  <div data-reveal-delay="240" class="bg-white p-6 rounded-lg shadow hover:shadow-xl transform transition motion-reduce:transform-none hover:-translate-y-2 reveal reveal-from-left">
         <div class="flex items-start gap-4 mb-4">
           <div class="relative">
             <div class="w-12 h-12 rounded-full bg-[color:var(--color-emerald)] flex items-center justify-center text-white font-semibold">4</div>
@@ -62,7 +62,7 @@
         </div>
       </div>
 
-      <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transform transition motion-reduce:transform-none hover:-translate-y-2">
+  <div data-reveal-delay="320" class="bg-white p-6 rounded-lg shadow hover:shadow-xl transform transition motion-reduce:transform-none hover:-translate-y-2 reveal reveal-from-bottom">
         <div class="flex items-start gap-4 mb-4">
           <div class="relative">
             <div class="w-12 h-12 rounded-full bg-[color:var(--color-emerald)] flex items-center justify-center text-white font-semibold">5</div>
@@ -77,7 +77,7 @@
         </div>
       </div>
 
-      <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transform transition motion-reduce:transform-none hover:-translate-y-2">
+  <div data-reveal-delay="400" class="bg-white p-6 rounded-lg shadow hover:shadow-xl transform transition motion-reduce:transform-none hover:-translate-y-2 reveal reveal-from-right">
         <div class="flex items-start gap-4 mb-4">
           <div class="relative">
             <div class="w-12 h-12 rounded-full bg-[color:var(--color-emerald)] flex items-center justify-center text-white font-semibold">6</div>

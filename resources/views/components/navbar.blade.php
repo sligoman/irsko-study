@@ -1,4 +1,4 @@
-<nav class="fixed w-full z-40">
+<nav class="w-full z-40">
   <div class="backdrop-blur bg-white/60 border-b">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
       <div class="flex items-center justify-between h-16">
@@ -16,7 +16,7 @@
         </div>
 
         <div class="hidden lg:flex items-center gap-4">
-          <a href="{{ route('contact') }}" class="inline-flex items-center gap-2 bg-[color:var(--color-primary)] text-white px-4 py-2 rounded-md shadow-md">Kontakt</a>
+          <a href="{{ route('contact') }}" class="inline-flex items-center gap-2 btn-cta text-white px-4 py-2 rounded-md shadow-md">Kontakt</a>
         </div>
 
         <!-- Mobile -->

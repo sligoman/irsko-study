@@ -19,7 +19,7 @@
   @include('components.testimonials')
 
   <div class="text-center mt-6">
-    <a href="{{ route('contact') }}" class="inline-block bg-[color:var(--color-primary)] text-white px-6 py-3 rounded-lg">Chci být jedním z úspěšných studentů</a>
+    <a href="{{ route('contact') }}" class="inline-block btn-cta text-white px-6 py-3 rounded-lg">Chci být jedním z úspěšných studentů</a>
   </div>
 
   <!-- Silné CTA (cta komponenta) -->

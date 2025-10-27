@@ -2,7 +2,7 @@
   <div class="absolute inset-0 bg-gradient-to-r from-[color:var(--color-primary)]/10 via-transparent to-[color:var(--color-emerald)]/5 pointer-events-none"></div>
   <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-      <div class="lg:col-span-7">
+      <div class="lg:col-span-7 reveal reveal-from-left">
         <div class="inline-block px-3 py-1 rounded-full bg-[color:var(--color-emerald)]/10 text-[color:var(--color-emerald)] font-semibold mb-4">Irish-based agentura</div>
 
         <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-[color:var(--color-primary)]">Studium v Irsku — jednoduché a bez bolesti</h1>
@@ -10,7 +10,7 @@
         <p class="mt-6 text-lg text-gray-700 max-w-2xl">Pomůžeme ti od první konzultace až po první den na kampusu – přihlášky, dokumenty, ubytování i podpora po příjezdu.</p>
 
         <div class="mt-8 flex flex-wrap gap-3">
-          <a href="{{ route('contact') }}" class="inline-flex items-center gap-2 bg-[color:var(--color-primary)] text-white px-5 py-3 rounded-md shadow">Domluv si bezplatnou konzultaci</a>
+          <a href="{{ route('contact') }}" class="inline-flex items-center gap-2 btn-cta text-white px-5 py-3 rounded-md shadow">Domluv si bezplatnou konzultaci</a>
           <a href="{{ route('why') }}" class="inline-flex items-center gap-2 bg-white text-[color:var(--color-primary)] px-5 py-3 rounded-md border">Zjisti proč studovat v Irsku</a>
         </div>
 
@@ -26,7 +26,7 @@
         </div>
       </div>
 
-      <div class="lg:col-span-5">
+  <div class="lg:col-span-5 reveal reveal-from-right">
         <div class="relative group">
           <!-- decorative SVG blob -->
           <svg class="absolute -left-12 -top-10 w-72 h-72 opacity-30 transform-gpu will-change-transform transition-transform duration-700 group-hover:rotate-6" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">

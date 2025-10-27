@@ -21,3 +21,42 @@ html, body {
 
 .brand-link img { height: 48px; }
 
+/* Reveal-on-scroll helpers */
+.reveal {
+    opacity: 0;
+    transform: translateY(18px) scale(0.995);
+    transition: opacity 520ms cubic-bezier(.2,.9,.2,1), transform 520ms cubic-bezier(.2,.9,.2,1);
+    will-change: opacity, transform;
+}
+.reveal.revealed {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* directional variants */
+.reveal-from-left { transform: translateX(-18px) scale(0.995); }
+.reveal-from-right { transform: translateX(18px) scale(0.995); }
+.reveal.revealed.reveal-from-left,
+.reveal.revealed.reveal-from-right { transform: translateX(0) scale(1); }
+
+/* reduced motion fallback */
+@media (prefers-reduced-motion: reduce) {
+    .reveal, .reveal.revealed { transition: none; transform: none; opacity: 1; }
+}
+
+/* CTA animated gradient */
+.btn-cta {
+    background: linear-gradient(90deg, var(--color-primary), var(--color-emerald));
+    background-size: 200% 200%;
+    transition: background-position 450ms ease, transform 200ms ease, box-shadow 200ms ease;
+}
+.btn-cta:hover, .btn-cta:focus {
+    background-position: 100% 0;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(6,77,69,0.12);
+}
+.btn-cta:active { transform: translateY(-1px); }
+
+/* utility to stagger reveals via inline delay attribute */
+.reveal[data-reveal-delay] { transition-delay: 0ms; }
+

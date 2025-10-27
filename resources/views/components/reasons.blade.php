@@ -4,24 +4,24 @@
     <p class="text-gray-600 max-w-3xl mb-6">Irsko nabízí špičkové univerzity uznávané po celém světě. Studium tady kombinuje moderní kurikula s praktickými zkušenostmi a připraví tě na úspěšnou kariéru v mezinárodním prostředí.</p>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transform transition motion-reduce:transform-none hover:-translate-y-2">
-        <div class="flex items-center gap-3 mb-3">
+      <div data-reveal-delay="0" class="bg-white p-6 rounded-lg shadow hover:shadow-lg transform transition motion-reduce:transform-none hover:-translate-y-2">
+        <div data-reveal-delay="0" class="flex items-center gap-3 mb-3 reveal reveal-from-left">
           <div class="w-10 h-10 rounded-full bg-[color:var(--color-emerald)]/10 flex items-center justify-center text-[color:var(--color-emerald)]">🌟</div>
           <h3 class="font-semibold mb-0">Vysoká kvalita vzdělání</h3>
         </div>
         <p class="text-gray-600">Irsko nabízí prestižní univerzity a moderní kampusy, které kombinují teoretické vzdělání s praktickými dovednostmi. Získáš znalosti potřebné pro konkurenceschopnou kariéru a diplom s mezinárodním uznáním.</p>
       </div>
 
-      <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transform transition motion-reduce:transform-none hover:-translate-y-2">
-        <div class="flex items-center gap-3 mb-3">
+      <div data-reveal-delay="120" class="bg-white p-6 rounded-lg shadow hover:shadow-lg transform transition motion-reduce:transform-none hover:-translate-y-2">
+        <div data-reveal-delay="120" class="flex items-center gap-3 mb-3 reveal reveal-from-bottom">
           <div class="w-10 h-10 rounded-full bg-[color:var(--color-emerald)]/10 flex items-center justify-center text-[color:var(--color-emerald)]">🌍</div>
           <h3 class="font-semibold mb-0">Špičková angličtina a mezinárodní prostředí</h3>
         </div>
         <p class="text-gray-600">Studium v anglicky mluvícím prostředí výrazně zlepší tvoji jazykovou úroveň. Univerzity přitahují studenty z celého světa, takže získáš cenné mezinárodní kontakty a zkušenosti v přátelské kultuře.</p>
       </div>
 
-      <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transform transition motion-reduce:transform-none hover:-translate-y-2">
-        <div class="flex items-center gap-3 mb-3">
+      <div data-reveal-delay="240" class="bg-white p-6 rounded-lg shadow hover:shadow-lg transform transition motion-reduce:transform-none hover:-translate-y-2">
+        <div data-reveal-delay="240" class="flex items-center gap-3 mb-3 reveal reveal-from-right">
           <div class="w-10 h-10 rounded-full bg-[color:var(--color-emerald)]/10 flex items-center justify-center text-[color:var(--color-emerald)]">🚀</div>
           <h3 class="font-semibold mb-0">Příležitosti po studiu</h3>
         </div>

@@ -11,7 +11,7 @@
       </svg>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
-        <article class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition transform-gpu hover:-translate-y-2 motion-reduce:transform-none">
+  <article data-reveal-delay="0" class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition transform-gpu hover:-translate-y-2 motion-reduce:transform-none reveal reveal-from-bottom">
           <div class="flex items-center gap-3 mb-3">
             <div class="w-10 h-10 rounded-full bg-[color:var(--color-emerald)]/10 flex items-center justify-center text-[color:var(--color-emerald)]">🏠</div>
             <h3 class="font-semibold text-lg">Život a zkušenosti přímo z Irska</h3>
@@ -23,7 +23,7 @@
           </ul>
         </article>
 
-        <article class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition transform-gpu hover:-translate-y-2 motion-reduce:transform-none">
+  <article data-reveal-delay="120" class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition transform-gpu hover:-translate-y-2 motion-reduce:transform-none reveal reveal-from-bottom">
           <div class="flex items-center gap-3 mb-3">
             <div class="w-10 h-10 rounded-full bg-[color:var(--color-emerald)]/10 flex items-center justify-center text-[color:var(--color-emerald)]">🤝</div>
             <h3 class="font-semibold text-lg">Osobní setkání a podpora</h3>
@@ -35,7 +35,7 @@
           </ul>
         </article>
 
-        <article class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition transform-gpu hover:-translate-y-2 motion-reduce:transform-none">
+  <article data-reveal-delay="240" class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition transform-gpu hover:-translate-y-2 motion-reduce:transform-none reveal reveal-from-bottom">
           <div class="flex items-center gap-3 mb-3">
             <div class="w-10 h-10 rounded-full bg-[color:var(--color-emerald)]/10 flex items-center justify-center text-[color:var(--color-emerald)]">🎓</div>
             <h3 class="font-semibold text-lg">Bohaté zkušenosti se studiem a životem v zahraničí</h3>

@@ -18,3 +18,10 @@ document.addEventListener('DOMContentLoaded', function(){
 	const menu = document.getElementById('mobile-menu');
 	if (btn && menu) btn.addEventListener('click', () => menu.classList.toggle('hidden'));
 });
+
+// Initialize reveal-on-scroll animations
+import initReveal from './reveal';
+document.addEventListener('DOMContentLoaded', function(){
+  // small timeout so initial paint can happen
+  setTimeout(() => initReveal('.reveal'), 120);
+});
