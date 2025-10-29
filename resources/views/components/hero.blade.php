@@ -1,5 +1,5 @@
 <section class="relative overflow-hidden pt-28">
-  <div class="absolute inset-0 bg-gradient-to-r from-[color:var(--color-primary)]/10 via-transparent to-[color:var(--color-emerald)]/5 pointer-events-none"></div>
+  <div class="absolute inset-0"></div>
   <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
       <div class="lg:col-span-7 reveal reveal-from-left">

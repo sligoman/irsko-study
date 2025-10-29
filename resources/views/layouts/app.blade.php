@@ -17,6 +17,9 @@
     </main>
 
     @include('components.footer')
+
+    
+
 </body>
 </html>
 

@@ -8,6 +8,9 @@
     --color-primary: #064D45; /* dark green */
     --color-emerald: #5FBA89;  /* secondary green */
     --color-cta: #ffcc00;      /* CTA gold */
+    /* RGB fallbacks for CSS rgba with CSS variables */
+    --rgb-primary: 6,77,69; /* rgb(6,77,69) */
+    --rgb-emerald: 95,186,137; /* rgb(95,186,137) */
 }
 
 html, body {
@@ -59,4 +62,43 @@ html, body {
 
 /* utility to stagger reveals via inline delay attribute */
 .reveal[data-reveal-delay] { transition-delay: 0ms; }
+
+/* Pointer-driven gradient overlay */
+.pointer-gradient { position: relative; overflow: hidden; }
+/* The overlay sits above background layers but below main content. Increase z-index to avoid being covered
+   by absolutely positioned background children that may create their own stacking contexts. */
+.pointer-gradient::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 50; /* higher to ensure visibility */
+    transition: opacity 280ms ease, transform 280ms ease;
+    /* radial gradient uses CSS variables --mx and --my set by JS (percentage values) */
+    background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(var(--rgb-emerald),0.36) 0%, rgba(var(--rgb-primary),0.22) 22%, rgba(var(--rgb-emerald),0.12) 40%, rgba(255,204,0,0.08) 58%, transparent 82%);
+    /* Use normal blending for predictable color on light backgrounds */
+    mix-blend-mode: normal;
+    opacity: 0.85;
+}
+
+/* Ensure content sits above the overlay */
+.pointer-gradient > * { position: relative; z-index: 60; }
+/* keep explicit background layer below the overlay when present (hero uses bg-gradient-to-r or bg-gradient-to-br) */
+.pointer-gradient > .bg-gradient-to-r,
+.pointer-gradient > .bg-gradient-to-br { z-index: 0; }
+/* ensure normal content renders above the overlay */
+.pointer-gradient > *:not(.bg-gradient-to-r):not(.bg-gradient-to-br) { z-index: 60; }
+
+/* subtle pointer-driven parallax on large artwork inside pointer-gradient */
+.pointer-gradient .parallax {
+    transform: translateZ(0);
+    transition: transform 320ms cubic-bezier(.2,.9,.2,1);
+    will-change: transform;
+}
+
+/* Move only the gradient overlay based on pointer — do not shift the section itself */
+.pointer-gradient::before {
+    will-change: transform, background-position, opacity;
+    transform: translate3d(var(--px, 0px), var(--py, 0px), 0);
+}
 

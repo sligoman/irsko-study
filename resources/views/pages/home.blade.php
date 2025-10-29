@@ -5,6 +5,9 @@
 @section('content')
   @include('components.hero')
 
+  {{-- Pointer gradient test component (for visual debugging) --}}
+  {{-- <pointer-gradient-test></pointer-gradient-test> --}}
+
   @include('components.usp-strip')
 
   @include('components.reasons')
