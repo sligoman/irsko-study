@@ -3,8 +3,8 @@
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
       <div class="flex items-center justify-between h-16">
         <a href="{{ route('home') }}" class="flex items-center gap-3">
-          <img src="{{ asset('img/logo.png') }}" alt="IrskoStudy" class="h-10 w-auto">
-          <span class="text-lg font-semibold text-[color:var(--color-primary)]">IrskoStudy.cz</span>
+          <img src="{{ asset('img/logo.png') }}" alt="{{ config('contacts.company_name') }}" class="h-10 w-auto">
+          <span class="text-lg font-semibold text-[color:var(--color-primary)]">{{ config('contacts.company_name') }}</span>
         </a>
 
         <div class="hidden lg:flex items-center gap-8">

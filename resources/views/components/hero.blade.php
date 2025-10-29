@@ -3,7 +3,7 @@
   <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
       <div class="lg:col-span-7 reveal reveal-from-left">
-        <div class="inline-block px-3 py-1 rounded-full bg-[color:var(--color-emerald)]/10 text-[color:var(--color-emerald)] font-semibold mb-4">Irish-based agentura</div>
+        <div class="inline-block px-3 py-1 rounded-full bg-[color:var(--color-emerald)]/10 text-[color:var(--color-emerald)] font-semibold mb-4">Najdeš nás v Irsku</div>
 
         <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-[color:var(--color-primary)]">Studium v Irsku — jednoduché a bez bolesti</h1>
 
