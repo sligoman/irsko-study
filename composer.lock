@@ -3513,12 +3513,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:sligoman/aiblog-api-web.git",
-                "reference": "b1eefe379d5b5659d5dc03618f922c900b686621"
+                "reference": "2bdeb7d40709422f5ed6b52eb64cff68340c4a9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sligoman/aiblog-api-web/zipball/b1eefe379d5b5659d5dc03618f922c900b686621",
-                "reference": "b1eefe379d5b5659d5dc03618f922c900b686621",
+                "url": "https://api.github.com/repos/sligoman/aiblog-api-web/zipball/2bdeb7d40709422f5ed6b52eb64cff68340c4a9f",
+                "reference": "2bdeb7d40709422f5ed6b52eb64cff68340c4a9f",
                 "shasum": ""
             },
             "require": {
@@ -3546,7 +3546,7 @@
                 "source": "https://github.com/sligoman/aiblog-api-web/tree/main",
                 "issues": "https://github.com/sligoman/aiblog-api-web/issues"
             },
-            "time": "2025-11-03T15:47:46+00:00"
+            "time": "2025-11-03T15:52:59+00:00"
         },
         {
             "name": "symfony/clock",
