@@ -2,6 +2,7 @@
 
 return [
 
+    'company_suffix' => env('COMPANY_SUFFIX', 'STUDY'),
     'company_name' => env('COMPANY_NAME', 'IRSKO Limited'),
     'address' => env('ADDRESS', '5 Silver Cove, Aylesbury Park, Sligo, F91T8NT, Ireland'),
     'phone' => env('PHONE', '+420 910 123 186'),

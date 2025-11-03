@@ -55,14 +55,14 @@
       <ul class="list-disc list-inside text-gray-700 space-y-2">
         <li>Maturitní vysvědčení přeložené do angličtiny (úřední překlad dle požadavků školy).</li>
         <li>Potvrzení o znalosti angličtiny (IELTS, Duolingo, Cambridge), pokud je vyžadováno.</li>
-        <li>Vyplněná přihláška (často přes CAO) a přehled známek z posledních let.</li>
+        <li>Vyplněná přihláška a přehled známek z posledních let.</li>
         <li>U vybraných programů může být požadován motivační dopis nebo doporučení.</li>
       </ul>
     </section>
 
     <section class="mb-8">
-      <h2 class="text-2xl font-semibold mb-3">CAO a přihlášky</h2>
-      <p class="text-gray-700">Mnoho irských programů se přihlašuje prostřednictvím CAO (Central Applications Office). Je důležité dodržet termíny, správně seřadit priority a dodat všechny požadované dokumenty. S tím ti pomůžeme krok za krokem.</p>
+      <h2 class="text-2xl font-semibold mb-3">Přihláška</h2>
+      <p class="text-gray-700">Je důležité dodržet termíny, správně seřadit priority a dodat všechny požadované dokumenty. S tím ti pomůžeme krok za krokem.</p>
     </section>
 
     <div class="bg-white p-6 rounded-lg shadow mb-8">

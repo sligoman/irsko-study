@@ -20,6 +20,8 @@
             @yield('content')
     </main>
 
+    <contact-form position="floating"></contact-form>
+
     @include('components.footer')
 
     

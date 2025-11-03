@@ -22,7 +22,7 @@
               <strong>Překlady a příprava dokumentů</strong> — pomůžeme s přepisy, oficiálními překlady, doporučeními a výběrem jazykového testu (IELTS, Duolingo apod.).
             </li>
             <li>
-              <strong>Vyplnění přihlášky do systému CAO</strong> — vytvoření účtu, vyplnění údajů, volba škol a kontrola termínů a poplatků.
+              <strong>Vyplnění přihlášky</strong> — vytvoření účtu, vyplnění údajů, volba škol a kontrola termínů a poplatků.
             </li>
             <li>
               <strong>Praktické poradenství před odjezdem</strong> — pojištění, ubytování, plán cesty a tipy od studentů, kteří mají zkušenost.
@@ -33,7 +33,7 @@
           </ol>
         </section>
 
-        <section class="mb-8">
+        {{-- <section class="mb-8">
           <h2 class="text-2xl font-semibold mb-4">Naše balíčky</h2>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -63,7 +63,7 @@
               <a href="{{ route('contact') }}" class="inline-block px-4 py-2 bg-[color:var(--color-emerald)] text-white rounded">Objednat PREMIUM</a>
             </div>
           </div>
-        </section>
+        </section> --}}
 
         <section>
           <h2 class="text-2xl font-semibold mb-3">Na čem si zakládáme</h2>
@@ -79,19 +79,19 @@
       <aside class="space-y-6">
         <div class="bg-white p-6 rounded-lg shadow">
           <h4 class="font-semibold mb-2">Rychlé kroky</h4>
-          <p class="text-gray-600 mb-2">Vyber balíček, domluv konzultaci a začni plánovat svůj odjezd s jasnými kroky.</p>
+          <p class="text-gray-600 mb-2">Domluv konzultaci a začni plánovat svůj odjezd s jasnými kroky.</p>
           <a href="{{ route('contact') }}" class="inline-block px-4 py-2 bg-[color:var(--color-emerald)] text-white rounded">Domluv konzultaci</a>
         </div>
 
         <div class="bg-white p-6 rounded-lg shadow">
-          <h4 class="font-semibold mb-2">FAQ</h4>
-          <p class="text-gray-600">Máte otázky ohledně CAO, pojištění nebo ubytování? Podívejte se na <a href="{{ route('faq') }}" class="text-[color:var(--color-emerald)]">nejčastější dotazy</a> nebo nám napište.</p>
+          <h4 class="font-semibold mb-2">Co tě zajímá</h4>
+          <p class="text-gray-600">Máte otázky ohledně studia, pojištění nebo ubytování? Podívejte se na <a href="{{ route('faq') }}" class="text-[color:var(--color-emerald)]">nejčastější dotazy</a> nebo nám napište.</p>
         </div>
 
-        <div class="bg-white p-6 rounded-lg shadow">
+        {{-- <div class="bg-white p-6 rounded-lg shadow">
           <h4 class="font-semibold mb-2">Balíčky</h4>
           <p class="text-gray-600">START — vedení krok za krokem<br>PREMIUM — kompletní servis</p>
-        </div>
+        </div> --}}
       </aside>
     </div>
   </div>

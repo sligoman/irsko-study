@@ -4,10 +4,10 @@
       <div>
         <div class="flex items-center gap-3">
           <img src="{{ asset('img/logo.png') }}" alt="IrskoStudy" class="h-10">
-          <span class="font-semibold text-white">IrskoStudy.cz</span>
+          <span class="font-semibold text-white">Irsko STUDY</span>
         </div>
-        <p class="mt-4 text-sm text-white/80">Pomáháme studentům z ČR a SK najít a zařídit studium v Irsku — přihlášky, víza, ubytování.</p>
-        <div class="mt-4 text-sm text-white/70">&copy; {{ date('Y') }} IrskoStudy.cz</div>
+        <p class="mt-4 text-sm text-white/80">Pomáháme studentům z ČR a SK najít a zařídit studium v Irsku.</p>
+        {{-- <div class="mt-4 text-sm text-white/70">&copy; {{ date('Y') }} IrskoStudy.cz</div> --}}
       </div>
 
       <div>
@@ -16,7 +16,7 @@
           <li><a href="/" class="hover:underline">Domů</a></li>
           <li><a href="{{ route('about') }}" class="hover:underline">O nás</a></li>
           <li><a href="{{ route('services') }}" class="hover:underline">Služby</a></li>
-          <li><a href="{{ route('faq') }}" class="hover:underline">FAQ</a></li>
+          <li><a href="{{ route('faq') }}" class="hover:underline">Co tě zajímá</a></li>
         </ul>
       </div>
 

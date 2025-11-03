@@ -31,10 +31,10 @@ export default {
           question: 'Je výhodné studovat v Irsku oproti ČR nebo jiným zemím?',
           answer: `Ano. Irsko nabízí kvalitní univerzity, studium v angličtině a často nižší náklady než jiné anglicky mluvící destinace. Naše specializace na Irsko znamená, že ti poradíme konkrétně k místním školám, oborům a životním podmínkám.`,
         },
-        {
-          question: 'Jaký je přijímací proces na irské vysoké školy?',
-          answer: `Přihlášky se podávají buď přes centrální systém (např. CAO) nebo přímo školám, v závislosti na programu. Důležité je dodržet termíny, správně vyplnit údaje a dodat všechny požadované dokumenty. My tě provedeme krok za krokem.`,
-        },
+        // {
+        //   question: 'Jaký je přijímací proces na irské vysoké školy?',
+        //   answer: `Přihlášky se podávají buď přes centrální systém (např. CAO) nebo přímo školám, v závislosti na programu. Důležité je dodržet termíny, správně vyplnit údaje a dodat všechny požadované dokumenty. My tě provedeme krok za krokem.`,
+        // },
         {
           question: 'Musí být moje české vysvědčení přeloženo a úředně ověřeno?',
           answer: `Ano — většina univerzit požaduje překlad dokumentů do angličtiny a jejich ověření. Poradíme ti, jaké formy ověření univerzity vyžadují a kde najít ověřeného překladatele či notáře.`,

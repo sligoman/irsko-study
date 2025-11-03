@@ -16,7 +16,14 @@
     <div v-if="position === 'floating'" aria-hidden="false">
       <div v-show="visible" class="fixed inset-0 bg-black/40 z-40" @click="close"></div>
       <div v-show="visible" class="fixed right-6 bottom-6 z-50 w-full max-w-md">
-        <div class="bg-white p-4 rounded-lg shadow-lg">
+        <div class="bg-white p-4 rounded-lg shadow-lg relative">
+          <!-- Close button for the floating panel -->
+          <button @click="close" class="absolute -top-3 -right-3 bg-white text-gray-700 rounded-full p-2 shadow hover:bg-gray-100 transition" aria-label="Zavřít formulář">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
           <template v-if="!isSubmitted && !submitting">
             <form @submit.prevent="submit" :data-form-position="position">
               <input type="hidden" name="page" v-model="form.page" />

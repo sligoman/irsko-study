@@ -4,7 +4,7 @@
       <div class="flex items-center justify-between h-16">
         <a href="{{ route('home') }}" class="flex items-center gap-3">
           <img src="{{ asset('img/logo.png') }}" alt="{{ config('contacts.company_name') }}" class="h-10 w-auto">
-          <span class="text-lg font-semibold text-[color:var(--color-primary)]">{{ config('contacts.company_name') }}</span>
+          <span class="text-lg font-semibold text-[color:var(--color-primary)]">{{ config('contacts.company_suffix') }}</span>
         </a>
 
         <div class="hidden lg:flex items-center gap-8">
@@ -12,7 +12,7 @@
           <a href="{{ route('why') }}" class="text-gray-700 hover:text-[color:var(--color-primary)] hover:underline">Proč Irsko</a>
           <a href="{{ route('universities') }}" class="text-gray-700 hover:text-[color:var(--color-primary)] hover:underline">Vysoké školy</a>
           <a href="{{ route('services') }}" class="text-gray-700 hover:text-[color:var(--color-primary)] hover:underline">Služby</a>
-          <a href="{{ route('faq') }}" class="text-gray-700 hover:text-[color:var(--color-primary)] hover:underline">FAQ</a>
+          <a href="{{ route('faq') }}" class="text-gray-700 hover:text-[color:var(--color-primary)] hover:underline">Co tě zajímá</a>
         </div>
 
         <div class="hidden lg:flex items-center gap-4">

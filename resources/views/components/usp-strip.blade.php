@@ -24,8 +24,8 @@
           </div>
           <p class="text-gray-600 mt-2">Žijeme zde a známe místní prostředí, kulturu, univerzity i praktické záležitosti každodenního života.</p>
           <ul class="mt-3 text-sm text-gray-600 space-y-1">
-            <li>Lokální know‑how a reálné tipy na bydlení a volný čas</li>
-            <li>Pomoc s adaptací a orientací ve městě</li>
+            {{-- <li>Lokální know‑how a reálné tipy na bydlení a volný čas</li> --}}
+            {{-- <li>Pomoc s adaptací a orientací ve městě</li> --}}
           </ul>
         </article>
 
@@ -42,8 +42,8 @@
           </div>
           <p class="text-gray-600 mt-2">Každý student má možnost osobního kontaktu po příjezdu — to usnadňuje adaptaci a první kroky v Irsku.</p>
           <ul class="mt-3 text-sm text-gray-600 space-y-1">
-            <li>Osobní setkání po příjezdu</li>
-            <li>Podpora při PPS, bankovním účtu a orientaci</li>
+            {{-- <li>Osobní setkání po příjezdu</li> --}}
+            {{-- <li>Podpora při PPS, bankovním účtu a orientaci</li> --}}
           </ul>
         </article>
 
@@ -60,8 +60,8 @@
           </div>
           <p class="text-gray-600 mt-2">Sami jsme studovali a žili v různých zemích, takže víme, co studenti skutečně potřebují a dáváme praktické, realistické rady.</p>
           <ul class="mt-3 text-sm text-gray-600 space-y-1">
-            <li>Podpora „od A do Z" — přihlášky, dokumenty, ubytování</li>
-            <li>Individuální přístup a poradenství na míru</li>
+            {{-- <li>Podpora „od A do Z" — přihlášky, dokumenty, ubytování</li> --}}
+            {{-- <li>Individuální přístup a poradenství na míru</li> --}}
           </ul>
         </article>
       </div>
