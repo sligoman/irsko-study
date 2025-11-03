@@ -11,6 +11,7 @@
           <a href="{{ route('about') }}" class="text-gray-700 hover:text-[color:var(--color-primary)] hover:underline">O nás</a>
           <a href="{{ route('why') }}" class="text-gray-700 hover:text-[color:var(--color-primary)] hover:underline">Proč Irsko</a>
           <a href="{{ route('universities') }}" class="text-gray-700 hover:text-[color:var(--color-primary)] hover:underline">Vysoké školy</a>
+          <a href="{{ route('blog') }}" class="text-gray-700 hover:text-[color:var(--color-primary)] hover:underline">Blog</a>
           <a href="{{ route('services') }}" class="text-gray-700 hover:text-[color:var(--color-primary)] hover:underline">Služby</a>
           <a href="{{ route('faq') }}" class="text-gray-700 hover:text-[color:var(--color-primary)] hover:underline">Co tě zajímá</a>
         </div>
@@ -35,7 +36,8 @@
       <div class="px-4 pt-4 pb-6 space-y-2">
         <a href="{{ route('about') }}" class="block px-3 py-2 rounded text-gray-700 hover:bg-gray-100">O nás</a>
         <a href="{{ route('why') }}" class="block px-3 py-2 rounded text-gray-700 hover:bg-gray-100">Proč Irsko</a>
-        <a href="{{ route('universities') }}" class="block px-3 py-2 rounded text-gray-700 hover:bg-gray-100">Vysoké školy</a>
+  <a href="{{ route('universities') }}" class="block px-3 py-2 rounded text-gray-700 hover:bg-gray-100">Vysoké školy</a>
+  <a href="{{ route('blog') }}" class="block px-3 py-2 rounded text-gray-700 hover:bg-gray-100">Blog</a>
         <a href="{{ route('services') }}" class="block px-3 py-2 rounded text-gray-700 hover:bg-gray-100">Služby</a>
         <a href="{{ route('faq') }}" class="block px-3 py-2 rounded text-gray-700 hover:bg-gray-100">FAQ</a>
         <a href="{{ route('contact') }}" class="block px-3 py-2 rounded bg-[color:var(--color-primary)] text-white">Kontakt</a>

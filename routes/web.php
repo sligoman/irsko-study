@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BlogController;
 
 //welcome
 Route::get('/welcome', function () {
@@ -19,7 +20,8 @@ Route::view('/vysoke-skoly', 'pages.universities')->name('universities');
 Route::view('/sluzby', 'pages.services')->name('services');
 Route::view('/faq', 'pages.faq')->name('faq');
 Route::view('/kontakt', 'pages.contact')->name('contact');
-Route::view('/blog', 'pages.blog')->name('blog');
+Route::get('/blog', [BlogController::class, 'index'])->name('blog');
+Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
