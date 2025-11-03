@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +20,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Fix for older MySQL / MariaDB default max key length (1071 / 767 bytes)
+        // When using utf8mb4, indexed VARCHAR columns must be <= 191 chars
+        // See: https://laravel.com/docs/upgrade#strings-and-migrations
+        try {
+            Schema::defaultStringLength(191);
+        } catch (\Throwable $e) {
+            // If Schema facade isn't available yet (during some artisan commands), ignore.
+        }
     }
 }
