@@ -20,6 +20,8 @@ Route::view('/vysoke-skoly', 'pages.universities')->name('universities');
 Route::view('/sluzby', 'pages.services')->name('services');
 Route::view('/faq', 'pages.faq')->name('faq');
 Route::view('/kontakt', 'pages.contact')->name('contact');
+// Privacy policy (Czech)
+Route::view('/ochrana-soukromi', 'pages.privacy-cs')->name('privacy.cs');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 

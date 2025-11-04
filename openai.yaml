@@ -1,0 +1,1237 @@
+openapi: 3.1.0
+info:
+  title: Irsko Study API
+  description: API to retrieve blog posts, tags, ideas, and categories, post statuses and post types.
+  version: 1.0.0
+servers:
+  - url: https://test.irskostudy.cz
+    description: Fully working for API
+paths:
+  /api/aiblog/posts:
+    get:
+      operationId: getPosts
+      x-openai-isConsequential: false
+      summary: Get all posts
+      description: >
+        Retrieves a list of blog posts.   - If `count=1`, returns only the total count (`{"count":123}`).   - If
+        `minimal=1`, returns an array of posts with only `id`, `title`, and `excerpt`.   - Supports pagination via
+        `limit` and `offset`.   - By default, `minimal=1` is assumed if not explicitly set.
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: count
+          in: query
+          description: If set to 1, returns only the count of posts.
+          required: false
+          schema:
+            type: integer
+            enum:
+              - 1
+        - name: minimal
+          in: query
+          description: If set to 1, returns minimal post data (`id`, `title`, `excerpt`). Default behavior is minimal=1.
+          required: false
+          schema:
+            type: integer
+            enum:
+              - 1
+        - name: limit
+          in: query
+          description: Limits the number of posts returned.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: offset
+          in: query
+          description: Number of posts to skip (for pagination).
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+      responses:
+        "200":
+          description: A list of posts (title and ID only)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    title:
+                      type: string
+        "401":
+          description: Unauthorized – Invalid or missing token
+  /api/aiblog/post:
+    post:
+      operationId: createPost
+      x-openai-isConsequential: false
+      summary: Create a new post
+      description: Creates a new blog post with content, title, slug, status, type, SEO fields and optional image.
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - title
+                - slug
+                - content
+              properties:
+                title:
+                  type: string
+                slug:
+                  type: string
+                content:
+                  type: string
+                  format: html
+                excerpt:
+                  type: string
+                  nullable: true
+                seo_title:
+                  type: string
+                  nullable: true
+                seo_description:
+                  type: string
+                  nullable: true
+                featured_image:
+                  type: string
+                  nullable: true
+                status_id:
+                  type: integer
+                  description: Foreign key to post status
+                  default: 1
+                type_id:
+                  type: integer
+                  description: Foreign key to post type
+                  default: 1
+                scheduled_at:
+                  type: string
+                  format: date-time
+                  nullable: true
+                tags:
+                  type: array
+                  items:
+                    type: integer
+                categories:
+                  type: array
+                  items:
+                    type: integer
+      responses:
+        "200":
+          description: Post created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+        "400":
+          description: Bad request (e.g. validation error)
+        "401":
+          description: Unauthorized
+  /api/aiblog/post/{id}:
+    get:
+      operationId: getPost
+      x-openai-isConsequential: false
+      summary: Get a single post
+      description: Retrieves a single blog post by ID.
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: A single blog post
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+        "401":
+          description: Unauthorized
+        "404":
+          description: Post not found
+    put:
+      operationId: updatePost
+      x-openai-isConsequential: false
+      summary: Update an post
+      description: Updates an existing blog post by ID.
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - title
+                - slug
+                - content
+                - categories
+                - tags
+              properties:
+                title:
+                  type: string
+                slug:
+                  type: string
+                content:
+                  type: string
+                  format: html
+                excerpt:
+                  type: string
+                  nullable: true
+                seo_title:
+                  type: string
+                  nullable: true
+                seo_description:
+                  type: string
+                  nullable: true
+                featured_image:
+                  type: string
+                  nullable: true
+                status_id:
+                  type: integer
+                  nullable: true
+                  default: 1
+                type_id:
+                  type: integer
+                  nullable: true
+                  default: 1
+                categories:
+                  type: array
+                  items:
+                    type: integer
+                tags:
+                  type: array
+                  items:
+                    type: integer
+                scheduled_at:
+                  type: string
+                  format: date-time
+                  nullable: true
+      responses:
+        "200":
+          description: Post updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+        "400":
+          description: Bad request (e.g. validation error)
+        "401":
+          description: Unauthorized
+        "404":
+          description: Post not found
+    delete:
+      operationId: deletePost
+      x-openai-isConsequential: false
+      summary: Delete an post
+      description: Permanently deletes a blog post by ID. This cannot be undone.
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Post deleted successfully (no content)
+        "401":
+          description: Unauthorized
+        "404":
+          description: Post not found
+  /api/aiblog/tags:
+    get:
+      operationId: getTags
+      x-openai-isConsequential: false
+      summary: Get all tags with their name and id
+      description: Only show name and id.
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: A list of tags (ID and name only)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+        "401":
+          description: Unauthorized – Invalid or missing token
+  /api/aiblog/ideas:
+    get:
+      operationId: getIdeas
+      summary: Get all ideas
+      description: Retrieves a list of all blog ideas. Requires bearer token authorization.
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: A list of blog ideas (ID and title only)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    title:
+                      type: string
+        "401":
+          description: Unauthorized – Invalid or missing token
+  /api/aiblog/categories:
+    get:
+      operationId: getCategories
+      summary: Get all categories and each list with name and id.
+      description: Retrieves a list of all blog categories. Requires bearer token authorization.
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: A list of blog categories (ID and name only)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+        "401":
+          description: Unauthorized – Invalid or missing token
+  /api/aiblog/category:
+    post:
+      operationId: createCategory
+      x-openai-isConsequential: false
+      summary: Create a new category
+      description: Creates a new category with a name, slug, and optional description.
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - slug
+              properties:
+                name:
+                  type: string
+                slug:
+                  type: string
+                description:
+                  type: string
+                  nullable: true
+      responses:
+        "201":
+          description: Category created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Category"
+        "400":
+          description: Bad request (e.g. validation error)
+        "401":
+          description: Unauthorized
+  /api/aiblog/category/{id}:
+    get:
+      operationId: getCategory
+      summary: Get a single category
+      description: Retrieves a single blog category by ID.
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: A single blog category
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Category"
+        "401":
+          description: Unauthorized
+        "404":
+          description: Category not found
+    put:
+      operationId: updateCategory
+      x-openai-isConsequential: false
+      summary: Update an category
+      description: Updates an existing blog category by ID.
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - slug
+              properties:
+                name:
+                  type: string
+                slug:
+                  type: string
+                description:
+                  type: string
+                  nullable: true
+      responses:
+        "200":
+          description: Category updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Category"
+        "400":
+          description: Bad request (e.g. validation error)
+        "401":
+          description: Unauthorized
+        "404":
+          description: Category not found
+    delete:
+      operationId: deleteCategory
+      x-openai-isConsequential: false
+      summary: Delete an category
+      description: Permanently deletes a blog category by ID. This cannot be undone.
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Category deleted successfully (no content)
+        "401":
+          description: Unauthorized
+        "404":
+          description: Category not found
+  /api/aiblog/tag:
+    post:
+      operationId: createTag
+      x-openai-isConsequential: false
+      summary: Create a new tag
+      description: Creates a new tag with a name and slug for use in posts.
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - slug
+              properties:
+                name:
+                  type: string
+                slug:
+                  type: string
+      responses:
+        "200":
+          description: Tag created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Tag"
+        "201":
+          description: Tag created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Tag"
+        "400":
+          description: Bad request (e.g. validation error)
+        "401":
+          description: Unauthorized
+  /api/aiblog/tag/{id}:
+    get:
+      operationId: getTag
+      x-openai-isConsequential: false
+      summary: Get a single tag
+      description: Retrieves a single blog tag by ID.
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: A single blog tag
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Tag"
+        "401":
+          description: Unauthorized
+        "404":
+          description: Tag not found
+    put:
+      operationId: updateTag
+      x-openai-isConsequential: false
+      summary: Update an tag
+      description: Updates an existing blog tag by ID.
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                slug:
+                  type: string
+              required:
+                - name
+                - slug
+      responses:
+        "200":
+          description: Tag updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Tag"
+        "400":
+          description: Bad request (e.g. validation error)
+        "401":
+          description: Unauthorized
+        "404":
+          description: Tag not found
+    delete:
+      operationId: deleteTag
+      summary: Delete an tag
+      description: Deletes the specified blog tag by ID. This action is permanent and cannot be undone. No approval is needed.
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Tag deleted successfully (no content)
+        "401":
+          description: Unauthorized
+        "404":
+          description: Tag not found
+  /api/aiblog/idea:
+    post:
+      operationId: createIdea
+      x-openai-isConsequential: false
+      summary: Create a new idea
+      description: Creates a new blog idea with a title, optional description, and optional tags and categories.
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - title
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                  nullable: true
+                categories:
+                  type: array
+                  items:
+                    type: integer
+                tags:
+                  type: array
+                  items:
+                    type: integer
+                sources:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - type
+                      - source
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                          - website
+                          - article
+                          - video
+                          - other
+                      source:
+                        type: string
+                        format: uri
+                      description:
+                        type: string
+                        nullable: true
+      responses:
+        "201":
+          description: Idea created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Idea"
+        "400":
+          description: Bad request (e.g. validation error)
+        "401":
+          description: Unauthorized
+  /api/aiblog/idea/{id}:
+    get:
+      operationId: getIdea
+      x-openai-isConsequential: false
+      summary: Get a single idea
+      description: Retrieves a single blog idea by ID.
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: A single blog idea
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Idea"
+        "401":
+          description: Unauthorized
+        "404":
+          description: Idea not found
+    put:
+      operationId: updateIdea
+      x-openai-isConsequential: false
+      summary: Update an idea
+      description: Updates an existing blog idea by ID.
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                  nullable: true
+                categories:
+                  type: array
+                  items:
+                    type: integer
+                tags:
+                  type: array
+                  items:
+                    type: integer
+                sources:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - type
+                      - source
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                          - website
+                          - article
+                          - video
+                          - other
+                      source:
+                        type: string
+                        format: uri
+                      description:
+                        type: string
+                        nullable: true
+              required:
+                - title
+      responses:
+        "200":
+          description: Idea updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Idea"
+        "400":
+          description: Bad request (e.g. validation error)
+        "401":
+          description: Unauthorized
+        "404":
+          description: Idea not found
+    delete:
+      operationId: deleteIdea
+      x-openai-isConsequential: false
+      summary: Delete an idea
+      description: Permanently deletes a blog idea by ID. This cannot be undone.
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Idea deleted successfully (no content)
+        "401":
+          description: Unauthorized
+        "404":
+          description: Idea not found
+  /api/aiblog/idea/{idea}/attach-categories:
+    post:
+      operationId: attachCategoriesToIdea
+      x-openai-isConsequential: false
+      summary: Attach categories to an idea
+      description: Attaches one or more category IDs to the specified blog idea.
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: idea
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - categories
+              properties:
+                categories:
+                  type: array
+                  items:
+                    type: integer
+      responses:
+        "200":
+          description: Categories attached successfully
+        "400":
+          description: Bad request (e.g. validation error)
+        "401":
+          description: Unauthorized
+        "404":
+          description: Idea not found
+  /api/aiblog/idea/{idea}/detach-categories:
+    post:
+      operationId: detachCategoriesFromIdea
+      x-openai-isConsequential: false
+      summary: Detach categories from an idea
+      description: Detaches one or more category IDs from the specified blog idea.
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: idea
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - categories
+              properties:
+                categories:
+                  type: array
+                  items:
+                    type: integer
+      responses:
+        "200":
+          description: Categories detached successfully
+        "400":
+          description: Bad request (e.g. validation error)
+        "401":
+          description: Unauthorized
+        "404":
+          description: Idea not found
+  /api/aiblog/idea/{idea}/attach-tags:
+    post:
+      operationId: attachTagsToIdea
+      x-openai-isConsequential: false
+      summary: Attach tags to an idea
+      description: Attaches one or more tag IDs to the specified blog idea.
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: idea
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - tags
+              properties:
+                tags:
+                  type: array
+                  items:
+                    type: integer
+      responses:
+        "200":
+          description: Tags attached successfully
+        "400":
+          description: Bad request (e.g. validation error)
+        "401":
+          description: Unauthorized
+        "404":
+          description: Idea not found
+  /api/aiblog/idea/{idea}/detach-tags:
+    post:
+      operationId: detachTagsFromIdea
+      x-openai-isConsequential: false
+      summary: Detach tags from an idea
+      description: Detaches one or more tag IDs from the specified blog idea.
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: idea
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - tags
+              properties:
+                tags:
+                  type: array
+                  items:
+                    type: integer
+      responses:
+        "200":
+          description: Tags detached successfully
+        "400":
+          description: Bad request (e.g. validation error)
+        "401":
+          description: Unauthorized
+        "404":
+          description: Idea not found
+  /api/aiblog/post-statuses:
+    get:
+      operationId: getPostStatuses
+      summary: Get all post statuses
+      description: Retrieves a list of all post statuses.
+      responses:
+        "200":
+          description: A list of post statuses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PostStatus"
+        "401":
+          description: Unauthorized
+  /api/aiblog/post-types:
+    get:
+      operationId: getPostTypes
+      summary: Get all post types
+      description: Retrieves a list of all post types.
+      responses:
+        "200":
+          description: A list of post types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PostType"
+        "401":
+          description: Unauthorized
+  /api/aiblog/image/upload-url:
+    post:
+      operationId: generateImageUploadUrl
+      summary: Generate image upload URL
+      description: Returns a temporary upload URL and token for uploading an image file.
+      x-openai-isConsequential: false
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Upload URL and token generated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ImageUploadUrlResponse"
+        "401":
+          description: Unauthorized – Invalid or missing token
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Foo:
+      type: object
+      properties:
+        bar:
+          type: string
+          description: bar desc.
+    PostStatus:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - description
+        - created_at
+        - updated_at
+    PostType:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - description
+        - created_at
+        - updated_at
+    Post:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        slug:
+          type: string
+        content:
+          type: string
+          format: html
+        excerpt:
+          type: string
+          nullable: true
+        seo_title:
+          type: string
+          nullable: true
+        seo_description:
+          type: string
+          nullable: true
+        featured_image:
+          type: string
+          nullable: true
+        status_id:
+          type: integer
+          description: Foreign key to post status
+          default: 1
+        type_id:
+          type: integer
+          description: Foreign key to post type
+          default: 1
+        scheduled_at:
+          type: string
+          format: date-time
+          nullable: true
+        status:
+          $ref: "#/components/schemas/PostStatus"
+        type:
+          $ref: "#/components/schemas/PostType"
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        categories:
+          type: array
+          items:
+            $ref: "#/components/schemas/Category"
+        tags:
+          type: array
+          items:
+            type: object
+      required:
+        - id
+        - title
+        - slug
+        - content
+        - featured_image
+        - status_id
+        - type_id
+        - created_at
+        - updated_at
+        - categories
+        - tags
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        slug:
+          type: string
+        description:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        pivot:
+          $ref: "#/components/schemas/CategoryPivot"
+      required:
+        - id
+        - name
+        - slug
+        - created_at
+        - updated_at
+        - pivot
+    CategoryPivot:
+      type: object
+      properties:
+        post_id:
+          type: integer
+        category_id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+        - post_id
+        - category_id
+        - created_at
+        - updated_at
+    Tag:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        slug:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - slug
+        - created_at
+        - updated_at
+    Idea:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+          nullable: true
+        title:
+          type: string
+        description:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        categories:
+          type: array
+          items:
+            allOf:
+              - $ref: "#/components/schemas/Category"
+              - type: object
+                properties:
+                  pivot:
+                    $ref: "#/components/schemas/IdeaCategoryPivot"
+        tags:
+          type: array
+          items:
+            $ref: "#/components/schemas/Tag"
+        sources:
+          type: array
+          items:
+            $ref: "#/components/schemas/IdeaSource"
+      required:
+        - id
+        - title
+        - created_at
+        - updated_at
+        - categories
+        - tags
+        - sources
+    IdeaCategoryPivot:
+      type: object
+      properties:
+        idea_id:
+          type: integer
+        category_id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+        - idea_id
+        - category_id
+        - created_at
+        - updated_at
+    IdeaSource:
+      type: object
+      properties:
+        id:
+          type: integer
+        idea_id:
+          type: integer
+        type:
+          type: string
+          enum:
+            - website
+            - article
+            - video
+            - other
+        source:
+          type: string
+          format: uri
+        description:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+        - id
+        - idea_id
+        - type
+        - source
+        - description
+        - created_at
+        - updated_at
+    ImageUploadUrlResponse:
+      type: object
+      properties:
+        upload_url:
+          type: string
+          format: uri
+        token:
+          type: string
+      required:
+        - upload_url
+        - token
