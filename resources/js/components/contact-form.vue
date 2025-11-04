@@ -1,29 +1,42 @@
 <template>
   <div>
-    <!-- Floating toggle button for floating position -->
-    <button
-      v-if="position === 'floating' && !visible && !isSubmitted"
-      @click="open"
-      class="fixed z-50 right-6 bottom-6 bg-[color:var(--color-primary)] text-white p-3 rounded-full shadow-lg hover:scale-105 transition-transform"
-      aria-label="Otevřít kontaktní formulář"
-    >
-      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-      </svg>
-    </button>
+    <!-- Floating toggle button (circular) -->
+    <div v-if="position === 'floating'" class="z-50 fixed bottom-4 right-4">
+      <button
+        v-if="!visible && !isSubmitted"
+        @click="open"
+        class="bg-[color:var(--color-primary)] text-white rounded-full w-16 h-16 flex items-center justify-center shadow-lg hover:brightness-110 focus:outline-none"
+        aria-label="Otevřít kontaktní formulář"
+      >
+        <!-- use a slightly larger SVG like your snippet -->
+        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16.5 14.5C16.5 14.5 17.5 15.5 17.5 16.5C17.5 17.6 16.6 18.5 15.5 18.5C14.4 18.5 13.5 17.6 13.5 16.5C13.5 15.4 14.4 14.5 15.5 14.5C15.8 14.5 16.2 14.5 16.5 14.5ZM12.5 2C7.8 2 4 5.8 4 10.5C4 15.2 7.8 19 12.5 19C17.2 19 21 15.2 21 10.5C21 5.8 17.2 2 12.5 2ZM12.5 17C9.5 17 7 14.5 7 11.5C7 8.5 9.5 6 12.5 6C15.5 6 18 8.5 18 11.5C18 14.5 15.5 17 12.5 17Z" />
+        </svg>
+      </button>
 
-    <!-- Backdrop + panel for floating form -->
-    <div v-if="position === 'floating'" aria-hidden="false">
-      <div v-show="visible" class="fixed inset-0 bg-black/40 z-40" @click="close"></div>
-      <div v-show="visible" class="fixed right-6 bottom-6 z-50 w-full max-w-md">
-        <div class="bg-white p-4 rounded-lg shadow-lg relative">
-          <!-- Close button for the floating panel -->
-          <button @click="close" class="absolute -top-3 -right-3 bg-white text-gray-700 rounded-full p-2 shadow hover:bg-gray-100 transition" aria-label="Zavřít formulář">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
-          </button>
+      <!-- selected courses badge -->
+      <div v-if="selectedCourses && selectedCourses.length > 0" class="absolute -top-3 -right-3">
+        <span class="bg-[color:var(--color-primary)] text-white rounded-full w-8 h-8 flex items-center justify-center shadow-lg text-sm">{{ selectedCourses.length }}</span>
+      </div>
+    </div>
+
+    <!-- Modal (centered on desktop, full-screen on mobile) -->
+    <div v-show="visible" class="fixed inset-0 z-50 flex items-center justify-center">
+      <!-- Backdrop -->
+      <div class="fixed inset-0 bg-gray-900 opacity-75" @click="close" aria-hidden="true"></div>
+
+      <!-- Panel -->
+      <div class="bg-white rounded-none sm:rounded-lg shadow-lg p-6 w-full sm:w-auto sm:max-w-md z-10 h-full sm:h-auto max-h-[90vh] overflow-auto" @click.stop>
+        <!-- Close button -->
+        <button @click="close" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 focus:outline-none" aria-label="Zavřít formulář">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+
+        <div>
+          <!-- reuse existing form markup inside -->
           <template v-if="!isSubmitted && !submitting">
             <form @submit.prevent="submit" :data-form-position="position">
               <input type="hidden" name="page" v-model="form.page" />
@@ -52,7 +65,7 @@
                 <p v-if="errors.message" class="text-red-600 text-sm mt-1">{{ errors.message[0] }}</p>
               </div>
 
-              <div v-if="selectedCourses.length > 0" class="mb-2">
+              <div v-if="selectedCourses && selectedCourses.length > 0" class="mb-2">
                 <label class="block text-sm font-medium">Poptávané kurzy</label>
                 <div class="flex flex-wrap mt-2">
                   <span v-for="c in selectedCourses" :key="c.id" class="flex items-center bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
@@ -175,7 +188,11 @@ export default {
     inputClass(field) {
       return this.errors[field] ? 'border-red-400' : '';
     },
-    open() { this.visible = true; },
+    open() {
+      this.visible = true;
+      // Fire analytics event if available
+      try { if (typeof gtag === 'function') gtag('event','form_open'); } catch (e) { /* ignore */ }
+    },
     close() { this.visible = false; },
     async submit() {
       this.errors = {};

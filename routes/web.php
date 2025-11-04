@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\LeadController;
 
 //welcome
 Route::get('/welcome', function () {
@@ -28,16 +29,5 @@ Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-// Contact form POST handler (accepts JSON or form data)
-Route::post('/contact', function (Request $request) {
-    $data = $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|email|max:255',
-        'message' => 'required|string',
-    ]);
-
-    // For now, log the submission. Replace with Mail or DB persisting as needed.
-    Log::info('Contact form submission', $data);
-
-    return response()->json(['message' => 'ok']);
-});
+// Contact form POST handler (accepts JSON or form data) - use LeadController
+Route::post('/contact', [LeadController::class, 'store'])->name('lead.store');
