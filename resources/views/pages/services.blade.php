@@ -11,26 +11,49 @@
 
         <section class="mb-8 bg-gray-50 p-6 rounded-lg">
           <h2 class="text-2xl font-semibold mb-3">Jak probíhá spolupráce krok za krokem</h2>
-          <ol class="list-decimal list-inside space-y-4 text-gray-700">
-            <li>
-              <strong>Úvodní konzultace</strong> — zjistíme tvé zájmy, akademické výsledky a možnosti, vysvětlíme systém irského vysokého školství a další kroky.
-            </li>
-            <li>
-              <strong>Výběr oboru a univerzity</strong> — poradíme, které obory a školy odpovídají tvým cílům, zohledníme lokalitu, náročnost a perspektivy po studiu.
-            </li>
-            <li>
-              <strong>Překlady a příprava dokumentů</strong> — pomůžeme s přepisy, oficiálními překlady, doporučeními a výběrem jazykového testu (IELTS, Duolingo apod.).
-            </li>
-            <li>
-              <strong>Vyplnění přihlášky</strong> — vytvoření účtu, vyplnění údajů, volba škol a kontrola termínů a poplatků.
-            </li>
-            <li>
-              <strong>Praktické poradenství před odjezdem</strong> — pojištění, ubytování, plán cesty a tipy od studentů, kteří mají zkušenost.
-            </li>
-            <li>
-              <strong>Podpora po příjezdu</strong> — osobní setkání, pomoc s PPS, bankovním účtem, SIM kartou a orientací ve městě.
-            </li>
-          </ol>
+
+          <p class="text-gray-700 mb-4">Na cestě za studiem v Irsku nejsi sám. Pomůžeme ti krok za krokem – od prvotní konzultace, přes výběr školy a přihlášky, až po praktickou podporu po příjezdu. S námi máš jistotu, že nic nepřehlédneš a všechno proběhne hladce. Každý krok je navržen tak, aby byl srozumitelný, přehledný a aby ti pomohl udělat nejlepší rozhodnutí pro tvou budoucnost.</p>
+
+          <div class="space-y-6 text-gray-700">
+            <div>
+              <h3 class="text-xl font-semibold">Úvodní konzultace — poznáváme se a plánujeme</h3>
+              <p class="mt-2">Na začátku je důležité zjistit, co přesně od studia v Irsku očekáváš. Probereme tvé akademické výsledky, zájmy a osobní cíle. Vysvětlíme ti specifika irského vysokého školství, jak fungují přijímací procesy a jaké možnosti studia existují.</p>
+              <ul class="list-disc list-inside mt-2 text-gray-700">
+                <li>Společně nastavíme realistický plán dalších kroků, aby ses mohl připravovat bez zbytečného stresu.</li>
+                <li>Sdílíme své vlastní zkušenosti a tipy, které ti ušetří čas i starosti.</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 class="text-xl font-semibold">Výběr oboru a univerzity</h3>
+              <p class="mt-2">Pomůžeme ti vybrat směr, který odpovídá tvým cílům i životnímu stylu. Poradíme s výběrem oboru, který tě bude bavit a zároveň otevírá zajímavé možnosti pro budoucí kariéru.</p>
+              <p class="mt-2">Zohledníme lokalitu univerzity, náročnost studia a další faktory, které mohou ovlivnit tvůj každodenní život. Probereme specifické požadavky škol a oborů a připravíme tě na všechny administrativní kroky.</p>
+            </div>
+
+            <div>
+              <h3 class="text-xl font-semibold">Překlady a příprava dokumentů</h3>
+              <p class="mt-2">Správné dokumenty jsou základ úspěšné přihlášky. Pomůžeme ti s přepisy, oficiálními překlady a doporučujícími dopisy a poradíme, jak vybrat vhodný jazykový test.</p>
+              <p class="mt-2">Ujistíme se, že všechny dokumenty odpovídají požadavkům univerzit, aby tvá přihláška byla kompletní a bez chyb.</p>
+            </div>
+
+            <div>
+              <h3 class="text-xl font-semibold">Vyplnění přihlášky a formality</h3>
+              <p class="mt-2">Podání přihlášky bývá často komplikované, ale s námi máš jistotu. Vytvoříme účet na portálech univerzit a pomůžeme ti s vyplněním všech údajů.</p>
+              <p class="mt-2">Zkontrolujeme termíny, poplatky a specifické požadavky jednotlivých škol. Poradíme s žádostí o stipendia a granty, aby studium bylo co nejdostupnější.</p>
+            </div>
+
+            <div>
+              <h3 class="text-xl font-semibold">Praktická příprava před odjezdem</h3>
+              <p class="mt-2">Než vyrazíš do Irska, připravíme tě na život tam. Poradíme s pojištěním, ubytováním a plánem cesty a sdílíme tipy od studentů s reálnými zkušenostmi – od orientace ve městě, přes dopravu, až po praktické triky pro každodenní život.</p>
+              <p class="mt-2">Pomůžeme ti s přípravou na první týdny v zahraničí, aby ses cítil bezpečně a sebevědomě.</p>
+            </div>
+
+            <div>
+              <h3 class="text-xl font-semibold">Podpora po příjezdu</h3>
+              <p class="mt-2">Po příjezdu nejsi sám ani na chvíli. Osobně se setkáme a poradíme ti, jak se rychle zorientovat ve městě a univerzitním kampusu.</p>
+              <p class="mt-2">Budeme k dispozici během prvních měsíců, pokud se objeví otázky, problémy nebo potřebuješ tipy, jak zvládnout studium i život v Irsku.</p>
+            </div>
+          </div>
         </section>
 
         {{-- <section class="mb-8">
