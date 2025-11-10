@@ -26,6 +26,16 @@ Route::view('/ochrana-soukromi', 'pages.privacy-cs')->name('privacy.cs');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
+// Serve universities JSON from storage so the frontend can fetch it from the same URL
+Route::get('/img/universities/universities.json', function () {
+    $path = storage_path('app/universities/universities.json');
+    if (!file_exists($path)) {
+        abort(404);
+    }
+    $content = file_get_contents($path);
+    return response($content, 200)->header('Content-Type', 'application/json');
+});
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 

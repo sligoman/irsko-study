@@ -51,3 +51,12 @@ Purpose: quick, actionable guidance so an AI coding agent (Copilot/assistant) is
 - When touching build tooling (Vite, Tailwind), include the exact `npm install` commands used and the updated `package.json` diffs.
 
 If anything here looks wrong or incomplete, tell me which area you want expanded (examples, more file references, or specific workstreams like deployment or testing) and I will update this file accordingly.
+
+9) Documentation updates
+- Whenever you change application logic (behavior, public APIs, routes, migrations, configuration, or developer workflows), update README.md to reflect the change. Include:
+  - A short summary of what changed and why.
+  - Any new setup/migration steps or environment variables.
+  - Updated usage examples or commands if applicable.
+- For minor internal changes that still impact contributors, add a brief note in README's changelog or the PR description linking to the README entry.
+
+- Provide concise answers in one paragraph ideally.

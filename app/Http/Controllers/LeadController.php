@@ -29,7 +29,7 @@ class LeadController extends Controller
 
         // Send notification email (best-effort)
         try {
-            $recipient = config('contacts.email', 'info@irsko.ie');
+            $recipient = config('contacts.email', 'study@irsko.ie');
             Mail::to($recipient)->send(new LeadStored($lead));
         } catch (\Throwable $e) {
             // Log the error but don't fail the request

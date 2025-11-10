@@ -1,61 +1,136 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# IrskoStudy.cz — Developer Notes
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This README contains developer-focused documentation for the lead/contact flow implemented in this repository.
 
-## About Laravel
+## Lead (contact) flow — overview
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+The project includes a small lead capture system used by the public contact form. It persists leads, sends a notification email, and dispatches an event for further processing (logging, CRM integration, etc.).
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Key pieces:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- `app/Http/Controllers/LeadController.php` — handles POST `/contact` requests, validates input, creates the `Lead` model, sends the `LeadStored` mailable, dispatches `LeadSubmitted` event, and returns a JSON response.
+- `app/Models/Lead.php` — the Eloquent model representing a captured lead. Fillable fields: `name`, `email`, `phone`, `message`, `page`.
+- `database/migrations/*create_leads_table.php` — migration that creates the `leads` table.
+- `app/Mail/LeadStored.php` and `resources/views/emails/lead-stored.blade.php` — the mailable used to notify the configured recipient about a new lead.
+- `app/Events/LeadSubmitted.php` — an event that carries the saved `Lead` instance and can be listened to for side effects (analytics, CRM sync, Slack, etc.).
+- `routes/web.php` — route declaration for the contact endpoint:
 
-## Learning Laravel
+```php
+Route::post('/contact', [\App\Http\Controllers\LeadController::class, 'store'])->name('lead.store');
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Request contract (inputs/outputs)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- Inputs (POST JSON or form-encoded):
+	- `name` (string, required)
+	- `email` (string, required, valid email)
+	- `phone` (string, optional)
+	- `message` (string, optional)
+	- `page` (string, optional) — optional page identifier where the lead originated
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Success response: HTTP 201 JSON { "ok": true, "message": "Lead stored" }
+- Failure: HTTP 422 on validation errors with standard Laravel validation payload.
 
-## Laravel Sponsors
+## Where the email is sent
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+The recipient is read from the site configuration `config('contacts.email')`. If you need to change the address used for notifications, update the `contacts` config file or the `.env` variables that populate it.
 
-### Premium Partners
+## How to run locally
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+1. Install dependencies and build front-end assets if needed:
 
-## Contributing
+```sh
+composer install
+npm install
+npm run dev   # or npm run build for production
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+2. Run migrations (this will create the `leads` table):
 
-## Code of Conduct
+```sh
+php artisan migrate
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+3. Start a local server (optional):
 
-## Security Vulnerabilities
+```sh
+php artisan serve
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+4. Submit a lead from the frontend contact form or send a POST request to `/contact`.
 
-## License
+Example using curl:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```sh
+curl -X POST http://localhost:8000/contact \
+	-H "Content-Type: application/json" \
+	-d '{"name":"Test User","email":"test@example.com","phone":"+420123456789","message":"Interested in help","page":"services"}'
+```
+
+## Tests
+
+- There is a feature test that covers the lead creation flow: `tests/Feature/LeadTest.php`.
+- The test uses `Mail::fake()` and `Event::fake()` to assert that the mailable was queued/sent and the event dispatched.
+
+Run the tests with:
+
+```sh
+./vendor/bin/phpunit --filter=LeadTest
+```
+
+Note: Some tests or vendor code in this repository perform database inspection queries that assume MySQL. If you run tests under SQLite you may encounter SQL errors (for example, `SHOW COLUMNS` is MySQL-specific). If that happens, run the test suite using a MySQL test database or temporarily mock/guard vendor calls during testing.
+
+## Extending the flow
+
+- Queue the mailable: change `Mail::to(...)->send()` to `->queue()` and configure your queue worker.
+- Add a listener for `LeadSubmitted` in `EventServiceProvider` to push leads to a CRM or send Slack notifications.
+- Add IP throttling / rate limiting in `LeadController` to prevent spam.
+
+## Troubleshooting
+
+- If you don't receive emails locally, ensure `MAIL_MAILER` and related mail settings in `.env` are configured (or use `log` driver in `.env` for development).
+- If migrations fail, inspect migration files in `database/migrations` and ensure the DB connection in `.env` is correct.
+
+If you'd like, I can add a small README section that documents how to wire a queue listener for `LeadSubmitted` or create a sample listener that forwards leads to an external CRM.
+
+
+## Universities data & slideshow
+
+The project includes a small JSON catalog used by the frontend university slideshow component.
+
+- Location: `public/img/universities/universities.json`
+- Format: an array of objects with these fields:
+	- `file` — filename (string). The component constructs an image URL by prefixing this with `/img/blog/medium/` (see note below).
+	- `name` — university display name (string).
+	- `description` — short description used in the overlay (string).
+
+Example (from `public/img/universities/universities.json`):
+
+```json
+[
+	{
+		"file": "uni-atu.jpg",
+		"name": "Atlantic Technological University (ATU)",
+		"description": "Moderní univerzita s praxí orientovanými programy a silným zapojením do regionu."
+	},
+	{
+		"file": "uni-dcu.jpg",
+		"name": "Dublin City University (DCU)",
+		"description": "Dynamické prostředí pro technologie a podnikání, vhodné pro studenty se zájmem o inovace."
+	}
+]
+```
+
+How the slideshow uses it
+
+- Component: `resources/js/components/university-slideshow.vue`.
+- The component fetches the JSON from `/img/universities/universities.json` (no-cache) and stores it in `slides`.
+- Image URL construction: the component uses `imageUrl(file)` which currently returns `/img/blog/medium/` + `file`. Ensure your image files are available at that path (or update the method if you place images elsewhere).
+- The component preloads images, auto-rotates slides (configurable `interval`) and dispatches a DOM `CustomEvent` named `universitySlideChange` with the current slide details so other parts of the page can react (for example to update a separate overlay).
+
+To customize
+
+- Change image location: edit `imageUrl()` inside the component to point to your preferred folder (for example `/img/universities/<file>`).
+- Change timing: update `interval` (ms) and `transitionDuration` (ms) in the component's `data()`.
+- Add or remove items: edit `public/img/universities/universities.json`. If you add images, remember that `/public/img` is ignored by git in this repo (`.gitignore`) — keep that in mind when deploying assets.
+

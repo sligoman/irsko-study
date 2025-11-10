@@ -31,7 +31,7 @@
       <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <article class="bg-white p-6 rounded-lg shadow">
           <div class="flex flex-col items-start gap-4">
-            <div class="flex items-center justify-center text-xl font-semibold text-gray-500"><img src="{{ asset('img/team/david_fiala.jpg') }}" alt="David Fiala" class="rounded-sm" /></div>
+            <div class="flex items-center justify-center text-xl font-semibold text-gray-500 md:h-96 w-full"><img src="{{ asset('img/team/david_fiala.jpg') }}" alt="David Fiala" class="rounded-sm h-full w-full object-cover" /></div>
             <div>
               <div class="text-sm text-gray-500">David Fiala (majitel)</div>
               <h4 class="text-lg font-semibold mt-1">Žiju v Irsku téměř 20 let, studoval jsem v USA, Německu a Irsku</h4>
@@ -53,8 +53,8 @@
         </article>
 
         <article class="bg-white p-6 rounded-lg shadow">
-          <div class="flex items-start gap-4">
-            <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center text-xl font-semibold text-gray-500">MC</div>
+          <div class="flex flex-col items-start gap-4">
+            <div class="flex items-center justify-center text-xl font-semibold text-gray-500 md:h-96 w-full"><img src="{{ asset('img/team/michal_chupik.jpeg') }}" alt="Michal Chupík" class="rounded-sm h-full w-full object-cover" /></div>
             <div>
               <div class="text-sm text-gray-500">Michal Chupík (koordinátor)</div>
               <h4 class="text-lg font-semibold mt-1">Student TU Dublin — letecké technologie & koordinace</h4>
