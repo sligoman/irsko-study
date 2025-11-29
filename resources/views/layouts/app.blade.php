@@ -20,6 +20,7 @@
     @if(app()->environment(['local', 'testing']))
         <meta name="robots" content="noindex,nofollow" />
     @endif
+    <meta name="description" content="@yield('meta_description', 'IrskoStudy — pomoc s přihláškami, ubytováním a studiem v Irsku pro studenty z ČR a SK')">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body  id="app" class="antialiased font-sans bg-gray-50 text-gray-900">

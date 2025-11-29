@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Blog - IrskoStudy')
+@section('meta_description', 'Aktuální články a novinky o studiu v Irsku — poradíme s přihláškami, ubytováním a adaptací.')
 
 @section('content')
   <div class="max-w-4xl mx-auto py-12 px-6">

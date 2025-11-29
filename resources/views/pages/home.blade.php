@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Domů - IrskoStudy')
+@section('title', 'Domů - Irsko Study')
+@section('meta_description', 'IrskoStudy — průvodce pro české a slovenské studenty, kteří chtějí studovat v Irsku. Pomůžeme s přihláškami, ubytováním a adaptací.')
 
 @section('content')
   @include('components.hero')

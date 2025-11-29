@@ -1,6 +1,16 @@
 @extends('layouts.app')
 
 @section('title', ($post->title ?? 'Článek') . ' - Blog')
+@php
+  // Build a short meta description from excerpt or content
+  $__sitemap_desc = null;
+  if (!empty($post->excerpt)) {
+    $__sitemap_desc = strip_tags($post->excerpt);
+  } elseif (!empty($post->content)) {
+    $__sitemap_desc = \Illuminate\Support\Str::limit(strip_tags($post->content), 150);
+  }
+@endphp
+@section('meta_description', $__sitemap_desc ?? 'Článek na blogu IrskoStudy o studiu v Irsku')
 
 @section('content')
   <div class="max-w-3xl mx-auto py-12 px-6">
