@@ -18,8 +18,6 @@ class BlogController extends Controller
             $query->where('name', 'blog');
         })->orderBy('created_at', 'desc')->get();
 
-        dd($posts);
-
         return view('blog.index', ['posts' => $posts]);
     }
 
