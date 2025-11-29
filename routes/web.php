@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\LeadController;
+use App\Http\Controllers\FaqController;
 
 //welcome
 Route::get('/welcome', function () {
@@ -19,7 +20,7 @@ Route::view('/o-nas', 'pages.about')->name('about');
 Route::view('/proc-irsko', 'pages.why-ireland')->name('why');
 Route::view('/vysoke-skoly', 'pages.universities')->name('universities');
 Route::view('/sluzby', 'pages.services')->name('services');
-Route::view('/faq', 'pages.faq')->name('faq');
+Route::get('/faq', [FaqController::class, 'index'])->name('faq');
 Route::view('/kontakt', 'pages.contact')->name('contact');
 // Privacy policy (Czech)
 Route::view('/ochrana-soukromi', 'pages.privacy-cs')->name('privacy.cs');
@@ -35,6 +36,12 @@ Route::get('/img/universities/universities.json', function () {
     $content = file_get_contents($path);
     return response($content, 200)->header('Content-Type', 'application/json');
 });
+
+// Sitemap for search engines (XML) and a human-readable sitemap page
+use App\Http\Controllers\SitemapController;
+
+Route::get('/sitemap.xml', [SitemapController::class, 'xml']);
+Route::get('/sitemap', [SitemapController::class, 'page'])->name('sitemap');
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;

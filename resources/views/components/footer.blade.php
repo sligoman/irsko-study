@@ -17,6 +17,7 @@
           <li><a href="{{ route('about') }}" class="hover:underline">O nás</a></li>
           <li><a href="{{ route('services') }}" class="hover:underline">Služby</a></li>
           <li><a href="{{ route('faq') }}" class="hover:underline">Co tě zajímá</a></li>
+          <li><a href="{{ route('sitemap') }}" class="hover:underline">Sitemap</a></li>
         </ul>
       </div>
 
@@ -26,7 +27,7 @@
           <div>{{ config('contacts.email') }}</div>
           <div class="mt-2">Mobil: {{ config('contacts.mobile') }}</div>
           @if(config('contacts.whatsapp'))
-            <div class="mt-1">WhatsApp: <a href="{{ strpos(config('contacts.whatsapp'),'http') === 0 ? config('contacts.whatsapp') : 'https://wa.me/' . config('contacts.whatsapp') }}" class="text-white underline" target="_blank" rel="noopener">Odeslat zprávu</a></div>
+            <div class="mt-1">WhatsApp: <a href="{{ strpos(config('contacts.whatsapp'),'http') === 0 ? config('contacts.whatsapp') : 'https://wa.me/message/' . config('contacts.whatsapp') }}" class="text-white underline" target="_blank" rel="noopener">Odeslat zprávu</a></div>
           @endif
           @if(config('contacts.whatsapp_qr'))
             <div class="mt-3">
@@ -46,7 +47,7 @@
           <a href="#" class="w-9 h-9 bg-white/10 rounded flex items-center justify-center hover:bg-white/20">I</a>
           <a href="#" class="w-9 h-9 bg-white/10 rounded flex items-center justify-center hover:bg-white/20">L</a> --}}
           @if(config('contacts.whatsapp'))
-            <a href="{{ strpos(config('contacts.whatsapp'),'http') === 0 ? config('contacts.whatsapp') : 'https://wa.me/' . config('contacts.whatsapp') }}" class="w-9 h-9 bg-white/10 rounded flex items-center justify-center hover:bg-white/20" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <a href="{{ strpos(config('contacts.whatsapp'),'http') === 0 ? config('contacts.whatsapp') : 'https://wa.me/message/' . config('contacts.whatsapp') }}" class="w-9 h-9 bg-white/10 rounded flex items-center justify-center hover:bg-white/20" target="_blank" rel="noopener" aria-label="WhatsApp">
               <!-- WhatsApp svg icon -->
               <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden>
                 <path d="M20.52 3.48A11.95 11.95 0 0012 0C5.373 0 0 5.373 0 12c0 2.115.552 4.094 1.6 5.86L0 24l6.4-1.6A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12 0-3.2-1.248-6.218-3.48-8.52zM12 21.6c-1.6 0-3.152-.384-4.544-1.112l-.32-.176L4 20l.68-2.96-.192-.32A9.6 9.6 0 012.4 12c0-5.28 4.32-9.6 9.6-9.6 2.56 0 4.96.96 6.8 2.72A9.36 9.36 0 0121.6 12c0 5.28-4.32 9.6-9.6 9.6z" />

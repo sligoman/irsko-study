@@ -7,7 +7,7 @@
     <h1 class="text-2xl font-bold mb-4">Často kladené otázky</h1>
     <p class="mb-6 text-gray-600">Nejčastější dotazy k přihláškám, dokumentům, financování a životu v Irsku. Pokud tu nenajdeš odpověď, napiš nám.</p>
 
-  <faq-accordion></faq-accordion>
+  <faq-accordion :items="{{ json_encode($items) }}"></faq-accordion>
 
     <div class="mt-8">
       @include('components.cta')

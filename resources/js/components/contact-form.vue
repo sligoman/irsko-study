@@ -83,7 +83,7 @@
               <div class="mt-3 text-sm text-gray-600">
                 <div v-if="contacts.email">Napište nám: <a :href="`mailto:${contacts.email}`" class="text-[color:var(--color-emerald)]">{{ contacts.email }}</a></div>
                 <div v-if="contacts.mobile" class="mt-1">Mobil: <a :href="`tel:${contacts.mobile}`" class="text-[color:var(--color-emerald)]">{{ contacts.mobile }}</a></div>
-                <div v-if="contacts.whatsapp" class="mt-1">WhatsApp: <a :href="contacts.whatsapp.startsWith('http') ? contacts.whatsapp : ('https://wa.me/' + contacts.whatsapp)" target="_blank" rel="noopener" class="text-[color:var(--color-emerald)]">Odeslat zprávu</a></div>
+                <div v-if="contacts.whatsapp" class="mt-1">WhatsApp: <a :href="contacts.whatsapp.startsWith('http') ? contacts.whatsapp : ('https://wa.me/message/' + contacts.whatsapp)" target="_blank" rel="noopener" class="text-[color:var(--color-emerald)]">Odeslat zprávu</a></div>
                 <div v-if="contacts.whatsapp_qr" class="mt-2">
                   <a :href="contacts.whatsapp_qr.startsWith('http') ? contacts.whatsapp_qr : ('/' + contacts.whatsapp_qr)" target="_blank" rel="noopener">
                     <img :src="contacts.whatsapp_qr.startsWith('http') ? contacts.whatsapp_qr : ('/' + contacts.whatsapp_qr)" alt="WhatsApp QR" class="w-20 h-20 object-contain rounded-md border" />
@@ -144,7 +144,7 @@
         <div class="mt-2 text-sm text-gray-600">
           <div v-if="contacts.email">Napište nám: <a :href="`mailto:${contacts.email}`" class="text-[color:var(--color-emerald)]">{{ contacts.email }}</a></div>
           <div v-if="contacts.mobile" class="mt-1">Mobil: <a :href="`tel:${contacts.mobile}`" class="text-[color:var(--color-emerald)]">{{ contacts.mobile }}</a></div>
-          <div v-if="contacts.whatsapp" class="mt-1">WhatsApp: <a :href="contacts.whatsapp.startsWith('http') ? contacts.whatsapp : ('https://wa.me/' + contacts.whatsapp)" target="_blank" rel="noopener" class="text-[color:var(--color-emerald)]">Odeslat zprávu</a></div>
+          <div v-if="contacts.whatsapp" class="mt-1">WhatsApp: <a :href="contacts.whatsapp.startsWith('http') ? contacts.whatsapp : ('https://wa.me/message/' + contacts.whatsapp)" target="_blank" rel="noopener" class="text-[color:var(--color-emerald)]">Odeslat zprávu</a></div>
         </div>
       </form>
     </div>
