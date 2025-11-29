@@ -18,6 +18,8 @@ class BlogController extends Controller
             $query->where('name', 'blog');
         });
 
+        dd($posts);
+
         return view('blog.index', ['posts' => $posts]);
     }
 
