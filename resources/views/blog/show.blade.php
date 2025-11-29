@@ -21,7 +21,11 @@
       <div class="text-sm text-gray-500 mt-2">{{ optional($post->created_at)->format('j. n. Y') }}</div>
 
       @if(!empty($post->featured_image))
-        <img src="{{ asset($post->featured_image) }}" alt="{{ $post->title }}" class="w-full h-64 object-cover rounded mt-4">
+        <picture class="block mt-4 rounded overflow-hidden">
+          <source media="(max-width: 640px)" srcset="{{ asset('img/blog/medium/' . $post->featured_image) }}">
+          <source media="(min-width: 641px)" srcset="{{ asset('img/blog/large/' . $post->featured_image) }}">
+          <img src="{{ asset('img/blog/large/' . $post->featured_image) }}" alt="{{ $post->title }}" class="w-full h-48 sm:h-64 object-cover">
+        </picture>
       @endif
 
       <div class="prose prose-sm mt-6 text-gray-800">
