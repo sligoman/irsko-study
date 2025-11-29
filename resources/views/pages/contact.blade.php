@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Kontakt - IrskoStudy')
+@section('title', 'Kontakt - Irsko Study')
+@section('meta_description', 'Kontaktujte IrskoStudy — napište nám nebo zavolejte, rádi poradíme se studiem v Irsku, přihláškami a ubytováním.')
 
 @section('content')
 

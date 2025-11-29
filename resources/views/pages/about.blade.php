@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'O nás — IrskoStudy')
+@section('title', 'O nás — Irsko Study')
+@section('meta_description', 'O nás — kdo jsme, proč se specializujeme na Irsko a jak pomáháme studentům z ČR a SK s přestupem na irské vysoké školy.')
 
 @section('content')
   <div class="max-w-6xl mx-auto px-4 sm:px-8 lg:px-4 pt-28">

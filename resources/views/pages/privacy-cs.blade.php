@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Ochrana osobních údajů')
+@section('meta_description', 'Informace o zpracování osobních údajů a ochraně soukromí na IrskoStudy — jak a proč shromažďujeme data.')
 
 @section('content')
 <div class="container mx-auto px-4 py-12">

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'FAQ — IrskoStudy')
+@section('title', 'FAQ — Irsko Study')
+@section('meta_description', 'Často kladené otázky k přihláškám, studiu a životu v Irsku — rychlé odpovědi na nejčastější dotazy studentů z ČR a SK.')
 
 @section('content')
   <div class="max-w-4xl mx-auto px-4 py-12">
