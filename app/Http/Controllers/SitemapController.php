@@ -18,7 +18,7 @@ class SitemapController extends Controller
         $posts = [];
 
         $posts = AiblogPost::with('type')->whereHas('type', function ($query) {
-            $query->where('name', 'blog');
+            $query->whereIn('name', ['blog','news']);
         })->orderBy('updated_at', 'desc')->get();
 
         $staticUrls = [
@@ -43,7 +43,7 @@ class SitemapController extends Controller
     {
 
         $posts = AiblogPost::with('type')->whereHas('type', function ($query) {
-            $query->where('name', 'blog');
+            $query->whereIn('name', ['blog','news']);
         })->orderBy('created_at', 'desc')->get();
 
         return view('pages.sitemap', ['posts' => $posts]);

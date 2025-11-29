@@ -15,7 +15,7 @@ class BlogController extends Controller
     {
 
         $posts = AiblogPost::with('type')->whereHas('type', function ($query) {
-            $query->where('name', 'blog');
+            $query->whereIn('name', ['blog','news']);
         })->orderBy('created_at', 'desc')->paginate(10);
 
         return view('blog.index', ['posts' => $posts]);
