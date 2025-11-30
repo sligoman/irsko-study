@@ -54,6 +54,12 @@ class BlogController extends Controller
             $post->content = $this->addDesktopFolderToBlogImages($post->content);
         }
 
+        // Normalize featured_image to a bare filename so views can build the
+        // correct local asset paths (avoid concatenating full URLs into asset()).
+        if (! empty($post->featured_image) && is_string($post->featured_image)) {
+            $post->featured_image = $this->stripFeaturedImageFilename($post->featured_image);
+        }
+
         return view('blog.show', ['post' => $post]);
     }
 
@@ -67,8 +73,13 @@ class BlogController extends Controller
      */
     protected function addDesktopFolderToBlogImages(string $content): string
     {
-        // Match the exact host path and ensure we don't already have /desktop/ after /blog/
-        $pattern = '#(https?://(?:www\.)?irskostudy\.cz/img/blog/)(?!desktop/)#i';
+        // Match either the absolute host path or a leading relative /img/blog/
+        // and insert a single `/desktop/` segment if it isn't already present.
+        // This handles both forms like:
+        //   https://irskostudy.cz/img/blog/...
+        //   /img/blog/...
+        // and avoids inserting multiple `/desktop/` segments.
+        $pattern = '#(https?://(?:www\.)?irskostudy\.cz/img/blog/|/img/blog/)(?!desktop/)#i';
         $replacement = '$1desktop/';
 
         return preg_replace($pattern, $replacement, $content);
@@ -92,11 +103,15 @@ class BlogController extends Controller
             return null;
         }
 
-        $prefix = 'https://irskostudy.cz/img/blog/';
-        if (str_starts_with($path, $prefix)) {
-            return ltrim(substr($path, strlen($prefix)), '/');
-        }
+        // Use the URL path (if it's a full URL) or the string itself, then
+        // return the basename. This covers:
+        //  - https://irskostudy.cz/img/blog/den.jpg
+        //  - /img/blog/den.jpg
+        //  - den.jpg
+        $path = trim($path);
+        $urlPath = parse_url($path, PHP_URL_PATH) ?: $path;
+        $filename = basename($urlPath);
 
-        return null;
+        return $filename !== '' ? $filename : null;
     }
 }

@@ -21,11 +21,11 @@ export default defineConfig({
     },
     server: {
         host: '0.0.0.0',
-        port: 5189, // Match the port in your error (5182)
+        port: 5197, // Match the port in your error (5182)
         cors: true,
         hmr: {
             host: 'irskostudy.local', // Use your local domain here
-            port: 5189,
+            port: 5197,
             protocol: 'ws',
         },
     },
