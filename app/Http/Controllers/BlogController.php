@@ -51,7 +51,7 @@ class BlogController extends Controller
 
         // Adjust image paths inside post content so desktop variants are used when needed
         if (! empty($post->content) && is_string($post->content)) {
-            $post->content = $this->addDesktopFolderToBlogImages($post->content);
+            $post->content = $this->addLargeFolderToBlogImages($post->content);
         }
 
         // Normalize featured_image to a bare filename so views can build the
@@ -60,29 +60,80 @@ class BlogController extends Controller
             $post->featured_image = $this->stripFeaturedImageFilename($post->featured_image);
         }
 
+        // Ensure YouTube iframes have the "w-full" class for responsiveness
+        if (! empty($post->content) && is_string($post->content)) {
+            $post->content = $this->addWFullToYoutubeIframes($post->content);
+        }
+
         return view('blog.show', ['post' => $post]);
     }
 
     /**
-     * Take HTML content and insert a `/desktop/` folder into any image URLs
-     * that point to `https://irskostudy.cz/img/blog/` so the desktop-sized
-     * variant is used. This is idempotent (won't insert multiple `/desktop/`).
+     * Take HTML content and insert a `/large/` folder into any image URLs
+     * that point to `https://irskostudy.cz/img/blog/` so the large-sized
+     * variant is used. This is idempotent (won't insert multiple `/large/`).
      *
      * @param  string  $content
      * @return string
      */
-    protected function addDesktopFolderToBlogImages(string $content): string
+    protected function addLargeFolderToBlogImages(string $content): string
     {
         // Match either the absolute host path or a leading relative /img/blog/
-        // and insert a single `/desktop/` segment if it isn't already present.
+        // and insert a single `/large/` segment if it isn't already present.
         // This handles both forms like:
         //   https://irskostudy.cz/img/blog/...
         //   /img/blog/...
-        // and avoids inserting multiple `/desktop/` segments.
-        $pattern = '#(https?://(?:www\.)?irskostudy\.cz/img/blog/|/img/blog/)(?!desktop/)#i';
-        $replacement = '$1desktop/';
+        // and avoids inserting multiple `/large/` segments.
+        $pattern = '#(https?://(?:www\.)?irskostudy\.cz/img/blog/|/img/blog/)(?!large/)#i';
+        $replacement = '$1large/';
 
         return preg_replace($pattern, $replacement, $content);
+    }
+
+    /**
+     * Find YouTube <iframe> tags in the given HTML and ensure they have the
+     * class "w-full". If a class attribute exists, append "w-full" unless it's
+     * already present. Non-YouTube iframes are left untouched.
+     */
+    protected function addWFullToYoutubeIframes(string $content): string
+    {
+        return preg_replace_callback('#<iframe\b([^>]*)>#i', function ($match) {
+            $attrs = $match[1];
+
+            // extract src
+            if (! preg_match('/\bsrc\s*=\s*([\'"])(.*?)\1/i', $attrs, $srcMatch)) {
+                return $match[0];
+            }
+
+            $src = $srcMatch[2];
+            if (stripos($src, 'youtube.com') === false && stripos($src, 'youtu.be') === false) {
+                return $match[0];
+            }
+
+            // if class exists, append w-full if not present
+            if (preg_match('/\bclass\s*=\s*([\'"])(.*?)\1/i', $attrs, $classMatch)) {
+                $quote = $classMatch[1];
+                $classes = $classMatch[2];
+
+                if (preg_match('/\bw-full\b/i', $classes)) {
+                    return $match[0];
+                }
+
+                $newClasses = $classes . ' w-full';
+                $newAttrs = preg_replace(
+                    '/\bclass\s*=\s*([\'"])(.*?)\1/i',
+                    'class=' . $quote . $newClasses . $quote,
+                    $attrs,
+                    1
+                );
+
+                return '<iframe' . $newAttrs . '>';
+            }
+
+            // no class attribute -> add one
+            $prefix = ($attrs === '' || $attrs[0] === ' ') ? '' : ' ';
+            return '<iframe' . $attrs . $prefix . 'class="w-full">';
+        }, $content);
     }
 
     /**
