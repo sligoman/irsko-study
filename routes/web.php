@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\LeadController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\FinderController;
 
 //welcome
 Route::get('/welcome', function () {
@@ -48,3 +49,11 @@ use Illuminate\Support\Facades\Log;
 
 // Contact form POST handler (accepts JSON or form data) - use LeadController
 Route::post('/contact', [LeadController::class, 'store'])->name('lead.store');
+
+// Finder - schools & courses (uses models from sligoman/caofinder package)
+Route::get('/finder/schools', [FinderController::class, 'schools'])->name('finder.schools');
+Route::get('/finder/schools/{id}', [FinderController::class, 'showSchool'])->name('finder.school.show');
+Route::get('/finder/courses/{id}', [FinderController::class, 'showCourse'])->name('finder.course.show');
+// Search/filter endpoint for courses
+Route::get('/finder/search', [FinderController::class, 'search'])->name('finder.search');
+Route::get('/finder/courses', [FinderController::class, 'courses'])->name('finder.courses');

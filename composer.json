@@ -9,14 +9,19 @@
         {
             "type": "vcs",
             "url": "git@github.com:sligoman/aiblog-api-web.git"
-        }
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:sligoman/caofinder.git"
+        }        
     ],
     "require": {
         "php": "^8.2",
         "laravel/framework": "^12.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.10.1",
-        "sligoman/aiblog-api-web": "dev-main"
+        "sligoman/aiblog-api-web": "dev-main",
+        "sligoman/caofinder": "dev-main"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
