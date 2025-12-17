@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Illuminate\Http\Request;
-use Sligoman\Caofinder\Models\CaoSchool;
-use Sligoman\Caofinder\Models\CaoCourse;
 use Sligoman\Caofinder\Models\CaoField;
 use Sligoman\Caofinder\Models\CaoLevel;
+use Sligoman\Caofinder\Models\CaoCourse;
+use Sligoman\Caofinder\Models\CaoSchool;
 
 class FinderController extends Controller
 {
@@ -48,11 +49,26 @@ class FinderController extends Controller
     {
         $course = CaoCourse::with(['school', 'fields', 'locations', 'level'])->findOrFail($id);
 
-        if (view()->exists('pages.finder.course')) {
-            return view('pages.finder.course', compact('course'));
+        // Related courses: other courses that share any field with the current course
+        $fieldIds = $course->fields->pluck('id')->toArray();
+        $relatedCourses = collect();
+        if (!empty($fieldIds)) {
+            $relatedCourses = CaoCourse::with('school')
+                ->whereHas('fields', function ($q) use ($fieldIds) {
+                    $q->whereIn('field_id', $fieldIds);
+                })
+                ->where('id', '!=', $course->id)
+                ->inRandomOrder()
+                ->distinct()
+                ->limit(6)
+                ->get();
         }
 
-        return response()->json($course);
+        if (view()->exists('pages.finder.course')) {
+            return view('pages.finder.course', compact('course', 'relatedCourses'));
+        }
+
+        return response()->json(array_merge($course->toArray(), ['related' => $relatedCourses->toArray()]));
     }
 
     /**
@@ -62,6 +78,8 @@ class FinderController extends Controller
     public function search(Request $request)
     {
         $query = CaoCourse::with(['school', 'fields', 'locations', 'level']);
+
+
 
         if ($request->filled('q')) {
             $term = $request->input('q');
@@ -88,8 +106,11 @@ class FinderController extends Controller
         if ($request->filled('level')) {
             $query->where('level_id', $request->input('level'));
         }
+        
 
         $results = $query->paginate(20);
+
+
 
         if (view()->exists('pages.finder.search')) {
             return view('pages.finder.search', compact('results'));
@@ -107,16 +128,64 @@ class FinderController extends Controller
         $fields = CaoField::orderBy('name')->get();
         $levels = CaoLevel::orderBy('name')->get();
 
-        // initial paginated results (no filters)
-        $results = CaoCourse::with(['school', 'fields', 'locations', 'level'])->paginate(12);
+        // Build base query
+        $query = CaoCourse::with(['school', 'fields', 'locations', 'level']);
+
+        // Collect initial filters from request so view/component can preselect
+        $initialFilters = [
+            'q' => $request->query('q'),
+            'school' => $request->query('school'),
+            'field' => $request->query('field'),
+            'level' => $request->query('level'),
+            'page' => $request->query('page', 1),
+        ];
+
+        // Apply filters server-side when provided to produce initial results
+        if (!empty($initialFilters['q'])) {
+            $term = $initialFilters['q'];
+            $query->where(function ($q) use ($term) {
+                $q->where('title_en', 'like', "%{$term}%")
+                  ->orWhere('title_cs', 'like', "%{$term}%")
+                  ->orWhere('description_en', 'like', "%{$term}%")
+                  ->orWhere('description_cs', 'like', "%{$term}%");
+            });
+        }
+
+        if (!empty($initialFilters['school'])) {
+            $query->where('school_id', $initialFilters['school']);
+        }
+
+        if (!empty($initialFilters['field'])) {
+            $fieldId = $initialFilters['field'];
+            $query->whereHas('fields', function ($q) use ($fieldId) {
+                $q->where('field_id', $fieldId);
+            });
+        }
+
+        if (!empty($initialFilters['level'])) {
+            $query->where('level_id', $initialFilters['level']);
+        }
+
+        $results = $query->paginate(12, ['*'], 'page', $initialFilters['page']);
 
         $initialData = [
             'schools' => $schools,
             'fields' => $fields,
             'levels' => $levels,
             'results' => $results,
+            'filters' => $initialFilters,
         ];
 
         return view('pages.finder.courses', compact('initialData'));
+    }
+
+    /**
+     * List universities from the database (cao_schools) with course counts.
+     */
+    public function universities()
+    {
+        $schools = CaoSchool::withCount('courses')->orderBy('name')->get();
+
+        return view('pages.universities', compact('schools'));
     }
 }

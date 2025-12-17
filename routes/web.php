@@ -19,7 +19,7 @@ Route::get('/', function () {
 Route::view('/', 'pages.home')->name('home');
 Route::view('/o-nas', 'pages.about')->name('about');
 Route::view('/proc-irsko', 'pages.why-ireland')->name('why');
-Route::view('/vysoke-skoly', 'pages.universities')->name('universities');
+Route::get('/vysoke-skoly', [FinderController::class, 'universities'])->name('universities');
 Route::view('/sluzby', 'pages.services')->name('services');
 Route::get('/faq', [FaqController::class, 'index'])->name('faq');
 Route::view('/kontakt', 'pages.contact')->name('contact');

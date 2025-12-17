@@ -19,7 +19,7 @@
           <label class="block text-sm font-medium text-gray-700">Obor</label>
           <select v-model="filters.field" @change="search" class="mt-1 block w-full rounded border-gray-200 p-2">
             <option value="">Všechny obory</option>
-            <option v-for="f in initial.fields" :key="f.id" :value="f.id">{{ f.name }}</option>
+            <option v-for="f in initial.fields" :key="f.id" :value="f.id">{{ f.description }}</option>
           </select>
         </div>
 
@@ -38,15 +38,14 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <article v-for="course in results.data" :key="course.id" class="bg-gray-50 rounded-lg p-4 border">        
+      <article v-for="course in results.data" :key="course.id" class="bg-gray-50 rounded-lg p-4 border flex flex-col justify-between">        
+        <div>
         <h3 class="text-lg font-semibold mb-1">{{ course.title_cs || course.title_en }}</h3>
-        <div v-if="course.title_cs && course.title_en" class="text-sm text-gray-600 mb-2">{{ course.title_en }}</div>
-        <div v-else class="text-sm text-gray-600 mb-2">{{ course.school ? course.school.name : '' }}</div>
+        <div class="text-sm text-gray-600 mb-2">{{ course.title_en }}</div>
+        <div class="text-sm text-gray-600 mb-2">{{ course.school ? course.school.name : '' }}</div>
         <p class="text-gray-700 text-sm mb-3" v-html="truncate(course.description_cs || course.description_en, 200)"></p>
-        <div class="flex items-center justify-between">
-          <div class="text-sm text-gray-600">Požadované body: <span class="font-medium">{{ course.points_required || '—' }}</span></div>
-          <a :href="courseLink(course.id)" class="text-emerald-600 hover:underline text-sm">Více</a>
         </div>
+        <a :href="courseLink(course.id)" class="text-emerald-600 hover:underline text-sm">Více</a>
       </article>
     </div>
 
@@ -72,13 +71,7 @@ export default {
   data() {
     return {
       initial: this.initialData,
-      filters: {
-        q: '',
-        school: '',
-        field: '',
-        level: '',
-        page: 1,
-      },
+      filters: Object.assign({ q: '', school: '', field: '', level: '', page: 1 }, this.initialData.filters || {}),
       results: this.initialData.results || { data: [], meta: { current_page: 1, last_page: 1 } },
       debounceTimer: null,
     };

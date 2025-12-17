@@ -9,42 +9,37 @@
 
     <p class="text-gray-700 mb-6">Studium v Irsku patří k nejlepším investicím do budoucnosti. Irské univerzity nabízejí světovou úroveň vzdělání a silné propojení s praxí. Níže najdeš přehled nejvýznamnějších škol a tipy, jak si vybrat obor.</p>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-      <div class="bg-white p-6 rounded-lg shadow">
-        <h3 class="font-semibold mb-2">Trinity College Dublin (TCD)</h3>
-        <p class="text-gray-600">Nejstarší a nejprestižnější irská univerzita se silným výzkumným zázemím. Ideální pro humanitní i přírodní vědy, IT a podnikání.</p>
-      </div>
+    @if(isset($schools) && $schools->count())
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        @foreach($schools as $school)
+          <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="font-semibold mb-2">{{ $school->name }}@if($school->acronym) ({{ $school->acronym }})@endif</h3>
 
-      <div class="bg-white p-6 rounded-lg shadow">
-        <h3 class="font-semibold mb-2">University College Dublin (UCD)</h3>
-        <p class="text-gray-600">Jedna z největších univerzit v zemi s širokou nabídkou oborů, moderním kampusem a velkou mezinárodní komunitou.</p>
-      </div>
+            @php
+              $schoolDesc = $school->description_cs ?? $school->description_en ?? null;
+            @endphp
 
-      <div class="bg-white p-6 rounded-lg shadow">
-        <h3 class="font-semibold mb-2">University College Cork (UCC)</h3>
-        <p class="text-gray-600">Silné zaměření na výzkum a udržitelnost; skvělé prostředí pro studenty hledající vyvážený studentský život.</p>
-      </div>
+            @if(!empty($schoolDesc))
+              <p class="text-gray-700 mb-3">{{ \Illuminate\Support\Str::limit(strip_tags($schoolDesc), 180) }}</p>
+            @endif
 
-      <div class="bg-white p-6 rounded-lg shadow">
-        <h3 class="font-semibold mb-2">University of Galway</h3>
-        <p class="text-gray-600">Univerzita na západním pobřeží s kvalitními programy v medicíně, technologiích a humanitních oborech.</p>
-      </div>
+            @if(!empty($school->link))
+              <p class="text-gray-600 mb-2"><a href="{{ $school->link }}" target="_blank" rel="noopener" class="hover:underline">Oficiální web školy</a></p>
+            @endif
 
-      <div class="bg-white p-6 rounded-lg shadow">
-        <h3 class="font-semibold mb-2">Dublin City University (DCU)</h3>
-        <p class="text-gray-600">Moderní univerzita se zaměřením na inovace, technologie a média; silné propojení s průmyslem.</p>
-      </div>
+            <p class="text-gray-600 mb-4">Počet programů: <strong>{{ $school->courses_count ?? 0 }}</strong></p>
 
-      <div class="bg-white p-6 rounded-lg shadow">
-        <h3 class="font-semibold mb-2">Technological University Dublin (TUD)</h3>
-        <p class="text-gray-600">Technická a prakticky orientovaná výuka — skvělá volba pro technické a designové obory.</p>
+            <div class="mt-4">
+              <a href="{{ route('finder.courses', ['school' => $school->id]) }}" class="inline-block px-4 py-2 bg-emerald-600 text-white rounded">Prohlédnout kurzy</a>
+            </div>
+          </div>
+        @endforeach
       </div>
-
-      <div class="bg-white p-6 rounded-lg shadow">
-        <h3 class="font-semibold mb-2">University of Limerick (UL)</h3>
-        <p class="text-gray-600">Důraz na propojení s praxí, často také praktické stáže během studia a silné vazby na průmysl.</p>
+    @else
+      <div class="mb-8">
+        <p class="text-gray-700">Zatím zde nejsou žádné školy k zobrazení.</p>
       </div>
-    </div>
+    @endif
 
     <section class="mb-8">
       <h2 class="text-2xl font-semibold mb-3">Jak si vybrat správný obor</h2>
