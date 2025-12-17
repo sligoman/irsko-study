@@ -12,12 +12,27 @@
     @if(isset($schools) && $schools->count())
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
         @foreach($schools as $school)
-          <div class="bg-white p-6 rounded-lg shadow">
-            <h3 class="font-semibold mb-2">{{ $school->name }}@if($school->acronym) ({{ $school->acronym }})@endif</h3>
+          @php
+            // Determine image path using the same pattern as course page: img/blog/large/uni-{school_id}.jpg
+            $imgSrc = null;
+            if (!empty($school->school_id)) {
+                $candidate = public_path('img/blog/large/uni-' . $school->school_id . '.jpg');
+                if (file_exists($candidate)) {
+                    $imgSrc = asset('img/blog/large/uni-' . $school->school_id . '.jpg');
+                }
+            }
 
-            @php
-              $schoolDesc = $school->description_cs ?? $school->description_en ?? null;
-            @endphp
+            $schoolDesc = $school->description_cs ?? $school->description_en ?? null;
+          @endphp
+
+          <div class="bg-white p-6 rounded-lg shadow">
+            @if($imgSrc)
+              <div class="mb-4 overflow-hidden rounded">
+                <img src="{{ $imgSrc }}" alt="{{ $school->name }}" class="w-full h-36 object-cover">
+              </div>
+            @endif
+
+            <h3 class="font-semibold mb-2">{{ $school->name }}@if($school->acronym) ({{ $school->acronym }})@endif</h3>
 
             @if(!empty($schoolDesc))
               <p class="text-gray-700 mb-3">{{ \Illuminate\Support\Str::limit(strip_tags($schoolDesc), 180) }}</p>
