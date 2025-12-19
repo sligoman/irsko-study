@@ -57,8 +57,8 @@ class SitemapGenerator
 
         // helper to render urlset
         $renderUrlset = function (array $items) {
-            $xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
-            $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+            $xml = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
+            $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;
             foreach ($items as $i) {
                 $xml .= "  <url>\n";
                 $xml .= "    <loc>" . htmlspecialchars($i['loc'], ENT_QUOTES, 'UTF-8') . "</loc>\n";
@@ -147,8 +147,8 @@ class SitemapGenerator
         }
 
         // Build sitemap index
-        $indexXml = '<?xml version="1.0" encoding="UTF-8"?>\n';
-        $indexXml .= '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+        $indexXml = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
+        $indexXml .= '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;
         foreach ($files as $f) {
             $indexXml .= "  <sitemap>\n";
             $indexXml .= "    <loc>" . htmlspecialchars(URL::to('/sitemaps/' . $f['file']), ENT_QUOTES, 'UTF-8') . "</loc>\n";

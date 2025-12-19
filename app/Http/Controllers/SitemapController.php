@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\File;
+use Sligoman\AiblogApiWeb\Models\AiblogPost;
 
 class SitemapController extends Controller
 {
@@ -37,5 +38,20 @@ class SitemapController extends Controller
 
         $xml = File::get($indexPath);
         return response($xml, 200)->header('Content-Type', 'application/xml');
+    }
+
+    /**
+     * Human-readable sitemap page (HTML) that lists key pages and recent posts.
+     */
+    public function page(Request $request)
+    {
+        $posts = collect();
+        try {
+            $posts = AiblogPost::orderBy('updated_at', 'desc')->limit(100)->where('type_id', 2)->get();
+        } catch (\Throwable $e) {
+            Log::warning('SitemapController::page - could not load posts: ' . $e->getMessage());
+        }
+
+        return view('pages.sitemap', ['posts' => $posts]);
     }
 }
