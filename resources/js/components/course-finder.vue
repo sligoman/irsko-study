@@ -11,7 +11,7 @@
           <label class="block text-sm font-medium text-gray-700">Škola</label>
           <select v-model="filters.school" @change="search" class="mt-1 block w-full rounded border-gray-200 p-2">
             <option value="">Všechny školy</option>
-            <option v-for="s in initial.schools" :key="s.id" :value="s.id">{{ s.name }}</option>
+            <option v-for="s in initial.schools" :key="s.id" :value="s.school_id">{{ s.name }}</option>
           </select>
         </div>
 
@@ -45,7 +45,7 @@
         <div class="text-sm text-gray-600 mb-2">{{ course.school ? course.school.name : '' }}</div>
         <p class="text-gray-700 text-sm mb-3" v-html="truncate(course.description_cs || course.description_en, 200)"></p>
         </div>
-        <a :href="courseLink(course.id)" class="text-emerald-600 hover:underline text-sm">Více</a>
+        <a :href="courseLink(course)" class="text-emerald-600 hover:underline text-sm">Více</a>
       </article>
     </div>
 
@@ -89,8 +89,9 @@ export default {
     },
   },
   methods: {
-    courseLink(id) {
-      return `/finder/courses/${id}`;
+    courseLink(course) {
+      // prefer slug: {school_school_id}-{course_code}
+      return `/kurzy/${course.url}`;
     },
     truncate(text, n) {
       if (!text) return '';
@@ -106,7 +107,7 @@ export default {
           page: this.filters.page || 1,
         };
 
-        const res = await window.axios.get('/finder/search', { params });
+        const res = await window.axios.get('/kurzy/hledat', { params });
         this.results = res.data;
       } catch (e) {
         console.error('Search failed', e);

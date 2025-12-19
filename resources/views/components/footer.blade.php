@@ -29,6 +29,9 @@
           @if(config('contacts.whatsapp'))
             <div class="mt-1">WhatsApp: <a href="{{ strpos(config('contacts.whatsapp'),'http') === 0 ? config('contacts.whatsapp') : 'https://wa.me/message/' . config('contacts.whatsapp') }}" class="text-white underline" target="_blank" rel="noopener">Odeslat zprávu</a></div>
           @endif
+          @if(config('contacts.instagram'))
+            <div class="mt-1">Instagram: <a href="{{ config('contacts.instagram') }}" class="text-white underline" target="_blank" rel="noopener">@irskostudy</a></div>
+          @endif
           @if(config('contacts.whatsapp_qr'))
             <div class="mt-3">
               @php
@@ -52,6 +55,16 @@
               <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden>
                 <path d="M20.52 3.48A11.95 11.95 0 0012 0C5.373 0 0 5.373 0 12c0 2.115.552 4.094 1.6 5.86L0 24l6.4-1.6A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12 0-3.2-1.248-6.218-3.48-8.52zM12 21.6c-1.6 0-3.152-.384-4.544-1.112l-.32-.176L4 20l.68-2.96-.192-.32A9.6 9.6 0 012.4 12c0-5.28 4.32-9.6 9.6-9.6 2.56 0 4.96.96 6.8 2.72A9.36 9.36 0 0121.6 12c0 5.28-4.32 9.6-9.6 9.6z" />
                 <path d="M17.04 14.4c-.32-.16-1.92-.96-2.24-1.04-.32-.08-.56-.16-.8.16-.24.32-.96 1.04-1.18 1.28-.22.24-.44.28-.8.12-.36-.16-1.52-.56-2.88-1.78-1.06-.94-1.76-2.08-1.98-2.44-.22-.36-.02-.56.16-.72.16-.16.36-.44.54-.64.18-.2.24-.36.36-.6.12-.24.04-.44-.02-.6-.06-.16-.8-1.92-1.12-2.64-.28-.68-.56-.6-.8-.6l-.68.04c-.24 0-.64.08-.96.4-.32.32-1.28 1.24-1.28 3.04 0 1.8 1.32 3.56 1.5 3.8.18.24 2.6 3.96 6.44 5.56 3.84 1.6 3.84 1.08 4.56 1.02.72-.06 2.32-.94 2.64-1.84.32-.9.32-1.66.224-1.84-.096-.18-.352-.28-.672-.44z" fill="#fff" />
+              </svg>
+            </a>
+          @endif
+          @if(config('contacts.instagram'))
+            <a href="{{ config('contacts.instagram') }}" class="w-9 h-9 bg-white/10 rounded flex items-center justify-center hover:bg-white/20" target="_blank" rel="noopener" aria-label="Instagram">
+              <!-- Instagram SVG -->
+              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+                <path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm8 2H9a3 3 0 00-3 3v8a3 3 0 003 3h6a3 3 0 003-3V7a3 3 0 00-3-3z" />
+                <path d="M12 7a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6z" fill="#fff" />
+                <circle cx="17.5" cy="6.5" r="1.2" fill="#fff" />
               </svg>
             </a>
           @endif

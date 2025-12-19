@@ -10,8 +10,13 @@
     <p class="text-gray-700 mb-6">Studium v Irsku patří k nejlepším investicím do budoucnosti. Irské univerzity nabízejí světovou úroveň vzdělání a silné propojení s praxí. Níže najdeš přehled nejvýznamnějších škol a tipy, jak si vybrat obor.</p>
 
     @if(isset($schools) && $schools->count())
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8 items-stretch">
         @foreach($schools as $school)
+
+          @if($school->courses_count === 0)
+            @continue
+          @endif
+
           @php
             // Determine image path using the same pattern as course page: img/blog/large/uni-{school_id}.jpg
             $imgSrc = null;
@@ -25,7 +30,7 @@
             $schoolDesc = $school->description_cs ?? $school->description_en ?? null;
           @endphp
 
-          <div class="bg-white p-6 rounded-lg shadow">
+          <div class="bg-white p-6 rounded-lg shadow flex flex-col h-full">
             @if($imgSrc)
               <div class="mb-4 overflow-hidden rounded">
                 <img src="{{ $imgSrc }}" alt="{{ $school->name }}" class="w-full h-36 object-cover">
@@ -44,8 +49,12 @@
 
             <p class="text-gray-600 mb-4">Počet programů: <strong>{{ $school->courses_count ?? 0 }}</strong></p>
 
-            <div class="mt-4">
-              <a href="{{ route('finder.courses', ['school' => $school->id]) }}" class="inline-block px-4 py-2 bg-emerald-600 text-white rounded">Prohlédnout kurzy</a>
+            @php
+              $schoolSlug = $school->url ?? $school->school_id ?? $school->id;
+            @endphp
+            <div class="mt-4 flex items-center gap-3 mt-auto">
+              <a href="{{ route('finder.courses', ['school' => $school->school_id ?? $school->id]) }}" class="inline-block px-4 py-2 bg-emerald-600 text-white rounded">Prohlédnout kurzy</a>
+              <a href="{{ route('finder.school.show', $schoolSlug) }}" class="inline-block px-3 py-2 border border-gray-200 rounded text-sm text-gray-700 hover:bg-gray-50">Profil školy</a>
             </div>
           </div>
         @endforeach

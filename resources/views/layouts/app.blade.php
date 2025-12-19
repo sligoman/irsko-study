@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'IrskoStudy')</title>
+    <title>@yield('title', 'Irsko STUDY')</title>
     {{-- Favicon / touch icons (use site logo in public/img/logo.png) --}}
     <link rel="icon" href="{{ asset('img/logo.png') }}" />
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/logo.png') }}" />
@@ -15,13 +15,18 @@
     </script>
     {{-- Vite assets --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <meta name="description" content="IrskoStudy — pomoc s přihláškami, ubytováním a studiem v Irsku pro studenty z ČR a SK">
+    {{-- <meta name="description" content="IrskoStudy — pomoc s přihláškami, ubytováním a studiem v Irsku pro studenty z ČR a SK"> --}}
     {{-- Prevent indexing on local/testing environments --}}
     @if(app()->environment(['local', 'testing']))
         <meta name="robots" content="noindex,nofollow" />
     @endif
     <meta name="description" content="@yield('meta_description', 'IrskoStudy — pomoc s přihláškami, ubytováním a studiem v Irsku pro studenty z ČR a SK')">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @if(isset($canonical))
+        <link rel="canonical" href="{{ $canonical }}" />
+    @else
+        <link rel="canonical" href="{{ url()->current() }}" />
+    @endif
 </head>
 <body  id="app" class="antialiased font-sans bg-gray-50 text-gray-900">
     @include('components.navbar')

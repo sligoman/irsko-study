@@ -9,5 +9,6 @@ return [
     'mobile' => env('MOBILE', '+420 771 110 964'),
     'email' => env('EMAIL', 'study@irsko.ie'),
     'whatsapp' => env('WHATSAPP', 'ZTESDXWPOSJAE1'),
+    'instagram' => env('INSTAGRAM', 'https://www.instagram.com/irskostudy/'),
 
 ];

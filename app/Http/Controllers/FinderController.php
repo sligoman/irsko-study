@@ -29,25 +29,93 @@ class FinderController extends Controller
     /**
      * Show single school and its courses.
      */
-    public function showSchool(Request $request, $id)
+    public function showSchool(Request $request, $url)
     {
-        $school = CaoSchool::with(['courses' => function ($q) {
-            $q->with(['fields', 'locations', 'level']);
-        }])->findOrFail($id);
+        // Accept either numeric id or school_id (slug) in the {url} parameter
 
-        if (view()->exists('pages.finder.school')) {
-            return view('pages.finder.school', compact('school'));
+        $query = CaoSchool::with(['courses' => function ($q) {
+            $q->with(['fields', 'locations', 'level']);
+        }]);
+
+        // Prefer explicit `url` column on schools. If not found, fall back to numeric id,
+        // then to the legacy `school_id` slug.
+        $school = null;
+        if (!is_numeric($url)) {
+            $school = $query->where('url', $url)->first();
         }
 
-        return response()->json($school);
+        if (!$school && is_numeric($url)) {
+            $school = $query->find($url);
+        }
+
+        if (!$school) {
+            $school = $query->where('school_id', $url)->first();
+        }
+
+        if (!$school) {
+            abort(404);
+        }
+
+        // Build explicit canonical for school pages (prefer `url` column, then `school_id`)
+        if (!empty($school->url)) {
+            $schoolCanonical = url('/vysoke-skoly/' . $school->url);
+        } elseif (!empty($school->school_id)) {
+            $schoolCanonical = url('/vysoke-skoly/' . $school->school_id);
+        } else {
+            $schoolCanonical = url('/vysoke-skoly/' . $school->id);
+        }
+
+        if (view()->exists('pages.finder.school')) {
+            return view('pages.finder.school', compact('school'))->with('canonical', $schoolCanonical);
+        }
+
+        return response()->json(array_merge($school->toArray(), ['canonical' => $schoolCanonical]));
     }
 
     /**
      * Show single course with related school, fields and locations.
      */
-    public function showCourse(Request $request, $id)
+    public function showCourse(Request $request, $url)
     {
-        $course = CaoCourse::with(['school', 'fields', 'locations', 'level'])->findOrFail($id);
+        // Resolve course by flexible URL slug or numeric id.
+        // Primary lookup uses the `url` column (string slug). If not found, fall back to
+        // numeric id, then school-code + course code, then plain code.
+        $course = null;
+
+        // Try direct url column match first for string values
+        if (!is_numeric($url)) {
+            $course = CaoCourse::with(['school', 'fields', 'locations', 'level'])
+                ->where('url', $url)
+                ->first();
+        }
+
+        // If not found yet, and parameter is numeric, try find by id
+        if (!$course && is_numeric($url)) {
+            $course = CaoCourse::with(['school', 'fields', 'locations', 'level'])->find($url);
+        }
+
+        // If still not found, try slug pattern school-school_id + '-' + code
+        if (!$course && is_string($url) && str_contains($url, '-')) {
+            [$schoolCode, $courseCode] = explode('-', $url, 2);
+            $school = CaoSchool::where('school_id', $schoolCode)->first();
+            if ($school) {
+                $course = CaoCourse::with(['school', 'fields', 'locations', 'level'])
+                    ->where('school_id', $school->id)
+                    ->where('code', $courseCode)
+                    ->first();
+            }
+        }
+
+        // Fallback: try to find by code column
+        if (!$course) {
+            $course = CaoCourse::with(['school', 'fields', 'locations', 'level'])
+                ->where('code', $url)
+                ->first();
+        }
+
+        if (!$course) {
+            abort(404);
+        }
 
         // Related courses: other courses that share any field with the current course
         $fieldIds = $course->fields->pluck('id')->toArray();
@@ -64,11 +132,36 @@ class FinderController extends Controller
                 ->get();
         }
 
-        if (view()->exists('pages.finder.course')) {
-            return view('pages.finder.course', compact('course', 'relatedCourses'));
+            // Ensure related courses include `url` attribute
+            $relatedCourses = $relatedCourses->map(function ($c) {
+                if (empty($c->url)) {
+                    if (!empty($c->school) && !empty($c->school->school_id) && !empty($c->code)) {
+                        $c->url = strtolower($c->school->school_id . '-' . $c->code);
+                    } else {
+                        $c->url = $c->code ?? null;
+                    }
+                }
+                return $c;
+            });
+
+        // Build explicit canonical for the course page (prefer DB `url` column)
+        if (!empty($course->url)) {
+            $courseCanonical = url('/kurzy/' . $course->url);
+        } else {
+            if (!empty($course->school) && !empty($course->school->school_id) && !empty($course->code)) {
+                $courseCanonical = url('/kurzy/' . strtolower($course->school->school_id . '-' . $course->code));
+            } elseif (!empty($course->code)) {
+                $courseCanonical = url('/kurzy/' . $course->code);
+            } else {
+                $courseCanonical = url('/kurzy/' . $course->id);
+            }
         }
 
-        return response()->json(array_merge($course->toArray(), ['related' => $relatedCourses->toArray()]));
+        if (view()->exists('pages.finder.course')) {
+            return view('pages.finder.course', compact('course', 'relatedCourses'))->with('canonical', $courseCanonical);
+        }
+
+        return response()->json(array_merge($course->toArray(), ['related' => $relatedCourses->toArray(), 'canonical' => $courseCanonical]));
     }
 
     /**
@@ -77,9 +170,8 @@ class FinderController extends Controller
      */
     public function search(Request $request)
     {
+
         $query = CaoCourse::with(['school', 'fields', 'locations', 'level']);
-
-
 
         if ($request->filled('q')) {
             $term = $request->input('q');
@@ -93,7 +185,18 @@ class FinderController extends Controller
         }
 
         if ($request->filled('school')) {
-            $query->where('school_id', $request->input('school'));
+            $schoolParam = $request->input('school');
+            if (is_numeric($schoolParam)) {
+                $query->where('school_id', $schoolParam);
+            } else {
+                $school = CaoSchool::where('school_id', $schoolParam)->first();
+                if ($school) {
+                    $query->where('school_id', $school->id);
+                } else {
+                    // no matching school slug: force empty result
+                    $query->whereRaw('0=1');
+                }
+            }
         }
 
         if ($request->filled('field')) {
@@ -109,6 +212,18 @@ class FinderController extends Controller
         
 
         $results = $query->paginate(20);
+
+            // Ensure initial paginated items include a `url` property
+            $results->getCollection()->transform(function ($course) {
+                if (empty($course->url)) {
+                    if (!empty($course->school) && !empty($course->school->school_id) && !empty($course->code)) {
+                        $course->url = strtolower($course->school->school_id . '-' . $course->code);
+                    } else {
+                        $course->url = $course->code ?? null;
+                    }
+                }
+                return $course;
+            });
 
 
 
@@ -152,7 +267,17 @@ class FinderController extends Controller
         }
 
         if (!empty($initialFilters['school'])) {
-            $query->where('school_id', $initialFilters['school']);
+            $schoolParam = $initialFilters['school'];
+            if (is_numeric($schoolParam)) {
+                $query->where('school_id', $schoolParam);
+            } else {
+                $school = CaoSchool::where('school_id', $schoolParam)->first();
+                if ($school) {
+                    $query->where('school_id', $school->id);
+                } else {
+                    $query->whereRaw('0=1');
+                }
+            }
         }
 
         if (!empty($initialFilters['field'])) {
@@ -168,6 +293,18 @@ class FinderController extends Controller
 
         $results = $query->paginate(12, ['*'], 'page', $initialFilters['page']);
 
+        // Ensure initial paginated items include a `url` property
+        $results->getCollection()->transform(function ($course) {
+            if (empty($course->url)) {
+                if (!empty($course->school) && !empty($course->school->school_id) && !empty($course->code)) {
+                    $course->url = strtolower($course->school->school_id . '-' . $course->code);
+                } else {
+                    $course->url = $course->code ?? null;
+                }
+            }
+            return $course;
+        });
+
         $initialData = [
             'schools' => $schools,
             'fields' => $fields,
@@ -178,7 +315,6 @@ class FinderController extends Controller
 
         return view('pages.finder.courses', compact('initialData'));
     }
-
     /**
      * List universities from the database (cao_schools) with course counts.
      */

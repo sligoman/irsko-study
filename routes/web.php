@@ -51,9 +51,24 @@ use Illuminate\Support\Facades\Log;
 Route::post('/contact', [LeadController::class, 'store'])->name('lead.store');
 
 // Finder - schools & courses (uses models from sligoman/caofinder package)
-Route::get('/finder/schools', [FinderController::class, 'schools'])->name('finder.schools');
-Route::get('/finder/schools/{id}', [FinderController::class, 'showSchool'])->name('finder.school.show');
-Route::get('/finder/courses/{id}', [FinderController::class, 'showCourse'])->name('finder.course.show');
-// Search/filter endpoint for courses
-Route::get('/finder/search', [FinderController::class, 'search'])->name('finder.search');
-Route::get('/finder/courses', [FinderController::class, 'courses'])->name('finder.courses');
+// Czech-friendly routes:
+// - Universities listing: /vysoke-skoly (already defined above as 'universities')
+// - University profile: /vysoke-skoly/{url}
+// - Courses listing: /kurzy
+// - Course detail: /kurzy/{url}
+// - Course search: /kurzy/hledat
+Route::get('/vysoke-skoly/{url}', [FinderController::class, 'showSchool'])->name('finder.school.show');
+// Define specific routes first so they don't get captured by the generic {url} route.
+// Search/filter endpoint for courses (Czech)
+Route::get('/kurzy/hledat', [FinderController::class, 'search'])->name('finder.search');
+Route::get('/kurzy', [FinderController::class, 'courses'])->name('finder.courses');
+// Generic course detail route (must come after the specific routes)
+Route::get('/kurzy/{url}', [FinderController::class, 'showCourse'])->name('finder.course.show');
+
+// Backwards-compatibility redirects from legacy English paths to Czech paths
+// These help avoid 404s for any cached/compiled frontend assets still calling the old endpoints.
+Route::permanentRedirect('/finder/schools', '/vysoke-skoly');
+Route::permanentRedirect('/finder/schools/{any}', '/vysoke-skoly/{any}')->where('any', '.*');
+Route::permanentRedirect('/finder/courses', '/kurzy');
+Route::permanentRedirect('/finder/courses/{any}', '/kurzy/{any}')->where('any', '.*');
+Route::permanentRedirect('/finder/search', '/kurzy/hledat');

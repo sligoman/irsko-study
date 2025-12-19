@@ -84,6 +84,11 @@
         @endif
       </section>
 
+      <section class="prose prose-sm italic max-w-none mb-6 text-gray-800">
+        <div>{{ $course->title_en }}</div>
+        <div>{{ $course->description_en }}</div>
+      </section>
+
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
         {{-- <div class="bg-gray-50 p-4 rounded">
           <h3 class="font-semibold mb-2">Informace o kurzu</h3>
@@ -146,7 +151,13 @@
             <div class="text-sm text-gray-600 mb-2">{{ $rc->school?->name ?? '' }}</div>
             <p class="text-gray-700 text-sm mb-3">{{ Str::limit(strip_tags($rc->description_cs ?? $rc->description_en), 140) }}</p>
             <div class="flex items-center justify-between">
-              <a href="{{ route('finder.course.show', $rc->id) }}" class="text-emerald-600 hover:underline">Zobrazit</a>
+              @php
+                $rcSlug = $rc->id;
+                if ($rc->school && !empty($rc->school->school_id) && !empty($rc->code)) {
+                    $rcSlug = strtolower($rc->school->school_id . '-' . $rc->code);
+                }
+              @endphp
+              <a href="{{ route('finder.course.show', $rcSlug) }}" class="text-emerald-600 hover:underline">Zobrazit</a>
               {{-- <div class="text-sm text-gray-600">ID: {{ $rc->id }}</div> --}}
             </div>
           </article>

@@ -26,6 +26,18 @@
           Zjistit více
         </a>
 
+        @if(config('contacts.instagram'))
+          <a href="{{ config('contacts.instagram') }}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-white px-4 py-2 rounded-lg border border-white/20 hover:bg-white/10">
+            <!-- Instagram icon -->
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+              <path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm8 2H9a3 3 0 00-3 3v8a3 3 0 003 3h6a3 3 0 003-3V7a3 3 0 00-3-3z" />
+              <path d="M12 7a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6z" fill="#fff" />
+              <circle cx="17.5" cy="6.5" r="1.2" fill="#fff" />
+            </svg>
+            <span class="text-sm">@irskostudy</span>
+          </a>
+        @endif
+
         {{-- <div class="hidden md:flex flex-col text-sm text-gray-700 ml-2">
           @if(config('contacts.email'))
             <a href="mailto:{{ config('contacts.email') }}" class="text-gray-700 hover:text-[color:var(--color-primary)]">E-mail: {{ config('contacts.email') }}</a>
