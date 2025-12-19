@@ -94,6 +94,60 @@ Note: Some tests or vendor code in this repository perform database inspection q
 If you'd like, I can add a small README section that documents how to wire a queue listener for `LeadSubmitted` or create a sample listener that forwards leads to an external CRM.
 
 
+## Finder (courses & universities)
+
+This project includes a small course finder (courses + universities) implemented with a Laravel controller, Blade views and a Vue 3 component for interactive search and filtering.
+
+- Controller: `app/Http/Controllers/FinderController.php` — handles:
+	- universities listing and university profile (`universities`, `showSchool`)
+	- courses listing and course detail (`courses`, `showCourse`)
+	- AJAX search/filter endpoint (`search`) used by the Vue component
+- Routes: Czech-friendly endpoints are registered in `routes/web.php`:
+
+```php
+// universities
+Route::get('/vysoke-skoly', [FinderController::class, 'universities'])->name('universities');
+Route::get('/vysoke-skoly/{url}', [FinderController::class, 'showSchool'])->name('finder.school.show');
+
+// courses
+Route::get('/kurzy', [FinderController::class, 'courses'])->name('finder.courses');
+Route::get('/kurzy/hledat', [FinderController::class, 'search'])->name('finder.search');
+Route::get('/kurzy/{url}', [FinderController::class, 'showCourse'])->name('finder.course.show');
+```
+
+- Views & frontend:
+	- Blade pages live under `resources/views/pages/finder/` (e.g. `courses.blade.php`, `course.blade.php`, `school.blade.php`).
+	- Interactive search component: `resources/js/components/course-finder.vue` — this component calls the `/kurzy/hledat` endpoint and expects each course item to include a `url` property used to generate links (for example `/kurzy/{url}`).
+
+- Database note: the controller prefers an explicit `url` column on both `cao_courses` and `cao_schools` for SEO-friendly slugs. If your database schema does not include `url` on `cao_schools`, the app may throw SQL errors when attempting `where('url', ...)`.
+
+Recommended fixes if `url` is missing:
+
+1. Add a migration to add `url` to `cao_schools`, index it and backfill values (for example use `school_id` or slugified `name`):
+
+```php
+// example (conceptual):
+Schema::table('cao_schools', function (Blueprint $table) {
+		$table->string('url')->nullable()->index();
+});
+```
+
+2. Backfill `url` for existing rows (artisan command or DB script) and then run `php artisan migrate`.
+
+- Build & cache steps after changing routes or frontend code:
+
+```sh
+npm install
+npm run build    # build production assets so compiled JS calls the Czech endpoints
+php artisan view:clear
+php artisan route:clear
+php artisan config:clear
+```
+
+Note: while migrating the routes from legacy English paths we keep temporary permanent redirects from `/finder/*` to the Czech routes to avoid 404s for older cached assets; after rebuilding assets you can remove those redirects.
+
+If you'd like, I can add a small migration and backfill script for `cao_schools.url` and wire a safety check into `FinderController` to avoid QueryExceptions when that column is absent.
+
 ## Universities data & slideshow
 
 The project includes a small JSON catalog used by the frontend university slideshow component.
@@ -133,4 +187,30 @@ To customize
 - Change image location: edit `imageUrl()` inside the component to point to your preferred folder (for example `/img/universities/<file>`).
 - Change timing: update `interval` (ms) and `transitionDuration` (ms) in the component's `data()`.
 - Add or remove items: edit `public/img/universities/universities.json`. If you add images, remember that `/public/img` is ignored by git in this repo (`.gitignore`) — keep that in mind when deploying assets.
+
+
+## Sitemap generation (automated)
+
+The project includes a small sitemap generator command that writes chunked sitemap files into `public/sitemaps/` and a sitemap index at `public/sitemaps/sitemap-index.xml`.
+
+- Run manually:
+
+```sh
+php artisan sitemap:generate        # generates gzipped sitemaps by default
+php artisan sitemap:generate --no-gzip  # skip creating .gz copies
+```
+
+- Recommended schedule (Laravel scheduler): run daily at 02:00. Add the following to your server's crontab to run the Laravel scheduler every minute:
+
+```sh
+* * * * * cd /path/to/project && php artisan schedule:run >> /dev/null 2>&1
+```
+
+Then register the scheduled command in `app/Console/Kernel.php` (or ensure it is present):
+
+```php
+$schedule->command('sitemap:generate')->dailyAt('02:00');
+```
+
+This keeps the public sitemap files static and fast to serve; Search Console and crawlers can fetch `https://your-site/sitemap.xml` which routes to the generated index.
 

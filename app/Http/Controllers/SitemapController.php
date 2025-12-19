@@ -4,48 +4,38 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\URL;
-use Sligoman\AiblogApiWeb\Models\AiblogPost;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\File;
 
 class SitemapController extends Controller
 {
     /**
-     * Return sitemap XML including static pages and blog posts (if available).
+     * Return the static sitemap index if present. If missing, attempt an on-demand
+     * generation (synchronous) and then return the index. The heavy lifting is
+     * implemented in `App\Services\SitemapGenerator` and should be scheduled
+     * via `php artisan sitemap:generate` in production.
      */
     public function xml(Request $request)
     {
+        $sitemapDir = public_path('sitemaps');
+        $indexPath = $sitemapDir . DIRECTORY_SEPARATOR . 'sitemap-index.xml';
 
-        $posts = [];
+        if (!File::exists($indexPath)) {
+            // Try to generate on-demand; if generation fails, return 503
+            try {
+                $generator = new \App\Services\SitemapGenerator();
+                $generator->generate(true); // gzip by default
+            } catch (\Throwable $e) {
+                Log::error('SitemapController: generation failed: ' . $e->getMessage());
+                return response('Sitemap generation in progress or failed', 503);
+            }
+        }
 
-        $posts = AiblogPost::with('type')->whereHas('type', function ($query) {
-            $query->whereIn('name', ['blog','news']);
-        })->orderBy('updated_at', 'desc')->get();
+        if (!File::exists($indexPath)) {
+            return response('Sitemap index not available', 503);
+        }
 
-        $staticUrls = [
-            ['loc' => URL::to('/'), 'lastmod' => now()->toAtomString(), 'changefreq' => 'weekly', 'priority' => '1.0'],
-            ['loc' => URL::to('/o-nas'), 'lastmod' => now()->toAtomString(), 'changefreq' => 'monthly', 'priority' => '0.8'],
-            ['loc' => URL::to('/proc-irsko'), 'lastmod' => now()->toAtomString(), 'changefreq' => 'monthly', 'priority' => '0.8'],
-            ['loc' => URL::to('/vysoke-skoly'), 'lastmod' => now()->toAtomString(), 'changefreq' => 'monthly', 'priority' => '0.8'],
-            ['loc' => URL::to('/sluzby'), 'lastmod' => now()->toAtomString(), 'changefreq' => 'monthly', 'priority' => '0.7'],
-            ['loc' => URL::to('/faq'), 'lastmod' => now()->toAtomString(), 'changefreq' => 'monthly', 'priority' => '0.6'],
-            ['loc' => URL::to('/kontakt'), 'lastmod' => now()->toAtomString(), 'changefreq' => 'monthly', 'priority' => '0.5'],
-            ['loc' => URL::to('/ochrana-soukromi'), 'lastmod' => now()->toAtomString(), 'changefreq' => 'yearly', 'priority' => '0.3'],
-            ['loc' => URL::to('/blog'), 'lastmod' => now()->toAtomString(), 'changefreq' => 'daily', 'priority' => '0.9'],
-        ];
-
-        return response()->view('sitemap.xml', ['staticUrls' => $staticUrls, 'posts' => $posts])->header('Content-Type', 'application/xml');
-    }
-
-    /**
-     * Human-readable sitemap page.
-     */
-    public function page()
-    {
-
-        $posts = AiblogPost::with('type')->whereHas('type', function ($query) {
-            $query->whereIn('name', ['blog','news']);
-        })->orderBy('created_at', 'desc')->get();
-
-        return view('pages.sitemap', ['posts' => $posts]);
+        $xml = File::get($indexPath);
+        return response($xml, 200)->header('Content-Type', 'application/xml');
     }
 }
