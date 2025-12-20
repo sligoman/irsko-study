@@ -48,6 +48,58 @@
         @endif
       </section>
 
+      {{-- Campus locations / maps --}}
+      @if(!empty($school->locations) && $school->locations->count())
+        <section class="mt-6">
+          <h2 class="text-xl font-semibold mb-4">Kampusy</h2>
+          <div class="space-y-8">
+            @foreach($school->locations as $loc)
+              <div class="bg-white p-4 rounded shadow">
+                <h3 class="font-medium mb-2">{{ $loc->name }}</h3>
+
+                @php
+                  $embedHtml = null;
+                  // Prefer `embed` column (may contain a full iframe src URL or HTML).
+                  if (!empty($loc->embed)) {
+                    $embedHtml = trim($loc->embed);
+                  } elseif (!empty($loc->map)) {
+                    $embedHtml = trim($loc->map);
+                  }
+                @endphp
+
+                @if($embedHtml)
+                  @if(str_contains($embedHtml, '<iframe') || str_contains($embedHtml, '<iframe'))
+                    {{-- If the field already contains iframe HTML, render it safely --}}
+                    <div class="aspect-w-16 aspect-h-9 overflow-hidden rounded">
+                      {!! $embedHtml !!}
+                    </div>
+                  @else
+                    {{-- Otherwise assume it's a Google Maps embed URL and use it as iframe src --}}
+                    <div class="aspect-w-16 aspect-h-9 overflow-hidden rounded">
+                      <iframe
+                        src="{{ $embedHtml }}"
+                        width="600"
+                        height="450"
+                        style="border:0;"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        allowfullscreen
+                      ></iframe>
+                    </div>
+                  @endif
+
+                  <div class="mt-2 text-sm text-gray-600">
+                    <a href="{{ $loc->map ?? $loc->embed }}" target="_blank" rel="noopener" class="text-emerald-600 hover:underline">Otevřít v Google Maps</a>
+                  </div>
+                @else
+                  <div class="text-sm text-gray-600">K dispozici není mapa pro tuto pobočku.</div>
+                @endif
+              </div>
+            @endforeach
+          </div>
+        </section>
+      @endif
+
       <footer class="mt-6">
         <a href="{{ route('finder.courses', ['school' => $school->school_id ?? $school->id]) }}" class="inline-block px-4 py-2 bg-emerald-600 text-white rounded">Zobrazit všechny kurzy</a>
       </footer>

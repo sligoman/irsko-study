@@ -33,9 +33,13 @@ class FinderController extends Controller
     {
         // Accept either numeric id or school_id (slug) in the {url} parameter
 
-        $query = CaoSchool::with(['courses' => function ($q) {
-            $q->with(['fields', 'locations', 'level']);
-        }]);
+        // Load school locations and courses (courses also load their locations)
+        $query = CaoSchool::with([
+            'locations',
+            'courses' => function ($q) {
+                $q->with(['fields', 'locations', 'level']);
+            }
+        ]);
 
         // Prefer explicit `url` column on schools. If not found, fall back to numeric id,
         // then to the legacy `school_id` slug.
