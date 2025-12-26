@@ -9,3 +9,4 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::get('/instagram', [InstagramController::class, 'index']);
+Route::get('/instagram/feed', [InstagramController::class, 'feed']);
