@@ -8,6 +8,7 @@ import BlogDynamic from './components/blog-dynamic.vue';
 import PointerGradientTest from './components/pointer-gradient-test.vue';
 import UniversitySlideshow from './components/university-slideshow.vue';
 import CourseFinder from './components/course-finder.vue';
+import InstagramWidget from './components/instagram-widget.vue';
 
 const app = createApp({});
 app.component('faq-accordion', FaqAccordion);
@@ -16,6 +17,7 @@ app.component('blog-dynamic', BlogDynamic);
 app.component('pointer-gradient-test', PointerGradientTest);
 app.component('university-slideshow', UniversitySlideshow);
 app.component('course-finder', CourseFinder);
+app.component('instagram-widget', InstagramWidget);
 app.mount('#app');
 
 // Mobile nav toggle: attach in bundled JS to avoid inline <script> inside Blade templates
