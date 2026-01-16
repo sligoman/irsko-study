@@ -8,13 +8,13 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       @php
         $postModel = '\\Sligoman\\AiblogApiWeb\\Models\\AiblogPost';
-        $posts = class_exists($postModel) ? $postModel::orderBy('scheduled_at', 'desc')->limit(3)->get() : collect();
+        $posts = class_exists($postModel) ? $postModel::orderBy('updated_at', 'desc')->limit(3)->get() : collect();
       @endphp
 
       @if($posts->count())
         @foreach($posts as $post)
           <article class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
-            <div class="text-sm text-gray-500">{{ optional($post->scheduled_at ?: $post->created_at)->format('j. n. Y') }}</div>
+            <div class="text-sm text-gray-500">{{ optional($post->updated_at ?: $post->created_at)->format('j. n. Y') }}</div>
             <h4 class="font-semibold mt-2">{{ $post->title }}</h4>
             <p class="text-sm text-gray-600 mt-2">{{ $post->excerpt ?? \Illuminate\Support\Str::limit(strip_tags($post->content ?? ''), 120) }}</p>
             <a href="{{ route('blog.show', $post->slug) }}" class="mt-4 inline-block text-[color:var(--color-primary)] font-medium">Číst článek →</a>

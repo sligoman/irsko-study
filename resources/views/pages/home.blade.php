@@ -20,9 +20,11 @@
   <!-- Aktuální termíny a novinky (blog-preview) -->
   @include('components.blog-preview')
   
-  <!-- Instagram posts widget -->
-  @include('components.instagram-widget')
+  @if(!app()->environment('production'))
+    <!-- Instagram posts widget -->
+    @include('components.instagram-widget')
   
+  @endif
   
   <!-- Krok za krokem (steps komponenta) -->
   @include('components.steps')
