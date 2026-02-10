@@ -27,20 +27,36 @@ class LeadController extends Controller
         // Create lead (make sure Lead model has fillable set for these fields)
         $lead = Lead::create($validated);
 
+        Log::channel('leads')->info('Lead received', [
+            'lead_id' => $lead->id,
+            'email' => $lead->email,
+            'page' => $lead->page,
+        ]);
+
         // Send notification email (best-effort)
         try {
             $recipient = config('contacts.email', 'study@irsko.ie');
             Mail::to($recipient)->send(new LeadStored($lead));
+            Log::channel('leads')->info('Lead notification email sent', [
+                'lead_id' => $lead->id,
+                'recipient' => $recipient,
+            ]);
         } catch (\Throwable $e) {
             // Log the error but don't fail the request
-            Log::error('Failed to send lead email: ' . $e->getMessage());
+            Log::channel('leads')->error('Failed to send lead email', [
+                'lead_id' => $lead->id,
+                'error' => $e->getMessage(),
+            ]);
         }
 
         // Dispatch LeadSubmitted event
         try {
             LeadSubmitted::dispatch($lead);
         } catch (\Throwable $e) {
-            Log::warning('Failed to dispatch LeadSubmitted event: ' . $e->getMessage());
+            Log::channel('leads')->warning('Failed to dispatch LeadSubmitted event', [
+                'lead_id' => $lead->id,
+                'error' => $e->getMessage(),
+            ]);
         }
 
         return response()->json($lead, 201);

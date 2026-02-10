@@ -35,6 +35,13 @@ Route::post('/contact', [\App\Http\Controllers\LeadController::class, 'store'])-
 
 The recipient is read from the site configuration `config('contacts.email')`. If you need to change the address used for notifications, update the `contacts` config file or the `.env` variables that populate it.
 
+## Lead logging (separate channel)
+
+Lead intake and mail delivery status are logged to a dedicated channel named `leads`. By default it writes to `storage/logs/leads.log` with daily rotation (30 days). You can adjust levels and retention with:
+
+- `LOG_LEADS_LEVEL` (default: `info`)
+- `LOG_LEADS_DAYS` (default: `30`)
+
 ## How to run locally
 
 1. Install dependencies and build front-end assets if needed:

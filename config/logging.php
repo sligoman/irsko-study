@@ -127,6 +127,14 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
 
+        'leads' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/leads.log'),
+            'level' => env('LOG_LEADS_LEVEL', 'info'),
+            'days' => env('LOG_LEADS_DAYS', 30),
+            'replace_placeholders' => true,
+        ],
+
     ],
 
 ];
