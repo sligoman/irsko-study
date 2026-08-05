@@ -298,7 +298,7 @@ class ResponsiveImageResolver
 
         $path = parse_url($filename, PHP_URL_PATH) ?: $filename;
 
-        return basename($path);
+        return rawurldecode(basename($path));
     }
 
     /**
