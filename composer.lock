@@ -3625,6 +3625,10 @@
                 }
             },
             "description": "A package for managing blog images with upload, retrieval, and deletion functionalities.",
+            "support": {
+                "source": "https://github.com/sligoman/aiblog-api-web/tree/main",
+                "issues": "https://github.com/sligoman/aiblog-api-web/issues"
+            },
             "time": "2026-08-05T11:15:11+00:00"
         },
         {
@@ -8764,6 +8768,6 @@
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }
