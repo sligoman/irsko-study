@@ -8,7 +8,9 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       @php
         $postModel = '\\Sligoman\\AiblogApiWeb\\Models\\AiblogPost';
-        $posts = class_exists($postModel) ? $postModel::orderBy('updated_at', 'desc')->limit(3)->get() : collect();
+        $posts = class_exists($postModel) && \Illuminate\Support\Facades\Schema::hasTable('aiblog_posts')
+          ? $postModel::orderBy('updated_at', 'desc')->limit(3)->get()
+          : collect();
       @endphp
 
       @if($posts->count())

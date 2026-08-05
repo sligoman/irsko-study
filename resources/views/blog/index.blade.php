@@ -3,6 +3,29 @@
 @section('title', 'Blog - IrskoStudy')
 @section('meta_description', 'Aktuální články a novinky o studiu v Irsku — poradíme s přihláškami, ubytováním a adaptací.')
 
+@php
+  $blogImageSet = function ($article, $preferredScale = 2) {
+    $image1x = \App\Support\ResponsiveImageResolver::urlForScale($article, 'blog', 1);
+    $image2x = \App\Support\ResponsiveImageResolver::urlForScale($article, 'blog', 2);
+    $image3x = \App\Support\ResponsiveImageResolver::urlForScale($article, 'blog', 3);
+    $image4x = \App\Support\ResponsiveImageResolver::urlForScale($article, 'blog', 4);
+
+    $src = $preferredScale === 3
+      ? ($image3x ?? $image2x ?? $image1x ?? $image4x)
+      : ($image2x ?? $image3x ?? $image1x ?? $image4x);
+
+    return [
+      'src' => $src,
+      'srcset' => collect([
+        $image1x ? "{$image1x} 640w" : null,
+        $image2x ? "{$image2x} 960w" : null,
+        $image3x ? "{$image3x} 1200w" : null,
+        $image4x ? "{$image4x} 1600w" : null,
+      ])->filter()->implode(', '),
+    ];
+  };
+@endphp
+
 @section('content')
   <div class="max-w-4xl mx-auto py-12 px-6">
     <h1 class="text-3xl font-bold text-[color:var(--color-primary)] mb-6">Novinky a články</h1>
@@ -13,11 +36,14 @@
           <article class="bg-white p-4 rounded-lg shadow">
             <div class="flex flex-col sm:flex-row items-start">
               @if(!empty($post->featured_image))
-                <div class="w-full sm:w-32 flex-shrink-0 mb-3 sm:mb-0 sm:mr-4">
-                  <a href="{{ route('blog.show', $post->slug) }}" class="block overflow-hidden rounded">
-                    <img src="{{ asset('img/blog/medium/' . $post->featured_image) }}" alt="{{ $post->title }}" class="w-full h-20 sm:h-24 object-cover rounded" />
-                  </a>
-                </div>
+                @php($postImage = $blogImageSet($post, 2))
+                @if(!empty($postImage['src']))
+                  <div class="w-full sm:w-32 flex-shrink-0 mb-3 sm:mb-0 sm:mr-4">
+                    <a href="{{ route('blog.show', $post->slug) }}" class="block overflow-hidden rounded">
+                      <img src="{{ $postImage['src'] }}" @if(!empty($postImage['srcset'])) srcset="{{ $postImage['srcset'] }}" @endif sizes="(max-width: 640px) 100vw, 128px" alt="{{ $post->title }}" title="{{ $post->title }}" class="w-full h-20 sm:h-24 object-cover rounded" />
+                    </a>
+                  </div>
+                @endif
               @endif
 
               <div class="flex-1">

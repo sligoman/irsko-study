@@ -2,13 +2,33 @@
 
 @section('title', ($post->title ?? 'Článek') . ' - Blog')
 @php
-  // Build a short meta description from excerpt or content
   $__sitemap_desc = null;
   if (!empty($post->excerpt)) {
     $__sitemap_desc = strip_tags($post->excerpt);
   } elseif (!empty($post->content)) {
     $__sitemap_desc = \Illuminate\Support\Str::limit(strip_tags($post->content), 150);
   }
+
+  $blogImageSet = function ($article, $preferredScale = 3) {
+    $image1x = \App\Support\ResponsiveImageResolver::urlForScale($article, 'blog', 1);
+    $image2x = \App\Support\ResponsiveImageResolver::urlForScale($article, 'blog', 2);
+    $image3x = \App\Support\ResponsiveImageResolver::urlForScale($article, 'blog', 3);
+    $image4x = \App\Support\ResponsiveImageResolver::urlForScale($article, 'blog', 4);
+
+    $src = $preferredScale === 3
+      ? ($image3x ?? $image2x ?? $image1x ?? $image4x)
+      : ($image2x ?? $image3x ?? $image1x ?? $image4x);
+
+    return [
+      'src' => $src,
+      'srcset' => collect([
+        $image1x ? "{$image1x} 640w" : null,
+        $image2x ? "{$image2x} 960w" : null,
+        $image3x ? "{$image3x} 1200w" : null,
+        $image4x ? "{$image4x} 1600w" : null,
+      ])->filter()->implode(', '),
+    ];
+  };
 @endphp
 @section('meta_description', $__sitemap_desc ?? 'Článek na blogu IrskoStudy o studiu v Irsku')
 
@@ -21,11 +41,10 @@
       <div class="text-sm text-gray-500 mt-2">{{ optional($post->created_at)->format('j. n. Y') }}</div>
 
       @if(!empty($post->featured_image))
-        <picture class="block mt-4 rounded overflow-hidden">
-          <source media="(max-width: 640px)" srcset="{{ asset('img/blog/medium/' . $post->featured_image) }}">
-          <source media="(min-width: 641px)" srcset="{{ asset('img/blog/large/' . $post->featured_image) }}">
-          <img src="{{ asset('img/blog/large/' . $post->featured_image) }}" alt="{{ $post->title }}" class="w-full h-48 sm:h-64 object-cover">
-        </picture>
+        @php($postImage = $blogImageSet($post, 3))
+        @if(!empty($postImage['src']))
+          <img src="{{ $postImage['src'] }}" @if(!empty($postImage['srcset'])) srcset="{{ $postImage['srcset'] }}" @endif sizes="(max-width: 768px) 100vw, 768px" alt="{{ $post->title }}" title="{{ $post->title }}" class="mt-4 w-full h-48 sm:h-64 object-cover rounded">
+        @endif
       @endif
 
       <div class="prose prose-sm mt-6 text-gray-800">
