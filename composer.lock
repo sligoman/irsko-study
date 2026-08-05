@@ -3596,12 +3596,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:sligoman/aiblog-api-web.git",
-                "reference": "7cb6e5d76bd596a922bfa7790b75745d1a53c880"
+                "reference": "38c7742d623d19afb5bae9b2a6103886de500d98"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sligoman/aiblog-api-web/zipball/7cb6e5d76bd596a922bfa7790b75745d1a53c880",
-                "reference": "7cb6e5d76bd596a922bfa7790b75745d1a53c880",
+                "url": "https://api.github.com/repos/sligoman/aiblog-api-web/zipball/38c7742d623d19afb5bae9b2a6103886de500d98",
+                "reference": "38c7742d623d19afb5bae9b2a6103886de500d98",
                 "shasum": ""
             },
             "require": {
@@ -3625,11 +3625,7 @@
                 }
             },
             "description": "A package for managing blog images with upload, retrieval, and deletion functionalities.",
-            "support": {
-                "source": "https://github.com/sligoman/aiblog-api-web/tree/main",
-                "issues": "https://github.com/sligoman/aiblog-api-web/issues"
-            },
-            "time": "2026-07-27T15:06:47+00:00"
+            "time": "2026-08-05T11:15:11+00:00"
         },
         {
             "name": "sligoman/caofinder",
@@ -8768,6 +8764,6 @@
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": {},
-    "plugin-api-version": "2.9.0"
+    "platform-dev": [],
+    "plugin-api-version": "2.6.0"
 }
