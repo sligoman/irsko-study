@@ -1,42 +1,35 @@
-<div>
-
+<div v-cloak>
     <div class="z-50 fixed bottom-4 right-4">
         <button
-            class="z-50 bg-accent-900 text-white rounded-full w-16 h-16 flex items-center justify-center shadow-lg hover:bg-accent-500 focus:outline-hidden focus:shadow-outline"
-            @click="$store.init.showLeadForm = true;gtag('event','form_open');"
+            class="z-50 relative flex h-16 w-16 items-center justify-center rounded-full bg-brand-dark-green text-white shadow-[0_4px_24px_rgba(0,0,0,0.15),0_4px_4px_rgba(0,0,0,0.05)] transition-color-figma hover:bg-[#0a4a46] focus:outline-hidden focus:shadow-outline"
+            @click="openContactForm"
+            aria-label="Otevřít kontaktní formulář"
         >
-            <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M16.5 14.5C16.5 14.5 17.5 15.5 17.5 16.5C17.5 17.6 16.6 18.5 15.5 18.5C14.4 18.5 13.5 17.6 13.5 16.5C13.5 15.4 14.4 14.5 15.5 14.5C15.8 14.5 16.2 14.5 16.5 14.5ZM12.5 2C7.8 2 4 5.8 4 10.5C4 15.2 7.8 19 12.5 19C17.2 19 21 15.2 21 10.5C21 5.8 17.2 2 12.5 2ZM12.5 17C9.5 17 7 14.5 7 11.5C7 8.5 9.5 6 12.5 6C15.5 6 18 8.5 18 11.5C18 14.5 15.5 17 12.5 17Z" fill="currentColor"/>
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 40 40" aria-hidden="true">
+                <path fill="#9BCC57" d="M35 7.813H5a.937.937 0 0 0-.938.937V30a2.187 2.187 0 0 0 2.188 2.188h27.5A2.188 2.188 0 0 0 35.938 30V8.75A.938.938 0 0 0 35 7.812ZM20 21.227 7.41 9.688h25.18L20 21.227ZM15.886 20l-9.948 9.119V10.88L15.886 20Zm1.387 1.272 2.102 1.919a.938.938 0 0 0 1.266 0l2.093-1.92 9.857 9.041H7.41l9.862-9.04ZM24.114 20l9.948-9.119V29.12L24.114 20Z"/>
             </svg>
-
+            <span class="pointer-events-none absolute -bottom-1 right-2 h-0 w-0 rotate-[18deg] border-l-[10px] border-r-[2px] border-t-[13px] border-l-transparent border-r-transparent border-t-brand-dark-green"></span>
         </button>
     </div>
 
-    <template x-if="$store.init.selectedCourses.length > 0">
-    <div class="z-50 fixed bottom-14 right-14">
-        <span x-text="$store.init.selectedCourses.length" class="bg-accent-900 text-white rounded-full w-8 h-8 flex items-center justify-center shadow-lg"></span>
-    </div>
-    </template>
+    <transition name="redesign-fade">
+        <div v-show="showContactForm" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6" @click.self="closeContactForm">
+            <div class="fixed inset-0 bg-black/55" @click="closeContactForm"></div>
+            <div class="redesign-footer-pattern relative z-10 w-full max-w-[768px] overflow-hidden rounded-[24px] p-6 shadow-2xl sm:p-10 lg:p-16">
+                <div class="mb-8 max-w-[472px]">
+                    <h2 class="type-display-lg text-white">Kontaktujte nás</h2>
+                    <p class="type-text-md mt-3 text-white">Online jsme každý den od 10:00 do 14:00.</p>
+                </div>
 
-    <div x-show="$store.init.showLeadForm" class="fixed inset-0 z-50 flex items-center justify-center">
-        <div class="fixed inset-0 bg-gray-900 opacity-75"></div>
-        <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md z-0" @click.away="$store.init.showLeadForm = false">
+                <button class="absolute right-4 top-4 text-white/90 hover:text-white focus:outline-hidden" @click="closeContactForm" aria-label="Zavřít formulář">
+                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
 
-            <button class="absolute top-0 right-0 mt-4 mr-4 text-gray-500 hover:text-gray-800 focus:outline-hidden" @click="$store.init.showLeadForm = false">
-                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </button>
-
-            <div>
-
-                <x-lead position="floating"></x-lead>
-
+                <contact-form position="floating" :on-close="closeContactForm"></contact-form>
             </div>
-
         </div>
-
-    </div>
-
+    </transition>
 </div>

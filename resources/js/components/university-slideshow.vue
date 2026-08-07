@@ -2,7 +2,7 @@
   <div class="w-full md:max-w-xl mx-auto">
       <div class="hidden md:block md:absolute z-50 -bottom-6 left-6 w-64 bg-white rounded-xl p-4 shadow-md border transform transition duration-500 motion-safe:translate-y-0 group-hover:translate-y-[-6px] z-20">
         <!-- <div class="text-xs text-gray-500">Nejpopulárnější</div> -->
-        <div class="mt-1 font-semibold text-[color:var(--color-primary)]">{{ current ? current.name : '…' }}</div>
+        <div class="mt-1 font-semibold text-[color:var(--color-brand-dark-green)]">{{ current ? current.name : '…' }}</div>
         <div class="mt-1 text-sm text-gray-600">{{ current ? current.description : '' }}</div>
       </div>
     <div class="relative bg-white rounded-xl overflow-hidden shadow-lg">
@@ -22,16 +22,16 @@
 
             <!-- dot controls (optional) -->
             <div class="absolute bottom-3 right-3 flex gap-2 z-30">
-              <button v-for="(s, i) in slides" :key="s.file + '-dot-' + i" @click="goTo(i)" :class="['w-2 h-2 rounded-full', i === index ? 'bg-[color:var(--color-primary)]' : 'bg-gray-300']" aria-label="Go to slide"></button>
+              <button v-for="(s, i) in slides" :key="s.file + '-dot-' + i" @click="goTo(i)" :class="['w-2 h-2 rounded-full', i === index ? 'bg-[color:var(--color-brand-dark-green)]' : 'bg-gray-300']" aria-label="Go to slide"></button>
             </div>
           </div>
 
       <div class="md:hidden p-4">
-        <h3 class="text-lg font-semibold text-[color:var(--color-primary)]">{{ current ? current.name : '…' }}</h3>
+        <h3 class="text-lg font-semibold text-[color:var(--color-brand-dark-green)]">{{ current ? current.name : '…' }}</h3>
         <p class="text-sm text-gray-600 mt-1">{{ current ? current.description : '' }}</p>
 
         <!-- <div class="mt-3 flex items-center gap-2">
-          <button v-for="(s, i) in slides" :key="s.file" @click="goTo(i)" :class="['w-2 h-2 rounded-full', i === index ? 'bg-[color:var(--color-primary)]' : 'bg-gray-300']" aria-label="Go to slide"></button>
+          <button v-for="(s, i) in slides" :key="s.file" @click="goTo(i)" :class="['w-2 h-2 rounded-full', i === index ? 'bg-[color:var(--color-brand-dark-green)]' : 'bg-gray-300']" aria-label="Go to slide"></button>
         </div> -->
       </div>
     </div>

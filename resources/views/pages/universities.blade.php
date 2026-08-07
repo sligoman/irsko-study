@@ -4,8 +4,8 @@
 @section('meta_description', 'Přehled vybraných irských vysokých škol a programů vhodných pro studenty z ČR a SK. Najděte univerzitu, která vám sedne.')
 
 @section('content')
-  <div class="max-w-6xl mx-auto px-4 py-12">
-    <h1 class="text-3xl font-bold mb-4">Přehled top univerzit v Irsku</h1>
+  <div class="layout-container layout-section">
+    <h1 class="type-display-xl mb-4 text-brand-dark-green">Přehled top univerzit v Irsku</h1>
 
     <p class="text-gray-700 mb-6">Studium v Irsku patří k nejlepším investicím do budoucnosti. Irské univerzity nabízejí světovou úroveň vzdělání a silné propojení s praxí. Níže najdeš přehled nejvýznamnějších škol a tipy, jak si vybrat obor.</p>
 
@@ -30,14 +30,14 @@
             $schoolDesc = $school->description_cs ?? $school->description_en ?? null;
           @endphp
 
-          <div class="bg-white p-6 rounded-lg shadow flex flex-col h-full">
+          <div class="bg-brand-light-gray p-8 rounded-[12px] shadow flex flex-col h-full">
             @if($imgSrc)
               <div class="mb-4 overflow-hidden rounded">
                 <img src="{{ $imgSrc }}" alt="{{ $school->name }}" class="w-full h-36 object-cover">
               </div>
             @endif
 
-            <h3 class="font-semibold mb-2">{{ $school->name }}@if($school->acronym) ({{ $school->acronym }})@endif</h3>
+            <h3 class="type-display-sm font-semibold mb-2 text-brand-dark-green">{{ $school->name }}@if($school->acronym) ({{ $school->acronym }})@endif</h3>
 
             @if(!empty($schoolDesc))
               <p class="text-gray-700 mb-3">{{ \Illuminate\Support\Str::limit(strip_tags($schoolDesc), 180) }}</p>
@@ -66,12 +66,12 @@
     @endif
 
     <section class="mb-8">
-      <h2 class="text-2xl font-semibold mb-3">Jak si vybrat správný obor</h2>
+      <h2 class="type-display-md mb-3 text-brand-dark-green">Jak si vybrat správný obor</h2>
       <p class="text-gray-700">Výběr oboru závisí na tvých cílech a kariérních záměrech. Zvaž, jaké předměty tě baví, jaké jsou tvoje silné stránky a jaké obory mají reálné pracovní příležitosti po studiu. Pokud si nevíš rady, poradíme s výběrem na základě tvého profilu.</p>
     </section>
 
     <section class="mb-8 bg-gray-50 p-6 rounded-lg">
-      <h2 class="text-2xl font-semibold mb-3">Požadavky na české studenty</h2>
+      <h2 class="type-display-md mb-3 text-brand-dark-green">Požadavky na české studenty</h2>
       <ul class="list-disc list-inside text-gray-700 space-y-2">
         <li>Maturitní vysvědčení přeložené do angličtiny (úřední překlad dle požadavků školy).</li>
         <li>Potvrzení o znalosti angličtiny (IELTS, Duolingo, Cambridge), pokud je vyžadováno.</li>
@@ -81,17 +81,17 @@
     </section>
 
     <section class="mb-8">
-      <h2 class="text-2xl font-semibold mb-3">Přihláška</h2>
+      <h2 class="type-display-md mb-3 text-brand-dark-green">Přihláška</h2>
       <p class="text-gray-700">Je důležité dodržet termíny, správně seřadit priority a dodat všechny požadované dokumenty. S tím ti pomůžeme krok za krokem.</p>
     </section>
 
-    <div class="bg-white p-6 rounded-lg shadow mb-8">
-      <h3 class="font-semibold mb-2">Chceš studovat v angličtině a získat titul uznávaný v Evropě?</h3>
+    <div class="bg-brand-light-gray p-8 rounded-[12px] shadow mb-8">
+      <h3 class="type-display-sm font-semibold mb-2 text-brand-dark-green">Chceš studovat v angličtině a získat titul uznávaný v Evropě?</h3>
       <p class="text-gray-600">Irsko nabízí nejen špičkové univerzity, ale i přátelské prostředí a reálné pracovní příležitosti. Vybereme školu, která sedne právě tobě a pomůžeme s celým procesem přihlášky.</p>
     </div>
 
     <div class="text-center">
-      <a href="{{ route('contact') }}" class="inline-block px-6 py-3 bg-[color:var(--color-emerald)] text-white rounded">Domluv konzultaci</a>
+      <a href="{{ route('contact') }}" class="inline-block px-6 py-3 bg-[color:var(--color-brand-light-green)] text-white rounded">Domluv konzultaci</a>
     </div>
 
   </div>

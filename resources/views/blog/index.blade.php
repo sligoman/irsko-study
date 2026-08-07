@@ -27,8 +27,8 @@
 @endphp
 
 @section('content')
-  <div class="max-w-4xl mx-auto py-12 px-6">
-    <h1 class="text-3xl font-bold text-[color:var(--color-primary)] mb-6">Novinky a články</h1>
+  <div class="layout-container max-w-4xl mx-auto py-12">
+    <h1 class="type-display-xl text-brand-dark-green mb-6">Novinky a články</h1>
 
     @if($posts->count())
       <div class="space-y-6">
@@ -47,7 +47,7 @@
               @endif
 
               <div class="flex-1">
-                <h2 class="text-xl font-semibold text-[color:var(--color-primary)]">
+                <h2 class="text-xl font-semibold text-[color:var(--color-brand-dark-green)]">
                   <a href="{{ route('blog.show', $post->slug) }}">{{ $post->title }}</a>
                 </h2>
 
@@ -57,7 +57,7 @@
 
                 <div class="mt-3 flex items-center justify-between text-sm text-gray-500">
                   <div>{{ optional($post->created_at)->format('j. n. Y') }}</div>
-                  <a href="{{ route('blog.show', $post->slug) }}" class="text-[color:var(--color-emerald)]">Číst více →</a>
+                  <a href="{{ route('blog.show', $post->slug) }}" class="text-[color:var(--color-brand-light-green)]">Číst více →</a>
                 </div>
               </div>
             </div>

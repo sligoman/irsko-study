@@ -4,14 +4,14 @@
 @section('meta_description', 'O nás — kdo jsme, proč se specializujeme na Irsko a jak pomáháme studentům z ČR a SK s přestupem na irské vysoké školy.')
 
 @section('content')
-  <div class="max-w-6xl mx-auto px-4 sm:px-8 lg:px-4 pt-28">
+  <div class="layout-container layout-section">
     {{-- Hero / intro --}}
     <header class="mb-10 text-center md:text-left">
-      <h1 class="text-3xl font-extrabold mb-3">O nás</h1>
-      <p class="text-lg text-gray-600 max-w-4xl md:mx-0">Pomáháme českým a slovenským studentům splnit sen o studiu v Irsku. Studium v Irsku pro nás není jen téma — je to naše vlastní zkušenost a každodenní realita.</p>
+      <h1 class="type-display-xl mb-3 text-brand-dark-green">O nás</h1>
+      <p class="type-text-lg max-w-4xl text-brand-dark-green">Pomáháme českým a slovenským studentům splnit sen o studiu v Irsku. Studium v Irsku pro nás není jen téma — je to naše vlastní zkušenost a každodenní realita.</p>
     </header>
 
-      <h2 class="text-2xl font-extrabold mb-3">Kdo jsme a proč právě Irsko</h2>
+      <h2 class="type-display-md mb-3 text-brand-dark-green">Kdo jsme a proč právě Irsko</h2>
       <div class="prose prose-lg prose-slate text-center md:text-left">
       <p>V Irsku žijeme, studovali jsme zde, a proto dokonale rozumíme systému, kultuře i výzvám, které studenty čekají. Na rozdíl od agentur, které se snaží pokrýt celý svět, se specializujeme pouze na Irsko — díky tomu dáváme nejaktuálnější a nejkvalitnější poradenství.</p>
 
@@ -28,7 +28,7 @@
       {{-- <hr class="my-8" /> --}}
 
       {{-- Team cards --}}
-      <h2 class="text-3xl font-extrabold mb-3 mt-8">Náš tým</h2>
+      <h2 class="type-display-md mb-3 mt-8 text-brand-dark-green">Náš tým</h2>
       <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <article class="bg-white p-6 rounded-lg shadow">
           <div class="flex flex-col items-start gap-4">
@@ -77,11 +77,11 @@
       </section>
 
       {{-- Contact card --}}
-      <section class="bg-white p-6 rounded-lg shadow">
-        <h3 class="text-lg font-semibold mb-2">Kontakt</h3>
+      <section class="bg-brand-light-gray p-8 rounded-[12px]">
+        <h3 class="type-display-sm mb-2 text-brand-dark-green">Kontakt</h3>
         <p class="text-gray-600 mb-4">Máte otázky? Napište nám nebo zavolejte — rádi poradíme.</p>
-        <p class="text-gray-700">E-mail: <a href="mailto:{{ config('contacts.email') }}" class="text-[color:var(--color-emerald)]">{{ config('contacts.email') }}</a><br>
-        Mobil: <a href="tel:{{ config('contacts.mobile') }}" class="text-[color:var(--color-emerald)]">{{ config('contacts.mobile') }}</a></p>
+        <p class="text-gray-700">E-mail: <a href="mailto:{{ config('contacts.email') }}" class="text-[color:var(--color-brand-light-green)]">{{ config('contacts.email') }}</a><br>
+        Mobil: <a href="tel:{{ config('contacts.mobile') }}" class="text-[color:var(--color-brand-light-green)]">{{ config('contacts.mobile') }}</a></p>
       </section>
 
     @include('components.cta')

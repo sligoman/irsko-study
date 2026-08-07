@@ -5,7 +5,7 @@
       <button
         v-if="!visible && !isSubmitted"
         @click="open"
-        class="bg-[color:var(--color-primary)] text-white rounded-full w-16 h-16 flex items-center justify-center shadow-lg hover:brightness-110 focus:outline-none"
+        class="bg-[color:var(--color-brand-dark-green)] text-white rounded-full w-16 h-16 flex items-center justify-center shadow-lg hover:brightness-110 focus:outline-none"
         aria-label="Otevřít kontaktní formulář"
       >
         <!-- use a slightly larger SVG like your snippet -->
@@ -16,7 +16,7 @@
 
       <!-- selected courses badge -->
       <div v-if="selectedCourses && selectedCourses.length > 0" class="absolute -top-3 -right-3">
-        <span class="bg-[color:var(--color-primary)] text-white rounded-full w-8 h-8 flex items-center justify-center shadow-lg text-sm">{{ selectedCourses.length }}</span>
+        <span class="bg-[color:var(--color-brand-dark-green)] text-white rounded-full w-8 h-8 flex items-center justify-center shadow-lg text-sm">{{ selectedCourses.length }}</span>
       </div>
     </div>
 
@@ -75,15 +75,15 @@
               </div>
 
               <div class="mt-3">
-                <button type="submit" :disabled="submitting" class="inline-flex items-center justify-center w-full h-12 px-6 font-medium text-white bg-[color:var(--color-primary)] rounded">
+                <button type="submit" :disabled="submitting" class="inline-flex items-center justify-center w-full h-12 px-6 font-medium text-white bg-[color:var(--color-brand-dark-green)] rounded">
                   {{ submitting ? 'Odesílám…' : 'Odeslat' }}
                 </button>
               </div>
               <!-- Optional quick contact line -->
               <div class="mt-3 text-sm text-gray-600">
-                <div v-if="contacts.email">Napište nám: <a :href="`mailto:${contacts.email}`" class="text-[color:var(--color-emerald)]">{{ contacts.email }}</a></div>
-                <div v-if="contacts.mobile" class="mt-1">Mobil: <a :href="`tel:${contacts.mobile}`" class="text-[color:var(--color-emerald)]">{{ contacts.mobile }}</a></div>
-                <div v-if="contacts.whatsapp" class="mt-1">WhatsApp: <a :href="contacts.whatsapp.startsWith('http') ? contacts.whatsapp : ('https://wa.me/message/' + contacts.whatsapp)" target="_blank" rel="noopener" class="text-[color:var(--color-emerald)]">Odeslat zprávu</a></div>
+                <div v-if="contacts.email">Napište nám: <a :href="`mailto:${contacts.email}`" class="text-[color:var(--color-brand-light-green)]">{{ contacts.email }}</a></div>
+                <div v-if="contacts.mobile" class="mt-1">Mobil: <a :href="`tel:${contacts.mobile}`" class="text-[color:var(--color-brand-light-green)]">{{ contacts.mobile }}</a></div>
+                <div v-if="contacts.whatsapp" class="mt-1">WhatsApp: <a :href="contacts.whatsapp.startsWith('http') ? contacts.whatsapp : ('https://wa.me/message/' + contacts.whatsapp)" target="_blank" rel="noopener" class="text-[color:var(--color-brand-light-green)]">Odeslat zprávu</a></div>
                 <div v-if="contacts.whatsapp_qr" class="mt-2">
                   <a :href="contacts.whatsapp_qr.startsWith('http') ? contacts.whatsapp_qr : ('/' + contacts.whatsapp_qr)" target="_blank" rel="noopener">
                     <img :src="contacts.whatsapp_qr.startsWith('http') ? contacts.whatsapp_qr : ('/' + contacts.whatsapp_qr)" alt="WhatsApp QR" class="w-20 h-20 object-contain rounded-md border" />
@@ -100,7 +100,7 @@
             </svg>
           </div>
 
-          <div v-show="isSubmitted" class="font-bold text-[color:var(--color-primary)] text-lg space-y-2">
+          <div v-show="isSubmitted" class="font-bold text-[color:var(--color-brand-dark-green)] text-lg space-y-2">
             <div>Děkujeme za odeslání formuláře.</div>
             <div>Brzy se ti ozveme.</div>
           </div>
@@ -138,13 +138,13 @@
         </div>
 
         <div class="flex items-center gap-4">
-          <button :disabled="submitting" class="bg-[color:var(--color-primary)] text-white px-4 py-2 rounded disabled:opacity-60">{{ submitting ? 'Odesílám…' : 'Odeslat' }}</button>
+          <button :disabled="submitting" class="bg-[color:var(--color-brand-dark-green)] text-white px-4 py-2 rounded disabled:opacity-60">{{ submitting ? 'Odesílám…' : 'Odeslat' }}</button>
           <p v-if="isSubmitted" class="text-green-600">Děkujeme, zpráva byla odeslána.</p>
         </div>
         <div class="mt-2 text-sm text-gray-600">
-          <div v-if="contacts.email">Napište nám: <a :href="`mailto:${contacts.email}`" class="text-[color:var(--color-emerald)]">{{ contacts.email }}</a></div>
-          <div v-if="contacts.mobile" class="mt-1">Mobil: <a :href="`tel:${contacts.mobile}`" class="text-[color:var(--color-emerald)]">{{ contacts.mobile }}</a></div>
-          <div v-if="contacts.whatsapp" class="mt-1">WhatsApp: <a :href="contacts.whatsapp.startsWith('http') ? contacts.whatsapp : ('https://wa.me/message/' + contacts.whatsapp)" target="_blank" rel="noopener" class="text-[color:var(--color-emerald)]">Odeslat zprávu</a></div>
+          <div v-if="contacts.email">Napište nám: <a :href="`mailto:${contacts.email}`" class="text-[color:var(--color-brand-light-green)]">{{ contacts.email }}</a></div>
+          <div v-if="contacts.mobile" class="mt-1">Mobil: <a :href="`tel:${contacts.mobile}`" class="text-[color:var(--color-brand-light-green)]">{{ contacts.mobile }}</a></div>
+          <div v-if="contacts.whatsapp" class="mt-1">WhatsApp: <a :href="contacts.whatsapp.startsWith('http') ? contacts.whatsapp : ('https://wa.me/message/' + contacts.whatsapp)" target="_blank" rel="noopener" class="text-[color:var(--color-brand-light-green)]">Odeslat zprávu</a></div>
         </div>
       </form>
     </div>

@@ -1,52 +1,44 @@
-<section class="relative overflow-hidden pt-28">
-  <div class="absolute inset-0"></div>
-  <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-      <div class="lg:col-span-7 reveal reveal-from-left">
-        <div class="inline-block px-3 py-1 rounded-full bg-[color:var(--color-emerald)]/10 text-[color:var(--color-emerald)] font-semibold mb-4">Najdeš nás v Irsku</div>
+<section data-redesign-section="hero-stats" class="relative overflow-hidden rounded-b-[24px] bg-brand-dark-green text-white">
+  <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,120,46,0.22),transparent_30%),radial-gradient(circle_at_82%_24%,rgba(156,204,87,0.18),transparent_28%)]"></div>
+  <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/20 to-transparent"></div>
 
-        <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-[color:var(--color-primary)]">Studium v Irsku</h1>
-        <p class="mt-2 text-lg text-gray-700 font-italic">Jednoduché a bez starostí</p>
+  <div class="layout-container relative grid min-h-[720px] gap-10 pb-12 pt-32 lg:grid-cols-12 lg:items-center lg:pt-40">
+    <div class="lg:col-span-7">
+      <p class="type-text-md-semibold inline-flex rounded-full bg-white/10 px-4 py-2 text-white ring-1 ring-white/15">Najdeš nás přímo v Irsku</p>
+      <h1 class="type-display-2xl mt-6 max-w-[820px] text-white">
+        Studium v Irsku <span class="text-brand-orange">jednoduše</span> a bez starostí
+      </h1>
+      <p class="type-text-lg mt-6 max-w-[650px] text-white/85">Pomůžeme ti od první konzultace až po první den na kampusu: výběr školy, přihlášky, dokumenty, ubytování i praktická podpora po příjezdu.</p>
 
-        <p class="mt-6 text-lg text-gray-700 max-w-2xl">Pomůžeme ti od první konzultace až po první den na kampusu – přihlášky, dokumenty, ubytování i podpora po příjezdu.</p>
+      <div class="mt-10 flex flex-col gap-4 sm:flex-row">
+        <a href="{{ route('contact') }}" class="type-input-label transition-color-figma inline-flex items-center justify-center rounded-[8px] bg-brand-light-green px-8 py-4 text-brand-dark-green hover:bg-[#7db709]">Domluv si bezplatnou konzultaci</a>
+        <a href="{{ route('why') }}" class="type-input-label transition-color-figma inline-flex items-center justify-center rounded-[8px] border border-white/35 px-8 py-4 text-white hover:bg-white/10">Proč studovat v Irsku</a>
+      </div>
+    </div>
 
-        <div class="mt-8 flex flex-wrap gap-3">
-          <a href="{{ route('contact') }}" class="inline-flex items-center gap-2 btn-cta text-white px-5 py-3 rounded-md shadow">Domluv si bezplatnou konzultaci</a>
-          <a href="{{ route('why') }}" class="inline-flex items-center gap-2 bg-white text-[color:var(--color-primary)] px-5 py-3 rounded-md border">Zjisti proč studovat v Irsku</a>
-        </div>
-
-        <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="bg-white rounded-lg p-5 shadow-sm border">
-            <h3 class="text-sm font-semibold text-[color:var(--color-primary)]">Komplexní servis</h3>
-            <p class="mt-2 text-sm text-gray-600">Pomáháme od výběru studia až po nastěhování.</p>
-          </div>
-          <div class="bg-white rounded-lg p-5 shadow-sm border">
-            <h3 class="text-sm font-semibold text-[color:var(--color-primary)]">Ověřené postupy</h3>
-            <p class="mt-2 text-sm text-gray-600">Zkušenosti s irským systémem vzdělávání.</p>
-          </div>
+    <div class="lg:col-span-5">
+      <div class="relative mx-auto max-w-[520px]">
+        <div class="absolute -left-6 -top-6 hidden h-24 w-24 rounded-full bg-brand-orange/80 md:block"></div>
+        <div class="absolute -bottom-6 -right-6 hidden h-32 w-32 rounded-full border border-white/25 md:block"></div>
+        <div class="relative rounded-[16px] bg-white/10 p-3 shadow-2xl ring-1 ring-white/15 backdrop-blur">
+          <university-slideshow></university-slideshow>
         </div>
       </div>
+    </div>
 
-  <div class="lg:col-span-5 reveal reveal-from-right">
-        <div class="relative group">
-          <!-- decorative SVG blob -->
-          {{-- <svg class="absolute -left-12 -top-10 w-72 h-72 opacity-30 transform-gpu will-change-transform transition-transform duration-700 group-hover:rotate-6" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <g transform="translate(300,300)">
-              <path d="M120,-150C156,-126,189,-96,201,-59C213,-21,204,25,180,61C156,96,117,122,77,138C37,154,-4,160,-44,146C-84,132,-123,98,-146,55C-169,12,-176,-39,-156,-82C-136,-125,-89,-159,-40,-174C9,-189,55,-184,120,-150Z" fill="url(#g1)"/>
-              <defs>
-                <linearGradient id="g1" x1="0%" x2="100%" y1="0%" y2="100%">
-                  <stop offset="0%" stop-color="var(--color-emerald)" stop-opacity="0.25" />
-                  <stop offset="100%" stop-color="var(--color-primary)" stop-opacity="0.18" />
-                </linearGradient>
-              </defs>
-            </g>
-          </svg> --}}
-
-          <div class="transform-gpu transition duration-500 group-hover:-translate-y-2 group-hover:scale-105">
-            <university-slideshow></university-slideshow>
-          </div>
-
-          <!-- badge moved inside the slideshow component; removed external badge and script -->
+    <div class="lg:col-span-12">
+      <div class="mx-auto mt-4 grid max-w-[880px] gap-4 sm:grid-cols-3 sm:gap-8 lg:mt-10">
+        <div class="text-center sm:border-r sm:border-white/20 sm:pr-8">
+          <p class="type-display-xs text-white">A-Z</p>
+          <p class="type-text-sm mt-1 text-white/80">servis při přihlášce</p>
+        </div>
+        <div class="text-center sm:border-r sm:border-white/20 sm:px-8">
+          <p class="type-display-xs text-white">1:1</p>
+          <p class="type-text-sm mt-1 text-white/80">osobní podpora v Irsku</p>
+        </div>
+        <div class="text-center sm:pl-8">
+          <p class="type-display-xs text-white">CZ/SK</p>
+          <p class="type-text-sm mt-1 text-white/80">průvodce pro studenty</p>
         </div>
       </div>
     </div>

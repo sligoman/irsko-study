@@ -33,11 +33,11 @@
 @section('meta_description', $__sitemap_desc ?? 'Článek na blogu IrskoStudy o studiu v Irsku')
 
 @section('content')
-  <div class="max-w-3xl mx-auto py-12 px-6">
+  <div class="layout-container max-w-3xl mx-auto py-12">
     <a href="{{ route('blog') }}" class="text-sm text-gray-500 hover:underline">← Zpět na blog</a>
 
     <article class="bg-white p-6 rounded-lg shadow mt-4 prose lg:prose-xl">
-      <h1 class="text-2xl font-bold text-[color:var(--color-primary)]">{{ $post->title }}</h1>
+      <h1 class="type-display-lg text-brand-dark-green">{{ $post->title }}</h1>
       <div class="text-sm text-gray-500 mt-2">{{ optional($post->created_at)->format('j. n. Y') }}</div>
 
       @if(!empty($post->featured_image))

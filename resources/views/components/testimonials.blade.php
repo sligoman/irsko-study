@@ -1,6 +1,6 @@
-<section class="py-12 bg-gray-50">
+<section class="layout-section bg-brand-light-gray">
   <div class="max-w-6xl mx-auto px-4">
-    {{-- <h3 class="text-2xl font-semibold mb-6 text-[color:var(--color-primary)]">Reference studentů</h3> --}}
+    {{-- <h3 class="text-2xl font-semibold mb-6 text-[color:var(--color-brand-dark-green)]">Reference studentů</h3> --}}
 
         <video class="min-w-[280px] rounded-lg shadow flex-shrink-0" controls>
           <source src="{{ asset('img/video.mp4') }}" type="video/mp4">

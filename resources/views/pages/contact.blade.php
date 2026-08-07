@@ -5,14 +5,14 @@
 
 @section('content')
 
-<section class="py-12">
+<section class="layout-section">
 
-<div class="max-w-6xl mx-auto px-4">
+<div class="layout-container">
 
-    <h1 class="text-2xl font-bold">Kontakt</h1>
-    <p class="mt-2">Napiš nám a domluv si konzultaci.</p>
+    <h1 class="type-display-xl text-brand-dark-green">Kontakt</h1>
+    <p class="type-text-md mt-2 text-brand-dark-green">Napiš nám a domluv si konzultaci.</p>
 
-      <contact-form />
+      <div class="mt-10"><contact-form /></div>
 </div>
 
 
