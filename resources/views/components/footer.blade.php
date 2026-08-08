@@ -25,6 +25,7 @@ $footerLinksClass = 'type-text-md transition-color-figma block py-2 text-white h
               <a href="{{ route('about') }}" class="{{ $footerLinksClass }}">O nás</a>
               <a href="{{ route('why') }}" class="{{ $footerLinksClass }}">Proč Irsko</a>
               <a href="{{ route('universities') }}" class="{{ $footerLinksClass }}">Vysoké školy</a>
+              <a href="{{ route('finder.courses') }}" class="{{ $footerLinksClass }}">Kurzy</a>
               <a href="{{ route('services') }}" class="{{ $footerLinksClass }}">Služby</a>
             </div>
           </div>
