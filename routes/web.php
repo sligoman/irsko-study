@@ -6,14 +6,6 @@ use App\Http\Controllers\LeadController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FinderController;
 
-//welcome
-Route::get('/welcome', function () {
-   return 'Welcome to Laravel!';
-});
-
-Route::get('/', function () {
-    return view('welcome');
-});
 
 // Static pages (blade views in resources/views/pages)
 Route::view('/', 'pages.home')->name('home');
