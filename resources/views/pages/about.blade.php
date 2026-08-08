@@ -4,88 +4,122 @@
 @section('meta_description', 'O nás — kdo jsme, proč se specializujeme na Irsko a jak pomáháme studentům z ČR a SK s přestupem na irské vysoké školy.')
 
 @section('content')
-  <div class="layout-container layout-section">
-    {{-- Hero / intro --}}
-    <header class="mb-10 text-center md:text-left">
-      <h1 class="type-display-xl mb-3 text-brand-dark-green">O nás</h1>
-      <p class="type-text-lg max-w-4xl text-brand-dark-green">Pomáháme českým a slovenským studentům splnit sen o studiu v Irsku. Studium v Irsku pro nás není jen téma — je to naše vlastní zkušenost a každodenní realita.</p>
-    </header>
+  <main data-redesign-page="about" class="bg-base-white">
+    <section data-redesign-section="about-hero" class="relative overflow-hidden rounded-b-[24px] bg-brand-dark-green text-white">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_14%_22%,rgba(255,120,46,0.26),transparent_28%),radial-gradient(circle_at_88%_18%,rgba(156,204,87,0.2),transparent_30%)]"></div>
+      <div class="layout-container relative py-20 md:py-28">
+        <div class="max-w-[900px]">
+          <p class="type-text-md-semibold inline-flex rounded-full bg-white/10 px-4 py-2 text-white ring-1 ring-white/15">O nás</p>
+          <h1 class="type-display-2xl mt-6 text-white">Irsko známe <span class="text-brand-orange">zevnitř</span>, ne z katalogu</h1>
+          <p class="type-text-lg mt-6 max-w-[720px] text-white/85">Pomáháme českým a slovenským studentům splnit sen o studiu v Irsku. Studium v Irsku pro nás není jen téma, ale vlastní zkušenost a každodenní realita.</p>
+        </div>
 
-      <h2 class="type-display-md mb-3 text-brand-dark-green">Kdo jsme a proč právě Irsko</h2>
-      <div class="prose prose-lg prose-slate text-center md:text-left">
-      <p>V Irsku žijeme, studovali jsme zde, a proto dokonale rozumíme systému, kultuře i výzvám, které studenty čekají. Na rozdíl od agentur, které se snaží pokrýt celý svět, se specializujeme pouze na Irsko — díky tomu dáváme nejaktuálnější a nejkvalitnější poradenství.</p>
-
-      <h3>Naše filozofie</h3>
-      <p>Nejsme klasická agentura — jsme průvodci. Neslibujeme nemožné, ale nabízíme jistotu, zkušenost a realistický přístup. Pomůžeme ti pochopit celý proces, připravíme jasné kroky a zůstaneme s tebou v kontaktu i po příjezdu.</p>
-
-      <h3>Naše mise</h3>
-      <p>Pomáhat českým a slovenským studentům otevřít dveře ke kvalitnímu vzdělání v Irsku — lidsky, osobně a s hlubokou znalostí prostředí, ve kterém sami žijeme.</p>
-
-      <h3>Proč my</h3>
-      <p>Zůstáváme s tebou i po příjezdu — pomůžeme s ubytováním, bankou a orientací ve městě. Nabízíme osobní přístup a reálné zkušenosti z Irska.</p>
+        <div class="mt-12 grid max-w-[900px] gap-4 sm:grid-cols-3">
+          <div class="rounded-[12px] bg-white/10 p-5 ring-1 ring-white/15">
+            <p class="type-display-xs text-white">20 let</p>
+            <p class="type-text-sm mt-1 text-white/80">života v Irsku</p>
+          </div>
+          <div class="rounded-[12px] bg-white/10 p-5 ring-1 ring-white/15">
+            <p class="type-display-xs text-white">1 země</p>
+            <p class="type-text-sm mt-1 text-white/80">specializujeme se na Irsko</p>
+          </div>
+          <div class="rounded-[12px] bg-white/10 p-5 ring-1 ring-white/15">
+            <p class="type-display-xs text-white">A-Z</p>
+            <p class="type-text-sm mt-1 text-white/80">podpora před i po příjezdu</p>
+          </div>
+        </div>
       </div>
+    </section>
 
-      {{-- <hr class="my-8" /> --}}
+    <section data-redesign-section="about-values" class="home-section">
+      <div class="layout-container">
+        <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+          <div>
+            <p class="type-text-md-semibold text-brand-orange">Kdo jsme a proč právě Irsko</p>
+            <h2 class="type-display-lg mt-2 text-brand-dark-green">Jsme průvodci, ne klasická agentura</h2>
+          </div>
+          <p class="type-text-lg text-brand-dark-green">V Irsku žijeme, studovali jsme zde a rozumíme systému, kultuře i výzvám, které studenty čekají. Na rozdíl od agentur, které pokrývají celý svět, se specializujeme pouze na Irsko.</p>
+        </div>
 
-      {{-- Team cards --}}
-      <h2 class="type-display-md mb-3 mt-8 text-brand-dark-green">Náš tým</h2>
-      <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <article class="bg-white p-6 rounded-lg shadow">
-          <div class="flex flex-col items-start gap-4">
-            <div class="flex items-center justify-center text-xl font-semibold text-gray-500 md:h-96 w-full"><img src="{{ asset('img/team/david_fiala.jpg') }}" alt="David Fiala" class="rounded-sm h-full w-full object-cover" /></div>
-            <div>
-              <div class="text-sm text-gray-500">David Fiala (majitel)</div>
-              <h4 class="text-lg font-semibold mt-1">Žiju v Irsku téměř 20 let, studoval jsem v USA, Německu a Irsku</h4>
+        <div class="mt-12 grid gap-5 md:grid-cols-3">
+          <article class="rounded-[16px] bg-brand-light-gray p-6">
+            <div class="mb-8 h-1 w-16 rounded-full bg-brand-orange"></div>
+            <h3 class="type-display-xs text-brand-dark-green">Naše filozofie</h3>
+            <p class="type-text-md mt-3 text-brand-dark-green">Neslibujeme nemožné. Připravíme jasné kroky, vysvětlíme celý proces a zůstaneme v kontaktu i po příjezdu.</p>
+          </article>
+          <article class="rounded-[16px] bg-brand-dark-green p-6 text-white">
+            <div class="mb-8 h-1 w-16 rounded-full bg-brand-light-green"></div>
+            <h3 class="type-display-xs text-white">Naše mise</h3>
+            <p class="type-text-md mt-3 text-white/85">Otevírat studentům z ČR a SK dveře ke kvalitnímu vzdělání v Irsku lidsky, osobně a s hlubokou znalostí prostředí.</p>
+          </article>
+          <article class="rounded-[16px] bg-brand-light-gray p-6">
+            <div class="mb-8 h-1 w-16 rounded-full bg-brand-orange"></div>
+            <h3 class="type-display-xs text-brand-dark-green">Proč my</h3>
+            <p class="type-text-md mt-3 text-brand-dark-green">Pomůžeme s výběrem školy, ubytováním, bankou i orientací ve městě. Opíráme se o reálné zkušenosti z Irska.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section data-redesign-section="about-team" class="home-section">
+      <div class="layout-container">
+        <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p class="type-text-md-semibold text-brand-orange">Náš tým</p>
+            <h2 class="type-display-lg mt-2 text-brand-dark-green">Lidé, kteří tě povedou</h2>
+          </div>
+          <p class="type-text-lg max-w-[560px] text-brand-dark-green">Každý z nás má vlastní zahraniční zkušenost. Díky tomu rozumíme praktickým otázkám i emocím, které se při odjezdu objeví.</p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          <article class="overflow-hidden rounded-[16px] bg-brand-light-gray">
+            <img src="{{ asset('img/team/david_fiala.jpg') }}" alt="David Fiala" class="h-[360px] w-full object-cover" loading="lazy" decoding="async">
+            <div class="p-6 md:p-8">
+              <p class="type-text-sm text-brand-orange">David Fiala, majitel</p>
+              <h3 class="type-display-sm mt-2 text-brand-dark-green">Žiju v Irsku téměř 20 let, studoval jsem v USA, Německu a Irsku</h3>
+              <div class="mt-5 space-y-4 text-brand-dark-green type-text-md">
+                <p>Na prvních výměnných kurzech jsem byl už ve 14 letech v Holandsku a Belgii. Později jsem studoval v USA, v Německu na Erasmu a po studiích odešel do Irska hledat práci.</p>
+                <p>V Irsku jsem pracoval pro Ebay, studoval účetnictví a finance na Dublin Business School a později vedl španělský tým v Paddy Power. Tyto zkušenosti mi ukázaly, jak velký rozdíl dokáže udělat jazyk, zahraniční praxe a odvaha vyjet ven.</p>
+                <p>Irsko mě získalo lidmi, přírodou a životním stylem. Usadil jsem se tu s rodinou a dnes pomáhám studentům, aby jejich cesta byla jasnější a klidnější než moje první kroky v zahraničí.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="overflow-hidden rounded-[16px] bg-brand-light-gray">
+            <img src="{{ asset('img/team/michal_chupik.jpeg') }}" alt="Michal Chupík" class="h-[360px] w-full object-cover" loading="lazy" decoding="async">
+            <div class="p-6 md:p-8">
+              <p class="type-text-sm text-brand-orange">Michal Chupík, koordinátor</p>
+              <h3 class="type-display-sm mt-2 text-brand-dark-green">Student TU Dublin, letecké technologie a koordinace</h3>
+              <div class="mt-5 space-y-4 text-brand-dark-green type-text-md">
+                <p>Jsem z Olomouce a momentálně žiju a studuju v Dublinu technický obor letecké technologie na TU Dublin. Irsko jsem si vybral kvůli studiu v angličtině a dobré dostupnosti z domova.</p>
+                <p>Můj první rok v Irsku je plný objevování: výuka, administrativa, bydlení, orientace ve městě i hledání rovnováhy mezi školou a volným časem. Díky tomu přesně vím, co studenti řeší v praxi.</p>
+                <p>Baví mě letadla, drony, technologie, doprava a cestování. Jako koordinátor chci studentům pomáhat tak, aby měli hladký start a mohli se soustředit na studium i poznávání nové země.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section data-redesign-section="about-contact" class="home-section pb-20">
+      <div class="layout-container">
+        <div class="grid overflow-hidden rounded-[16px] bg-brand-light-gray lg:grid-cols-[1fr_0.8fr]">
+          <div class="p-6 md:p-10 lg:p-12">
+            <p class="type-text-md-semibold text-brand-orange">Kontakt</p>
+            <h2 class="type-display-lg mt-2 text-brand-dark-green">Máš otázky ke studiu v Irsku?</h2>
+            <p class="type-text-lg mt-6 max-w-[620px] text-brand-dark-green">Napiš nám nebo zavolej. Rádi poradíme, jestli je Irsko pro tebe dobrá volba a jaký první krok dává smysl.</p>
+          </div>
+          <div class="bg-white p-6 md:p-10 lg:p-12">
+            <div class="space-y-4 type-text-md text-brand-dark-green">
+              <p>E-mail: <a href="mailto:{{ config('contacts.email') }}" class="text-brand-orange hover:underline">{{ config('contacts.email') }}</a></p>
+              <p>Mobil: <a href="tel:{{ config('contacts.mobile') }}" class="text-brand-orange hover:underline">{{ config('contacts.mobile') }}</a></p>
+              <a href="{{ route('contact') }}" class="type-input-label transition-color-figma inline-flex items-center justify-center rounded-[8px] bg-brand-light-green px-8 py-4 text-brand-dark-green hover:bg-[#7db709]">Domluv si konzultaci</a>
             </div>
           </div>
-
-          <div class="mt-4 text-gray-700 space-y-2 prose prose-lg prose-slate">
-          <p>Na svých prvních výměnných kurzech jsem byl ve 14 letech, kdy mě máma poslala do Holandska a Belgie. V 16 jsem o prázdninách vyrazil do Berlína, kde jsem 2 týdny žil v německé rodině a docházel na jazykový kurz němčiny. A během stejného léta jsem ještě vyjel do Anglie a chodil tam na jazykovou školu na kurz angličtiny. Byly to pro mě neuvěřitelné zkušenosti. Vyzkoušel jsem si, jaké to je být sám v cizí zemi, poznal jsem nová prostředí, našel kamarády z jiných zemí a zjistil, jak to funguje v zahraničních rodinách. Dodalo mi to sebevědomí a samozřejmě i jazykovou výbavu.</p>
-          <p>Následující rok jsem vyjel na půl roku studovat do USA. Bydlel jsem na Floridě u místní rodiny a chodil na  střední školu. Našel jsem si tam i brigádu na víkendy a vydělal první peníze. Odjížděl jsem se skvělou angličtinou, super zážitky a poznáním, že to není ta země, ve které bych chtěl jednou žít.</p>
-          <p>Díky angličtině jsem brzy po maturitě našel brigádu v renomované CK, kde jsem po 4 roky organizoval incomingové zahraniční skupiny a kongresy.</p>
-          <p>Během studií na právech jsem vycestoval na Erasmus do Drážďan a rok studoval na právnické fakultě. Ze začátku to bylo náročné kvůli odborné němčině, ale po pár měsících jsem se chytil. Začal jsem se zde i učit španělsky, abych se dorozuměl se Španěli, kteří nebyli v jazycích zrovna silní . Nemčinu jsem si natolik zlepšil, že jsem si našel práci překladatele v jedné místní firmě. Byl to nejen nejlepší rok mého života, ale též přelomový pro moje další životní kroky.</p>
-          <p>Po návratu do Čech jsem se přihlásil, že se budu starat o studenty, kteří přijeli do ČR na Erasmus. Potkával jsem se tak se studenty z celého světa. Nejblíže jsem měl k lidem z Irska, zaujali mě svou přátelskostí a srdečností. </p>
-          <p>A tak jsem po studiích, to mi bylo 25 let, odjel do Irska hledat práci. Už po třech dnech jsem byl na pohovoru v mezinárodní společnosti Ebay a vzali mě ve finále na lepší pozici, než jsem se hlásil. Pomohla mi k tomu skvělá angličtina a znalost němčiny. V rámci zaučení mě poslali na 3 týdny do Izraele na stáž. Byl jsem součástí německého týmu, který vedl Izraelec a já v rámci projektu vedl 5 lidí. Strávil jsem tam báječných 2,5 let. </p>
-          <p>Během práce jsem rok studoval na Dublin Business School účetnictví a finance. Následně si ještě udělal certifikát na projektového manažera. Vše s cílem, abych se v Irsku mohl stát manažerem. </p>
-          <p>Díky praxi z Ebay, studiím v Irskua jazykovým znalostem jsem získal práci v největší irské sázkové kanceláři Paddy Power, ve které jsem vedl celý španělský tým. Nutno podotknout, že s praxí pouze v ČR bych nikdy takovou práci nezískal.</p>
-          <p>Po 3 letech v Paddy Power jsem se rozhodl, že začnu podnikat. Založil jsem se dvěma společníky firmu Praga Medica, která organizuje lékařskou péči v ČR pro cizince. </p>
-          <p>Irsko mě učarovalo skvělými lidmi, nádhernou přírodou, možností chodit denně surfovat a pohodovou prací s vysokými platy…, takže jsem se tu usadil. Našel jsem si tu ženu, která pochází z Litvy, a máme spolu 2 děti. Ty mluví 3 jazyky. Chceme v Irsku zůstat také kvůli nim, aby měly angličtinu jako mateřský jazyk a měly jednodušší start v životě, než jsme měli my. </p>
-          </div>
-        </article>
-
-        <article class="bg-white p-6 rounded-lg shadow">
-          <div class="flex flex-col items-start gap-4">
-            <div class="flex items-center justify-center text-xl font-semibold text-gray-500 md:h-96 w-full"><img src="{{ asset('img/team/michal_chupik.jpeg') }}" alt="Michal Chupík" class="rounded-sm h-full w-full object-cover" /></div>
-            <div>
-              <div class="text-sm text-gray-500">Michal Chupík (koordinátor)</div>
-              <h4 class="text-lg font-semibold mt-1">Student TU Dublin — letecké technologie & koordinace</h4>
-            </div>
-          </div>
-
-          <div class="mt-4 text-gray-700 space-y-3 prose prose-lg prose-slate">
-            <p>Jmenuju se Michal Chupík, je mi 20 let a pocházím z Olomouce. Momentálně žiju a studuju v Dublinu, kde se věnuju technickému oboru letecké technologie na TU Dublin. Vybral jsem si Irsko, protože jsem studoval šestileté dvojjazyčné gymnázium Olomouc – Hejčín a chtěl jsem pokračovat ve studiu v angličtině, ale zároveň zůstat relativně blízko domovu. TU Dublin mě zaujala, protože nabízí přesně obor, který mě baví, a zároveň mi umožňuje poznávat nové prostředí a zemi.</p>
-
-            <p>Můj první rok v Irsku je plný objevování. Musím si zvyknout na nový systém výuky, administrativu a každodenní život v Dublinu. Každý krok je pro mě zkušeností od hledání vhodného bydlení přes orientaci ve městě až po organizaci volného času. Rád poznávám nová místa a zemi, ve které žiju, takže každý víkend je pro mě příležitostí objevovat Dublin a jeho okolí i vzdálenější kouty Irska.</p>
-
-            <p>Každé léto jezdím na brigádu do Holandska na tulipánovou farmu, kde pracuju, poznávám nové lidi a zároveň vydělávám peníze na studium a cestování. Tyto zkušenosti mi pomáhají chápat, jak náročné je skloubit studium, práci a život v cizí zemi, a díky tomu dokážu studentům poradit z vlastní zkušenosti.</p>
-
-            <p>Miluju letadla, drony, technologie, dopravu a cestování a právě tuto vášeň přenáším i do své práce koordinátora. Vím, co je pro studenty při přihlašování a adaptaci na novou zemi důležité a proto chci pomáhat každému, kdo se rozhodne studovat v Irsku. Mým cílem je, aby studenti měli hladký start, mohli se soustředit na studium a zároveň poznávat novou kulturu a životní prostředí.</p>
-
-            <p>Irsko pro mě není jen země studia, je to místo, kde můžu rozvíjet své zájmy, poznávat nové lidi a připravovat se na budoucí kariéru. Proto je pro mě důležité být tu pro studenty, kteří se chtějí vydat stejnou cestou, a podporovat je na každém kroku.</p>
-          </div>
-        </article>
-      </section>
-
-      {{-- Contact card --}}
-      <section class="bg-brand-light-gray p-8 rounded-[12px]">
-        <h3 class="type-display-sm mb-2 text-brand-dark-green">Kontakt</h3>
-        <p class="text-gray-600 mb-4">Máte otázky? Napište nám nebo zavolejte — rádi poradíme.</p>
-        <p class="text-gray-700">E-mail: <a href="mailto:{{ config('contacts.email') }}" class="text-[color:var(--color-brand-light-green)]">{{ config('contacts.email') }}</a><br>
-        Mobil: <a href="tel:{{ config('contacts.mobile') }}" class="text-[color:var(--color-brand-light-green)]">{{ config('contacts.mobile') }}</a></p>
-      </section>
+        </div>
+      </div>
+    </section>
 
     @include('components.cta')
-
-    </div>
-
+  </main>
 @endsection

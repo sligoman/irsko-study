@@ -1,34 +1,22 @@
-<section class="layout-section bg-brand-light-gray">
-  <div class="max-w-6xl mx-auto px-4">
-    {{-- <h3 class="text-2xl font-semibold mb-6 text-[color:var(--color-brand-dark-green)]">Reference studentů</h3> --}}
-
-        <video class="min-w-[280px] rounded-lg shadow flex-shrink-0" controls>
-          <source src="{{ asset('img/video.mp4') }}" type="video/mp4">
-          Váš prohlížeč nepodporuje přehrávání videa.
-        </video>
-
-    {{-- <div class="flex gap-4 overflow-x-auto pb-4">
+<section data-redesign-section="student-video" class="home-section bg-white">
+  <div class="layout-container">
+    <div class="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
       <div>
-        <video class="min-w-[280px] rounded-lg shadow flex-shrink-0" controls>
-          <source src="{{ asset('img/video.mp4') }}" type="video/mp4">
-          Váš prohlížeč nepodporuje přehrávání videa.
-        </video>
-      </div>
-      <div class="min-w-[280px] bg-white p-6 rounded-lg shadow flex-shrink-0">
-        <div class="text-gray-700">„Skvělá pomoc s přihláškou — všechno proběhlo hladce a efektivně. Doporučuji.“</div>
-        <div class="mt-4 text-sm text-gray-500">— Jana K., Trinity College</div>
+        <p class="type-text-md-semibold text-brand-orange">Reference studentů</p>
+        <h2 class="type-display-lg mt-2 text-brand-dark-green">Podívej se, jak vypadá cesta do Irska očima studentů</h2>
+        <p class="type-text-lg mt-6 text-brand-dark-green">Krátké video z původního Irsko Study webu jsme ponechali i v redesignu, protože nejlépe ukazuje atmosféru a osobní přístup, na kterém služba stojí.</p>
       </div>
 
-      <div class="min-w-[280px] bg-white p-6 rounded-lg shadow flex-shrink-0">
-        <div class="text-gray-700">„Profesionální přístup, individuální poradenství a jasné kroky.“</div>
-        <div class="mt-4 text-sm text-gray-500">— Petr S., UCD</div>
+      <div class="relative">
+        <div class="absolute -left-4 -top-4 h-20 w-20 rounded-full bg-brand-orange/80 md:-left-6 md:-top-6"></div>
+        <div class="absolute -bottom-5 -right-5 h-24 w-24 rounded-full bg-brand-light-green/70 md:-bottom-7 md:-right-7"></div>
+        <div class="relative overflow-hidden rounded-[16px] bg-brand-dark-green p-3 shadow-xl">
+          <video class="aspect-video w-full rounded-[12px] bg-black object-cover" controls preload="metadata">
+            <source src="{{ asset('img/video.mp4') }}" type="video/mp4">
+            Váš prohlížeč nepodporuje přehrávání videa.
+          </video>
+        </div>
       </div>
-
-      <div class="min-w-[280px] bg-white p-6 rounded-lg shadow flex-shrink-0">
-        <div class="text-gray-700">„Pomohli mi s ubytováním a adaptací — život v Irsku začal bez zbytečného stresu."</div>
-        <div class="mt-4 text-sm text-gray-500">— Klára M., Galway</div>
-      </div>
-    </div> --}}
+    </div>
   </div>
 </section>
-

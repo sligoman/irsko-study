@@ -21,7 +21,7 @@
     </div>
 
     <!-- Modal (centered on desktop, full-screen on mobile) -->
-    <div v-show="visible" class="fixed inset-0 z-50 flex items-center justify-center">
+    <div v-show="position === 'floating' && visible" class="fixed inset-0 z-50 flex items-center justify-center">
       <!-- Backdrop -->
       <div class="fixed inset-0 bg-gray-900 opacity-75" @click="close" aria-hidden="true"></div>
 

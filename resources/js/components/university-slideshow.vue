@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     imageUrl(file) {
-      return '/img/blog/medium/' + file;
+      return '/img/universities/' + file;
     },
     async load() {
       try {

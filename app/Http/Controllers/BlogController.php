@@ -35,7 +35,21 @@ class BlogController extends Controller
             $post->content = $this->addWFullToYoutubeIframes($post->content);
         }
 
-        return view('blog.show', ['post' => $post]);
+        $morePosts = AiblogPost::with('type')
+            ->where('slug', '!=', $slug)
+            ->whereHas('type', function ($query) {
+                $query->whereIn('name', ['blog', 'news']);
+            })
+            ->orderBy('created_at', 'desc')
+            ->take(3)
+            ->get()
+            ->transform(function ($item) {
+                $this->normalizePostImage($item);
+
+                return $item;
+            });
+
+        return view('blog.show', ['post' => $post, 'morePosts' => $morePosts]);
     }
 
     protected function enhanceBlogContentImages(string $content): string

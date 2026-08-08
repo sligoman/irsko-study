@@ -174,15 +174,30 @@
 }
 
 @utility blog-post {
-  @apply space-y-4;
-  & H2 {
-    @apply text-3xl font-bold text-gray-900;
+  @apply space-y-6;
+  & h2 {
+    @apply type-display-md mt-10 text-brand-dark-green;
   }
-  & H3 {
-    @apply text-xl font-bold text-gray-900;
+  & h3 {
+    @apply type-display-sm mt-8 text-brand-dark-green;
   }
-  & A {
-    @apply underline text-brand-dark-green;
+  & p {
+    @apply type-text-md text-brand-dark-green;
+  }
+  & ul {
+    @apply list-disc space-y-2 pl-5;
+  }
+  & ul li::marker {
+    color: var(--color-brand-light-green);
+  }
+  & blockquote {
+    @apply border-l-4 border-brand-light-green pl-6 text-brand-dark-green;
+  }
+  & a {
+    @apply text-brand-dark-green underline decoration-brand-light-green underline-offset-4;
+  }
+  & img {
+    @apply my-8 w-full rounded-[4px] object-cover;
   }
 }
 

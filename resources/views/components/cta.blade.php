@@ -1,4 +1,4 @@
-<section data-redesign-section="cta-banner" class="home-section">
+<section data-redesign-section="cta-banner" class="home-section pb-16 md:pb-20">
   <div class="layout-container">
     <div class="redesign-cta-pattern relative overflow-hidden rounded-[16px] px-6 py-10 text-white md:px-16 md:py-16">
       <div class="absolute right-8 top-8 hidden h-20 w-20 rounded-full bg-brand-orange/80 md:block"></div>

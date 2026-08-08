@@ -13,7 +13,7 @@
     </div>
 
     <transition name="redesign-fade">
-        <div v-show="showContactForm" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6" @click.self="closeContactForm">
+        <div v-show="showContactForm" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6" style="display: none;" @click.self="closeContactForm">
             <div class="fixed inset-0 bg-black/55" @click="closeContactForm"></div>
             <div class="redesign-footer-pattern relative z-10 w-full max-w-[768px] overflow-hidden rounded-[24px] p-6 shadow-2xl sm:p-10 lg:p-16">
                 <div class="mb-8 max-w-[472px]">
