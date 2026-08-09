@@ -28,5 +28,6 @@ class HeroPhotoComponentTest extends TestCase
         $this->assertStringContainsString('640w', $html);
         $this->assertStringContainsString('Najdi kurz', $html);
         $this->assertStringContainsString('pt-[104px]', $html);
+        $this->assertStringContainsString('min-h-[75vh]', $html);
     }
 }

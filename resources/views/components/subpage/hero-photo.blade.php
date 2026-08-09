@@ -19,7 +19,7 @@
     ->implode(', ');
 @endphp
 
-<section data-component="subpage-hero-photo" class="relative overflow-hidden rounded-b-[24px] bg-brand-dark-green text-white">
+<section data-component="subpage-hero-photo" class="relative flex min-h-[75vh] flex-col overflow-hidden rounded-b-[24px] bg-brand-dark-green text-white">
   @if(!empty($photo['src']))
     <img
       src="{{ $src }}"
@@ -33,7 +33,7 @@
   @endif
   <div class="absolute inset-0 bg-gradient-to-b from-black/10 via-black/35 to-black/60"></div>
 
-  <div class="layout-container relative pb-16 pt-[104px] md:pb-20 md:pt-28">
+  <div class="layout-container relative flex flex-1 flex-col justify-center pb-16 pt-[104px] md:pb-20 md:pt-28">
     <div class="max-w-[940px]">
       @if($eyebrow)
         <p class="type-text-md-semibold inline-flex rounded-full bg-white/10 px-4 py-2 text-white ring-1 ring-white/15">{{ $eyebrow }}</p>

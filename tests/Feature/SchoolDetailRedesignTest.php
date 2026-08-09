@@ -77,5 +77,6 @@ class SchoolDetailRedesignTest extends TestCase
         $this->assertStringNotContainsString('hidden lg:block', $blade);
 
         $response->assertSee('pt-[104px]', false);
+        $response->assertSee('min-h-[75vh]', false);
     }
 }

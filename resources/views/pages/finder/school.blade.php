@@ -5,7 +5,7 @@
 
 @section('content')
   <main data-redesign-page="school-detail" class="bg-base-white">
-    <section data-redesign-section="school-detail-hero" class="relative overflow-hidden rounded-b-[24px] bg-brand-dark-green text-white">
+    <section data-redesign-section="school-detail-hero" class="relative flex min-h-[75vh] flex-col overflow-hidden rounded-b-[24px] bg-brand-dark-green text-white">
       <div class="absolute inset-0">
         <x-subpage.university-image
           :school-id="$school->school_id ?? null"
@@ -14,7 +14,7 @@
         />
         <div class="absolute inset-0 bg-gradient-to-b from-black/10 via-black/35 to-black/60"></div>
       </div>
-      <div class="layout-container relative pb-16 pt-[104px] md:pb-24 md:pt-28">
+      <div class="layout-container relative flex flex-1 flex-col justify-center pb-16 pt-[104px] md:pb-24 md:pt-28">
         <div class="grid items-center gap-10 lg:grid-cols-[1fr_400px]">
           <div>
             <p class="type-text-md-semibold inline-flex rounded-full bg-white/10 px-4 py-2 text-white ring-1 ring-white/15">Vysoká škola</p>
