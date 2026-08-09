@@ -27,4 +27,12 @@ class ContactPageRedesignTest extends TestCase
         $this->assertStringContainsString(config('contacts.email'), $html);
         $this->assertStringContainsString(config('contacts.address'), $html);
     }
+
+    public function test_contact_page_uses_light_hero(): void
+    {
+        $response = $this->get('/kontakt');
+
+        $response->assertOk();
+        $response->assertSee('data-component="subpage-hero-light"', false);
+    }
 }

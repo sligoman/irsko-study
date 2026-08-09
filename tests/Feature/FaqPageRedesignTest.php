@@ -31,4 +31,13 @@ class FaqPageRedesignTest extends TestCase
 
         $this->assertStringNotContainsString('faq-accordion', $blade);
     }
+
+    public function test_faq_page_uses_light_hero(): void
+    {
+        $items = new Collection();
+
+        $response = $this->view('pages.faq', ['items' => $items]);
+
+        $response->assertSee('data-component="subpage-hero-light"', false);
+    }
 }

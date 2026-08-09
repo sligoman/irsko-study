@@ -5,7 +5,7 @@
 
 @section('content')
   <main data-redesign-page="contact" class="bg-base-white">
-    <x-subpage.hero
+    <x-subpage.hero-light
       eyebrow="Kontakt"
       title="Napiš nám a domluv si"
       accent="konzultaci zdarma"

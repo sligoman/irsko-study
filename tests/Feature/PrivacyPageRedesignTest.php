@@ -29,4 +29,12 @@ class PrivacyPageRedesignTest extends TestCase
         $this->assertStringNotContainsString('privacy@irsko.ie', $response->getContent());
         $this->assertStringNotContainsString('upravte na reálný kontakt', $response->getContent());
     }
+
+    public function test_privacy_page_uses_light_hero(): void
+    {
+        $response = $this->get('/ochrana-soukromi');
+
+        $response->assertOk();
+        $response->assertSee('data-component="subpage-hero-light"', false);
+    }
 }

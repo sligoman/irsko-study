@@ -78,7 +78,7 @@
 
 @section('content')
   <main data-redesign-page="privacy" class="bg-base-white">
-    <x-subpage.hero
+    <x-subpage.hero-light
       eyebrow="Právní dokumenty"
       title="Ochrana osobních"
       accent="údajů"

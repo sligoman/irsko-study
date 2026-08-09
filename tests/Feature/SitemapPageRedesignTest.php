@@ -39,4 +39,13 @@ class SitemapPageRedesignTest extends TestCase
 
         $response->assertSee('Jak studovat v Irsku', false);
     }
+
+    public function test_sitemap_page_uses_light_hero(): void
+    {
+        $posts = new Collection();
+
+        $response = $this->view('pages.sitemap', ['posts' => $posts]);
+
+        $response->assertSee('data-component="subpage-hero-light"', false);
+    }
 }

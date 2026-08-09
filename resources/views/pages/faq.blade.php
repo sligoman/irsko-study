@@ -5,7 +5,7 @@
 
 @section('content')
   <main data-redesign-page="faq" class="bg-base-white">
-    <x-subpage.hero
+    <x-subpage.hero-light
       eyebrow="Časté dotazy"
       title="Na co se nás"
       accent="nejčastěji ptáte"

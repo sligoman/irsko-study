@@ -5,7 +5,7 @@
 
 @section('content')
   <main data-redesign-page="sitemap" class="bg-base-white">
-    <x-subpage.hero
+    <x-subpage.hero-light
       eyebrow="Mapa stránek"
       title="Najdeš tady"
       accent="vše"
