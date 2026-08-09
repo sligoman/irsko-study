@@ -27,5 +27,6 @@ class HeroPhotoComponentTest extends TestCase
         $this->assertStringContainsString('irsko_dublin_hero-4x.jpg', $html);
         $this->assertStringContainsString('640w', $html);
         $this->assertStringContainsString('Najdi kurz', $html);
+        $this->assertStringContainsString('pt-[148px]', $html);
     }
 }

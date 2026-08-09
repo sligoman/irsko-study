@@ -75,5 +75,7 @@ class SchoolDetailRedesignTest extends TestCase
 
         $blade = file_get_contents(resource_path('views/pages/finder/school.blade.php'));
         $this->assertStringNotContainsString('hidden lg:block', $blade);
+
+        $response->assertSee('pt-[148px]', false);
     }
 }

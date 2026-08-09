@@ -33,7 +33,7 @@
         />
         <div class="absolute inset-0 bg-gradient-to-b from-black/10 via-black/35 to-black/60"></div>
       </div>
-      <div class="layout-container relative py-16 md:py-24">
+      <div class="layout-container relative pb-16 pt-[148px] md:pb-24 md:pt-48">
         <div class="grid items-center gap-10 lg:grid-cols-[1fr_400px]">
           <div>
             <p class="type-text-md-semibold inline-flex rounded-full bg-white/10 px-4 py-2 text-white ring-1 ring-white/15">{{ $course->school?->name ?? 'Univerzita' }}</p>
