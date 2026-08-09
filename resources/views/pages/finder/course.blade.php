@@ -25,7 +25,14 @@
 
   <main data-redesign-page="course-detail" class="bg-base-white">
     <section data-redesign-section="course-detail-hero" class="relative overflow-hidden rounded-b-[24px] bg-brand-dark-green text-white">
-      <div class="absolute inset-0 bg-[radial-gradient(circle_at_14%_22%,rgba(255,120,46,0.26),transparent_28%),radial-gradient(circle_at_88%_18%,rgba(156,204,87,0.2),transparent_30%)]"></div>
+      <div class="absolute inset-0">
+        <x-subpage.university-image
+          :school-id="$course->school->school_id ?? null"
+          :name="$course->school->name ?? 'Univerzita'"
+          img-class="absolute inset-0 h-full w-full object-cover"
+        />
+        <div class="absolute inset-0 bg-gradient-to-b from-black/10 via-black/35 to-black/60"></div>
+      </div>
       <div class="layout-container relative py-16 md:py-24">
         <div class="grid items-center gap-10 lg:grid-cols-[1fr_400px]">
           <div>
@@ -49,13 +56,7 @@
               </div>
             </div>
           </div>
-          <div class="hidden lg:block">
-            <x-subpage.university-image
-              :school-id="$course->school->school_id ?? null"
-              :name="$course->school->name ?? 'Univerzita'"
-              img-class="h-[360px] w-full object-cover ring-1 ring-white/20"
-            />
-          </div>
+
         </div>
       </div>
     </section>

@@ -81,4 +81,19 @@ class CourseDetailRedesignTest extends TestCase
         $this->assertStringContainsString('uni-atu.jpg', $html);
         $this->assertStringContainsString('<img', $html);
     }
+
+
+    public function test_course_detail_hero_uses_photo_overlay(): void
+    {
+        $response = $this->view('pages.finder.course', [
+            'course' => $this->course(),
+            'relatedCourses' => new Collection(),
+        ]);
+
+        $response->assertSee('from-black/10', false);
+        $response->assertSee('uni-atu.jpg', false);
+
+        $blade = file_get_contents(resource_path('views/pages/finder/course.blade.php'));
+        $this->assertStringNotContainsString('hidden lg:block', $blade);
+    }
 }
