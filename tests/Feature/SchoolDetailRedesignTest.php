@@ -64,4 +64,16 @@ class SchoolDetailRedesignTest extends TestCase
         $response->assertSee('Sligo', false);
         $response->assertSee('iframe', false);
     }
+
+
+    public function test_school_detail_hero_uses_photo_overlay(): void
+    {
+        $response = $this->view('pages.finder.school', ['school' => $this->school()]);
+
+        $response->assertSee('from-black/10', false);
+        $response->assertSee('uni-atu.jpg', false);
+
+        $blade = file_get_contents(resource_path('views/pages/finder/school.blade.php'));
+        $this->assertStringNotContainsString('hidden lg:block', $blade);
+    }
 }
