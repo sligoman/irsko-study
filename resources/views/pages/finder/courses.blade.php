@@ -5,11 +5,16 @@
 
 @section('content')
   <main data-redesign-page="courses-finder" class="bg-base-white">
-    <x-subpage.hero
+    <x-subpage.hero-photo
       eyebrow="Kurzy a programy"
       title="Najdi kurz, který"
       accent="sedne právě tobě"
       text="Procházej programy irských univerzit a škol. Filtruj podle školy, oboru a úrovně studia — výsledky se aktualizují bez načítání stránky."
+      :photo="[
+        'src' => 'img/static/irsko_dublin_hero.jpg',
+        'sizes' => '(max-width: 768px) 100vw, 1280px',
+        'alt' => 'Dublin, Irsko',
+      ]"
       :stats="[
         ['value' => '1 000+', 'label' => 'programů v databázi'],
         ['value' => '25+', 'label' => 'škol a univerzit'],

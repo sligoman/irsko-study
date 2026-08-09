@@ -30,8 +30,9 @@ class CoursesFinderRedesignTest extends TestCase
 
         $response->assertSee('data-redesign-page="courses-finder"', false);
         $response->assertSee('data-redesign-section="course-finder"', false);
+        $response->assertSee('data-component="subpage-hero-photo"', false);
+        $response->assertSee('irsko_dublin_hero', false);
         $response->assertSee('<course-finder', false);
-        $response->assertSee('text-brand-dark-green', false);
     }
 
     public function test_courses_page_has_no_duplicate_app_mount(): void
