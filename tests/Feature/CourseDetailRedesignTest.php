@@ -96,6 +96,6 @@ class CourseDetailRedesignTest extends TestCase
         $blade = file_get_contents(resource_path('views/pages/finder/course.blade.php'));
         $this->assertStringNotContainsString('hidden lg:block', $blade);
 
-        $response->assertSee('pt-[148px]', false);
+        $response->assertSee('pt-[104px]', false);
     }
 }
