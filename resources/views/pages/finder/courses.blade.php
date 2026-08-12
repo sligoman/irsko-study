@@ -1,17 +1,35 @@
 @extends('layouts.app')
 
-@section('title', 'Kurzy - Irsko Study')
+@section('title', 'Kurzy a programy v Irsku')
 @section('meta_description', 'Přehled kurzů a programů — filtrovat podle školy, oboru a úrovně. Najděte kurz, který vám sedí.')
 
 @section('content')
-  <div class="max-w-7xl mx-auto px-4 py-12">
-    <h1 class="text-3xl font-bold mb-4">Přehled kurzů a programů</h1>
-    <p class="text-gray-700 mb-6">Filtrovat podle školy, oboru nebo úrovně. Výsledky aktualizují bez načítání stránky.</p>
+  <main data-redesign-page="courses-finder" class="bg-base-white">
+    <x-subpage.hero-photo
+      eyebrow="Kurzy a programy"
+      title="Najdi kurz, který"
+      accent="sedne právě tobě"
+      text="Procházej programy irských univerzit a škol. Filtruj podle školy, oboru a úrovně studia — výsledky se aktualizují bez načítání stránky."
+      :photo="[
+        'src' => 'img/static/irsko_dublin_hero.jpg',
+        'sizes' => '(max-width: 768px) 100vw, 1280px',
+        'alt' => 'Dublin, Irsko',
+      ]"
+      :stats="[
+        ['value' => '1 000+', 'label' => 'programů v databázi'],
+        ['value' => '25+', 'label' => 'škol a univerzit'],
+        ['value' => 'CS', 'label' => 'české popisy oborů'],
+      ]"
+    />
 
-    <div id="app">
-      <course-finder :initial-data='@json($initialData)'></course-finder>
-    </div>
+    <section data-redesign-section="course-finder" class="home-section pb-20">
+      <div class="layout-container">
+        <div class="overflow-hidden rounded-[16px] bg-brand-light-gray p-4 md:p-8">
+          <course-finder :initial-data='@json($initialData)'></course-finder>
+        </div>
+      </div>
+    </section>
 
-  </div>
-  @include('components.cta')
+    @include('components.cta')
+  </main>
 @endsection

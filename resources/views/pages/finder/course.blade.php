@@ -4,166 +4,127 @@
 @section('meta_description', Str::limit(strip_tags($course->description_cs ?? $course->description_en), 160))
 
 @section('content')
-  <div class="max-w-4xl mx-auto px-4 py-12">
-    {{-- Hero image: university / school visual --}}
-    @php
-      // $schoolLogo = $course->school->logo ?? null;
-      // If logo looks like an absolute URL or starts with a slash, use it directly; otherwise look in public img folder
-      $heroSrc = null;
-            
-      $heroSrc = asset('img/blog/large/uni-'.$course->school->school_id.'.jpg');
+  @php
+    $courseTitle = $course->title_cs ?? $course->title_en;
+    $duration = null;
+    if ($course->duration_length) {
+        $len = intval($course->duration_length);
+        $unit = strtolower((string) ($course->duration_unit ?? ''));
+        $unitLocal = match (true) {
+            in_array($unit, ['years', 'year', 'yrs', 'yr']) && $len === 1 => 'rok',
+            in_array($unit, ['years', 'year', 'yrs', 'yr']) && $len >= 2 && $len <= 4 => 'roky',
+            in_array($unit, ['years', 'year', 'yrs', 'yr']) => 'let',
+            default => $unit,
+        };
+        $duration = trim("$len $unitLocal");
+    }
+    $fields = $course->fields && $course->fields->count()
+        ? $course->fields->pluck('name')->join(', ')
+        : null;
+  @endphp
 
-      // check if file exists
-      if (!file_exists(public_path('img/blog/large/uni-'.$course->school->school_id.'.jpg'))) {
-        $heroSrc = null;
-      }
-
-    @endphp
-
-    @if($heroSrc)
-    <div class="mb-6">
-      <img src="{{ $heroSrc }}" alt="{{ $course->school->name ?? 'Univerzita' }}" class="w-full h-72 md:h-96 object-cover rounded-lg shadow" loading="lazy">
-    </div>
-    @endif
-
-    <article class="bg-white rounded-lg shadow p-6">
-      <header class="mb-6">
-        <h1 class="text-2xl font-bold mb-2">{{ $course->title_cs ?? $course->title_en }}</h1>
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-gray-600 text-sm">
-          <div>
-            <span class="font-medium">Škola: </span>
-            @if($course->school)
-              <a href="{{ $course->school->link }}" target="_blank" rel="noopener" class="text-emerald-600 hover:underline">{{ $course->school->name }}</a>
-            @else
-              <span>—</span>
-            @endif
-          </div>
-
-          <div>
-            <span class="font-medium">Úroveň studia:</span>
-            {{ $course->level?->name ?? '—' }}
-          </div>
-
-          <div>
-            <span class="font-medium">Délka:</span>
-            @if($course->duration_length)
-              @php
-                $len = intval($course->duration_length);
-                $unit = $course->duration_unit ?? '';
-                $unit_local = $unit;
-                if (is_string($unit)) {
-                    $u = strtolower($unit);
-                    if (in_array($u, ['years', 'year', 'yrs', 'yr'])) {
-                        if ($len === 1) {
-                            $unit_local = 'rok';
-                        } elseif ($len >= 2 && $len <= 4) {
-                            $unit_local = 'roky';
-                        } else {
-                            $unit_local = 'let';
-                        }
-                    }
-                }
-              @endphp
-
-              {{ $course->duration_length }} {{ $unit_local }}
-            @else
-              —
-            @endif
-          </div>
-        </div>
-      </header>
-
-      <section class="prose prose-sm max-w-none mb-6 text-gray-800">
-        {{-- Use Czech description when available --}}
-        @if(!empty($course->description_cs))
-          {!! $course->description_cs !!}
-        @elseif(!empty($course->description_en))
-          {!! $course->description_en !!}
-        @else
-          <p>Popis kurzu není dostupný.</p>
-        @endif
-      </section>
-
-      <section class="prose prose-sm italic max-w-none mb-6 text-gray-800">
-        <div>{{ $course->title_en }}</div>
-        <div>{{ $course->description_en }}</div>
-      </section>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-        {{-- <div class="bg-gray-50 p-4 rounded">
-          <h3 class="font-semibold mb-2">Informace o kurzu</h3>
-          <ul class="text-sm text-gray-700 space-y-2">
-            <li><span class="font-medium">Požadované body:</span> {{ $course->points_required ?? '—' }}</li>
-            <li><span class="font-medium">Portfolio vyžadováno:</span> {{ $course->portfolio_required ? 'Ano' : 'Ne' }}</li>
-            <li><span class="font-medium">Studijní režim:</span> {{ $course->study_mode ?? '—' }}</li>
-            <li><span class="font-medium">Další poznámky:</span> {{ $course->additional_notes_cs ?? $course->additional_notes_en ?? '—' }}</li>
-          </ul>
-        </div> --}}
-
-        <div class="bg-gray-50 p-4 rounded">
-          <h3 class="font-semibold mb-2">Kategorie a umístění</h3>
-          <div class="text-sm text-gray-700 space-y-2">
-            <div>
-              <span class="font-medium">Obory:</span>
-              @if($course->fields && $course->fields->count())
-                {{ $course->fields->pluck('name')->join(', ') }}
-              @else
-                —
-              @endif
-            </div>
-
-            {{-- <div>
-              <span class="font-medium">Lokace:</span>
-              @if($course->locations && $course->locations->count())
-                {{ $course->locations->pluck('name')->join(', ') }}
-              @else
-                —
-              @endif
-            </div> --}}
-          </div>
-        </div>
+  <main data-redesign-page="course-detail" class="bg-base-white">
+    <section data-redesign-section="course-detail-hero" class="relative flex min-h-[75vh] flex-col overflow-hidden rounded-b-[24px] bg-brand-dark-green text-white">
+      <div class="absolute inset-0">
+        <x-subpage.university-image
+          :school-id="$course->school->school_id ?? null"
+          :name="$course->school->name ?? 'Univerzita'"
+          img-class="absolute inset-0 h-full w-full object-cover"
+        />
+        <div class="absolute inset-0 bg-gradient-to-b from-black/10 via-black/35 to-black/60"></div>
       </div>
-
-      <footer class="flex flex-col md:flex-row items-center justify-between mt-6">
-        <div>
-          @if(!empty($course->link))
-            <a target="_blank" rel="noopener" href="{{ $course->link }}" class="inline-block px-4 py-2 bg-emerald-600 text-white rounded hover:opacity-95">Přejít na stránku kurzu</a>
-          @endif
-        </div>
-
-        <div class="text-sm text-gray-600">Kód kurzu: {{ $course->code }}</div>
-      </footer>
-    </article>
-
-    <div class="mt-8">
-      <a href="{{ route('finder.courses') }}" class="text-emerald-600 hover:underline">« Zpět na seznam kurzů</a>
-    </div>
-  
-  @if(isset($relatedCourses) && $relatedCourses->count())
-    <section class="max-w-4xl mx-auto px-4 py-12">
-      <h2 class="text-2xl font-bold mb-4">Podobné kurzy</h2>
-      <p class="text-gray-700 mb-6">Další kurzy, které spadají do stejných oborů jako tento kurz.</p>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        @foreach($relatedCourses as $rc)
-          <article class="bg-white rounded-lg p-4 border shadow-sm">
-            <h3 class="text-lg font-semibold mb-1">{{ $rc->title_cs ?? $rc->title_en }}</h3>
-            <div class="text-sm text-gray-600 mb-2">{{ $rc->school?->name ?? '' }}</div>
-            <p class="text-gray-700 text-sm mb-3">{{ Str::limit(strip_tags($rc->description_cs ?? $rc->description_en), 140) }}</p>
-            <div class="flex items-center justify-between">
-              @php
-                $rcSlug = $rc->id;
-                if ($rc->school && !empty($rc->school->school_id) && !empty($rc->code)) {
-                    $rcSlug = strtolower($rc->school->school_id . '-' . $rc->code);
-                }
-              @endphp
-              <a href="{{ route('finder.course.show', $rcSlug) }}" class="text-emerald-600 hover:underline">Zobrazit</a>
-              {{-- <div class="text-sm text-gray-600">ID: {{ $rc->id }}</div> --}}
+      <div class="layout-container relative flex flex-1 flex-col justify-center pb-16 pt-[104px] md:pb-24 md:pt-28">
+        <div class="grid items-center gap-10 lg:grid-cols-[1fr_400px]">
+          <div>
+            <p class="type-text-md-semibold inline-flex rounded-full bg-white/10 px-4 py-2 text-white ring-1 ring-white/15">{{ $course->school?->name ?? 'Univerzita' }}</p>
+            <h1 class="type-display-xl mt-6 max-w-[820px] text-white">{{ $courseTitle }}</h1>
+            @if(!empty($course->title_en) && $course->title_en !== $courseTitle)
+              <p class="type-text-lg mt-4 text-white/80">{{ $course->title_en }}</p>
+            @endif
+            <div class="mt-10 grid max-w-[940px] gap-4 sm:grid-cols-3">
+              <div class="rounded-[12px] bg-white/10 p-5 ring-1 ring-white/15">
+                <p class="type-display-xs text-white">{{ $course->level?->name ?? '—' }}</p>
+                <p class="type-text-sm mt-1 text-white/80">Úroveň studia</p>
+              </div>
+              <div class="rounded-[12px] bg-white/10 p-5 ring-1 ring-white/15">
+                <p class="type-display-xs text-white">{{ $duration ?? '—' }}</p>
+                <p class="type-text-sm mt-1 text-white/80">Délka</p>
+              </div>
+              <div class="rounded-[12px] bg-white/10 p-5 ring-1 ring-white/15">
+                <p class="type-display-xs text-white">{{ $course->code }}</p>
+                <p class="type-text-sm mt-1 text-white/80">Kód kurzu</p>
+              </div>
             </div>
-          </article>
-        @endforeach
+          </div>
+
+        </div>
       </div>
     </section>
-  @endif
-  </div>
+
+    <section data-redesign-section="course-detail-content" class="home-section">
+      <div class="layout-container">
+        <div class="grid gap-8 lg:grid-cols-[1fr_360px]">
+          <div>
+            @if(!empty($course->description_cs) || !empty($course->description_en))
+              <div class="blog-post type-text-md text-brand-dark-green">
+                {!! $course->description_cs ?: $course->description_en !!}
+              </div>
+            @else
+              <p class="type-text-lg text-brand-dark-green">Popis kurzu není dostupný.</p>
+            @endif
+          </div>
+
+          <aside class="space-y-4">
+            <div class="rounded-[16px] bg-brand-light-gray p-6">
+              <h2 class="type-display-xs text-brand-dark-green">Obor a umístění</h2>
+              <p class="type-text-md mt-3 text-brand-dark-green">{{ $fields ?? '—' }}</p>
+            </div>
+
+            <div class="rounded-[16px] bg-brand-light-gray p-6">
+              <h2 class="type-display-xs text-brand-dark-green">Studuj na {{ $course->school?->name ?? 'škole' }}</h2>
+              @if(!empty($course->school->link))
+                <a href="{{ $course->school->link }}" target="_blank" rel="noopener" class="type-text-md mt-3 inline-block text-brand-dark-green underline underline-offset-4 hover:text-brand-orange">Oficiální web školy →</a>
+              @endif
+            </div>
+
+            @if(!empty($course->link))
+              <a href="{{ $course->link }}" target="_blank" rel="noopener" class="type-input-label transition-color-figma inline-flex w-full items-center justify-center rounded-[8px] bg-brand-light-green px-8 py-4 text-brand-dark-green hover:bg-[#7db709]">Přejít na stránku kurzu</a>
+            @endif
+            <a href="{{ route('contact') }}" class="type-input-label transition-color-figma inline-flex w-full items-center justify-center rounded-[8px] border border-brand-dark-green px-8 py-4 text-brand-dark-green hover:bg-white">Poradit se se studiem</a>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    @if(isset($relatedCourses) && $relatedCourses->count())
+      <section data-redesign-section="course-detail-related" class="home-section pb-20">
+        <div class="layout-container">
+          <h2 class="type-display-lg text-brand-dark-green">Podobné kurzy</h2>
+          <p class="type-text-lg mt-3 text-brand-dark-green">Další programy, které spadají do stejných oborů.</p>
+          <div class="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            @foreach($relatedCourses as $rc)
+              @php
+                $rcSlug = $rc->url;
+                if (empty($rcSlug) && !empty($rc->school->school_id) && !empty($rc->code)) {
+                    $rcSlug = strtolower($rc->school->school_id . '-' . $rc->code);
+                } elseif (empty($rcSlug)) {
+                    $rcSlug = $rc->code ?? $rc->id;
+                }
+              @endphp
+              <article class="flex h-full flex-col overflow-hidden rounded-[16px] bg-brand-light-gray transition duration-300 hover:-translate-y-1 hover:shadow-lg">
+                <div class="flex flex-1 flex-col p-6">
+                  <p class="type-text-sm text-brand-orange">{{ $rc->school?->name ?? 'Kurz' }}</p>
+                  <h3 class="type-display-xs mt-2 text-brand-dark-green">{{ $rc->title_cs ?? $rc->title_en }}</h3>
+                  <p class="type-text-md mt-3 text-brand-dark-green">{{ Str::limit(strip_tags($rc->description_cs ?? $rc->description_en), 120) }}</p>
+                  <a href="{{ route('finder.course.show', $rcSlug) }}" class="type-text-sm mt-4 text-brand-dark-green hover:text-brand-orange">Zobrazit detail →</a>
+                </div>
+              </article>
+            @endforeach
+          </div>
+        </div>
+      </section>
+    @endif
+
+    @include('components.cta')
+  </main>
 @endsection

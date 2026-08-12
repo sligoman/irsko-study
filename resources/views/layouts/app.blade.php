@@ -1,46 +1,79 @@
 <!doctype html>
-<html lang="cs">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>@yield('title', 'Irsko STUDY')</title>
-    {{-- Favicon / touch icons (use site logo in public/img/logo.png) --}}
-    <link rel="icon" href="{{ asset('img/logo.png') }}" />
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/logo.png') }}" />
-    <link rel="apple-touch-icon" href="{{ asset('img/logo.png') }}" />
-    <meta name="theme-color" content="#10B981">
-    {{-- Expose contact/company config to client-side JS so Vue components can access it via `window.__CONTACTS` --}}
-    <script>
-        window.__CONTACTS = {!! json_encode(config('contacts')) !!};
-    </script>
-    {{-- Vite assets --}}
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    {{-- <meta name="description" content="IrskoStudy — pomoc s přihláškami, ubytováním a studiem v Irsku pro studenty z ČR a SK"> --}}
-    {{-- Prevent indexing on local/testing environments --}}
+    <meta name="description" content="@yield('meta_description', 'IrskoStudy — pomoc s přihláškami, ubytováním a studiem v Irsku pro studenty z ČR a SK')">
+
+    <meta name="theme-color" content="#0E4A32">
+    <link rel="icon" type="image/svg+xml" href="{{ asset('img/svg/favicon.svg') }}?v=6">
+    <link rel="icon" type="image/x-icon" href="{{ asset('img/svg/favicon.ico') }}?v=6">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/svg/favicon-32x32.png') }}?v=6">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/svg/favicon-16x16.png') }}?v=6">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/svg/apple-touch-icon.png') }}?v=6">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('img/svg/android-chrome-192x192.png') }}?v=6">
+    <link rel="icon" type="image/png" sizes="512x512" href="{{ asset('img/svg/android-chrome-512x512.png') }}?v=6">
+    <link rel="manifest" href="{{ asset('img/site.webmanifest') }}?v=6">
+    <link rel="canonical" href="@yield('canonical', url()->current())">
+
     @if(app()->environment(['local', 'testing']))
         <meta name="robots" content="noindex,nofollow" />
     @endif
-    <meta name="description" content="@yield('meta_description', 'IrskoStudy — pomoc s přihláškami, ubytováním a studiem v Irsku pro studenty z ČR a SK')">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    @if(isset($canonical))
-        <link rel="canonical" href="{{ $canonical }}" />
-    @else
-        <link rel="canonical" href="{{ url()->current() }}" />
-    @endif
+
+    <script>
+        window.__CONTACTS = {!! json_encode(config('contacts')) !!};
+    </script>
+
+    <style>[v-cloak]{display:none!important}</style>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body  id="app" class="antialiased font-sans bg-gray-50 text-gray-900">
-    @include('components.navbar')
+<body class="bg-base-white">
 
-    <main class="min-h-screen">
-            @yield('content')
-    </main>
+    @php
+    $style = 'dark';
+    switch(Route::currentRouteName()) {
+      case 'about':
+      case 'why':
+      case 'universities':
 
-    <contact-form position="floating"></contact-form>
+      case 'services':
+      case 'faq':
+      case 'contact':
+        break;
+      default:
+        $style = 'light';
+        break;
+    }
+    @endphp
 
-    @include('components.footer')
+    <div id="app" class="{{ $style == 'dark' ? 'bg-brand-dark-green' : '' }} overflow-hidden" v-cloak>
 
-    
+        @if(isset($heroImage))
+        <div class="relative overflow-hidden">
+          <img class="absolute inset-0 w-full h-full object-cover animate-zoom-slow"
+               src="{{ asset('img/desktop/'.$heroImage) }}"
+               srcset="{{ asset('img/mobile/'.$heroImage) }} 480w, {{ asset('img/desktop/'.$heroImage) }} 1024w, {{ asset('img/highres/'.$heroImage) }} 1920w"
+               sizes="(min-width: 1366px) 1024px, (min-width: 1536px) 1920px, 100vw"
+               alt="{{ $heroImageAlt ?? '' }}">
+        </div>
+        @endif
+
+        @include('components.navbar')
+
+        @yield('content')
+
+        @if(Route::currentRouteName() != 'home')
+        <x-back-to-top />
+        @endif
+
+        @include('components.footer')
+
+        <x-floating-button></x-floating-button>
+
+    </div>
 
 </body>
 </html>
-

@@ -28,6 +28,11 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'crm' => [
+        'lead_url' => env('CRM_LEAD_URL', 'https://crm.irsko.ie/api/lead'),
+        'timeout' => (int) env('CRM_LEAD_TIMEOUT', 10),
+    ],
+
     'slack' => [
         'notifications' => [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),

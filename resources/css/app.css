@@ -1,105 +1,753 @@
-/* Import a clean system-like font - must come before other rules for PostCSS */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+@import 'tailwindcss';
 
-@import "tailwindcss";
-@plugin "@tailwindcss/typography";
+@font-face {
+  font-family: "Cal Sans";
+  src: url("/fonts/redesign/CalSans-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
 
+@font-face {
+  font-family: "Brevis";
+  src: url("/fonts/redesign/Brevis-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/redesign/Inter-VariableFont_opsz,wght.ttf")
+    format("truetype");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/redesign/Inter-Italic-VariableFont_opsz,wght.ttf")
+    format("truetype");
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+/* @config "../../tailwind.config.js"; */
+
+@theme {
+  /* Figma tokens: rJ6bM5XimixTX94w9g18yc, node 225:8997 */
+  --color-base-white: #ffffff;
+
+  --color-brand-dark-green: #083936;
+  --color-brand-light-green: #9bcc57;
+  --color-brand-orange: #ff782e;
+  --color-brand-light-gray: #f8f8f8;
+
+  --color-utility-text-placeholder: #737373;
+  --color-utility-text-placeholder-dark: #708c8b;
+  --color-utility-green-hover: #7bc129;
+
+  --color-neutral-200: #eeeeee;
+  --color-neutral-400: #d6d6d6;
+  --color-neutral-600: #bdbdbd;
+  --color-neutral-800: #aaaaaa;
+
+  /* Redesign spacing tokens (Figma file 34LM35YlG14BsvqdQ60uUZ, node 225:8865). */
+  --layout-grid-base: 8px;
+
+  --layout-container-max: 1280px;
+  --layout-page-padding-mobile: 16px;
+  --layout-page-padding-tablet: 24px;
+  --layout-page-padding-desktop: 32px;
+
+  --layout-section-space-mobile: 16px;
+  --layout-section-space-tablet: 32px;
+  --layout-section-space-desktop: 32px;
+
+  --layout-grid-gutter-mobile: 16px;
+  --layout-grid-gutter-tablet: 32px;
+  --layout-grid-gutter-desktop: 32px;
+
+  --layout-radius-sm: 4px;
+  --layout-radius-md: 8px;
+  --layout-radius-lg: 16px;
+  --layout-radius-xl: 24px;
+
+  /* Redesign typography tokens (from Figma redesign file values used in node 216:*). */
+  --typography-font-display: "Cal Sans", "Cal_Sans", "Raleway", sans-serif;
+  --typography-font-decorative: "Brevis", "Cal Sans", "Raleway", sans-serif;
+  --typography-font-body: "Inter", "Raleway", sans-serif;
+
+  --typography-display-2xl-size: 80px;
+  --typography-display-2xl-line: 90px;
+  --typography-display-2xl-track: 0.8px;
+  --typography-display-2xl-decorative-size: 58px;
+  --typography-display-2xl-decorative-track: 0.58px;
+  --typography-display-2xl-size-mobile: 56px;
+  --typography-display-2xl-line-mobile: 64px;
+  --typography-display-2xl-track-mobile: 0.56px;
+  --typography-display-2xl-decorative-size-mobile: 44px;
+  --typography-display-2xl-decorative-track-mobile: 0.44px;
+
+  --typography-display-xl-size: 60px;
+  --typography-display-xl-line: 72px;
+  --typography-display-xl-track: 0.6px;
+  --typography-display-xl-size-mobile: 40px;
+  --typography-display-xl-line-mobile: 48px;
+  --typography-display-xl-track-mobile: 0.4px;
+  --typography-display-xl-decorative-size: 44px;
+  --typography-display-xl-decorative-track: 0.44px;
+  --typography-display-xl-decorative-size-mobile: 28px;
+  --typography-display-xl-decorative-track-mobile: 0.28px;
+
+  --typography-display-lg-size: 52px;
+  --typography-display-lg-line: 64px;
+  --typography-display-lg-track: 0.52px;
+  --typography-display-lg-decorative-size: 38px;
+  --typography-display-lg-decorative-track: 0.38px;
+  --typography-display-lg-size-mobile: 32px;
+  --typography-display-lg-line-mobile: 40px;
+  --typography-display-lg-track-mobile: 0.32px;
+  --typography-display-lg-decorative-size-mobile: 24px;
+  --typography-display-lg-decorative-track-mobile: 0.24px;
+
+  --typography-display-md-size: 36px;
+  --typography-display-md-line: 44px;
+  --typography-display-md-size-mobile: 28px;
+  --typography-display-md-line-mobile: 34px;
+  --typography-display-md-decorative-size: 26px;
+  --typography-display-md-decorative-size-mobile: 22px;
+
+  --typography-display-sm-size: 30px;
+  --typography-display-sm-line: 38px;
+  --typography-display-sm-size-mobile: 24px;
+  --typography-display-sm-line-mobile: 32px;
+
+  --typography-display-xs-size: 24px;
+  --typography-display-xs-line: 32px;
+  --typography-display-xs-size-mobile: 22px;
+  --typography-display-xs-line-mobile: 28px;
+
+  --typography-text-xl-size: 20px;
+  --typography-text-xl-line: 30px;
+
+  --typography-text-lg-size: 18px;
+  --typography-text-lg-line: 28px;
+
+  --typography-text-md-size: 16px;
+  --typography-text-md-line: 26px;
+  --typography-text-md-line-mobile: 24px;
+
+  --typography-text-sm-size: 14px;
+  --typography-text-sm-line: 20px;
+
+  --typography-input-label-size: 16px;
+  --typography-input-label-line: 24px;
+  --typography-input-label-track: 0.16px;
+}
+
+/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap'); */
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  html,
+  body {
+    background-color: var(--color-base-white);
+  }
+
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+@utility blog-post {
+  @apply space-y-6;
+  & h2 {
+    @apply type-display-md mt-10 text-brand-dark-green;
+  }
+  & h3 {
+    @apply type-display-sm mt-8 text-brand-dark-green;
+  }
+  & p {
+    @apply type-text-md text-brand-dark-green;
+  }
+  & ul {
+    @apply list-disc space-y-2 pl-5;
+  }
+  & ul li::marker {
+    color: var(--color-brand-light-green);
+  }
+  & blockquote {
+    @apply border-l-4 border-brand-light-green pl-6 text-brand-dark-green;
+  }
+  & a {
+    @apply text-brand-dark-green underline decoration-brand-light-green underline-offset-4;
+  }
+  & img {
+    @apply my-8 w-full rounded-[4px] object-cover;
+  }
+}
+
+@utility prakticky-post-content {
+  @apply space-y-6;
+  & h2 {
+    @apply type-display-md text-brand-dark-green mt-10;
+  }
+  & h3 {
+    @apply type-display-sm text-brand-dark-green mt-8;
+  }
+  & p {
+    @apply type-text-md text-brand-dark-green;
+  }
+  & ul {
+    @apply list-disc pl-5 space-y-2;
+  }
+  & ul li::marker {
+    color: var(--color-brand-light-green);
+  }
+  & blockquote {
+    @apply border-l-4 border-brand-light-green pl-6;
+  }
+  & a {
+    @apply underline text-brand-dark-green;
+  }
+  & img {
+    @apply my-8 w-full rounded-[4px] object-cover;
+  }
+  & figcaption {
+    @apply type-text-sm mt-2 text-center text-utility-text-placeholder-dark;
+  }
+}
+
+@utility type-display-2xl {
+  font-family: var(--typography-font-display);
+  font-size: var(--typography-display-2xl-size-mobile);
+  line-height: var(--typography-display-2xl-line-mobile);
+  letter-spacing: var(--typography-display-2xl-track-mobile);
+  @media (min-width: 768px) {
+    font-size: var(--typography-display-2xl-size);
+    line-height: var(--typography-display-2xl-line);
+    letter-spacing: var(--typography-display-2xl-track);
+  }
+  font-weight: 400;
+}
+
+@utility type-display-xl {
+  font-family: var(--typography-font-display);
+  font-size: var(--typography-display-xl-size-mobile);
+  line-height: var(--typography-display-xl-line-mobile);
+  letter-spacing: var(--typography-display-xl-track-mobile);
+  @media (min-width: 768px) {
+    font-size: var(--typography-display-xl-size);
+    line-height: var(--typography-display-xl-line);
+    letter-spacing: var(--typography-display-xl-track);
+  }
+  font-weight: 400;
+}
+
+@utility type-display-lg {
+  font-family: var(--typography-font-display);
+  font-size: var(--typography-display-lg-size-mobile);
+  line-height: var(--typography-display-lg-line-mobile);
+  letter-spacing: var(--typography-display-lg-track-mobile);
+  @media (min-width: 768px) {
+    font-size: var(--typography-display-lg-size);
+    line-height: var(--typography-display-lg-line);
+    letter-spacing: var(--typography-display-lg-track);
+  }
+  font-weight: 400;
+}
+
+@utility type-display-md {
+  font-family: var(--typography-font-display);
+  font-size: var(--typography-display-md-size-mobile);
+  line-height: var(--typography-display-md-line-mobile);
+  @media (min-width: 768px) {
+    font-size: var(--typography-display-md-size);
+    line-height: var(--typography-display-md-line);
+  }
+  letter-spacing: 0;
+  font-weight: 400;
+}
+
+@utility type-display-sm {
+  font-family: var(--typography-font-display);
+  font-size: var(--typography-display-sm-size-mobile);
+  line-height: var(--typography-display-sm-line-mobile);
+  @media (min-width: 768px) {
+    font-size: var(--typography-display-sm-size);
+    line-height: var(--typography-display-sm-line);
+  }
+  letter-spacing: 0;
+  font-weight: 400;
+}
+
+@utility type-display-xs {
+  font-family: var(--typography-font-display);
+  font-size: var(--typography-display-xs-size-mobile);
+  line-height: var(--typography-display-xs-line-mobile);
+  @media (min-width: 768px) {
+    font-size: var(--typography-display-xs-size);
+    line-height: var(--typography-display-xs-line);
+  }
+  letter-spacing: 0;
+  font-weight: 400;
+}
+
+@utility type-display-2xl-decorative {
+  font-family: var(--typography-font-decorative);
+  font-size: var(--typography-display-2xl-decorative-size-mobile);
+  line-height: var(--typography-display-2xl-line-mobile);
+  letter-spacing: var(--typography-display-2xl-decorative-track-mobile);
+  @media (min-width: 768px) {
+    font-size: var(--typography-display-2xl-decorative-size);
+    line-height: var(--typography-display-2xl-line);
+    letter-spacing: var(--typography-display-2xl-decorative-track);
+  }
+  font-style: normal;
+  font-weight: 400;
+}
+
+@utility type-display-xl-decorative {
+  font-family: var(--typography-font-decorative);
+  font-size: var(--typography-display-xl-decorative-size-mobile);
+  line-height: var(--typography-display-xl-line-mobile);
+  letter-spacing: var(--typography-display-xl-decorative-track-mobile);
+  @media (min-width: 768px) {
+    font-size: var(--typography-display-xl-decorative-size);
+    line-height: var(--typography-display-xl-line);
+    letter-spacing: var(--typography-display-xl-decorative-track);
+  }
+  font-style: normal;
+  font-weight: 400;
+}
+
+@utility type-display-lg-decorative {
+  font-family: var(--typography-font-decorative);
+  font-size: var(--typography-display-lg-decorative-size-mobile);
+  line-height: var(--typography-display-lg-line-mobile);
+  letter-spacing: var(--typography-display-lg-decorative-track-mobile);
+  @media (min-width: 768px) {
+    font-size: var(--typography-display-lg-decorative-size);
+    line-height: var(--typography-display-lg-line);
+    letter-spacing: var(--typography-display-lg-decorative-track);
+  }
+  font-style: normal;
+  font-weight: 400;
+}
+
+@utility type-display-lg-accent {
+  font-family: var(--typography-font-decorative);
+  font-size: var(--typography-display-lg-decorative-size-mobile);
+  line-height: var(--typography-display-lg-line-mobile);
+  letter-spacing: var(--typography-display-lg-decorative-track-mobile);
+  color: var(--color-brand-orange);
+  @media (min-width: 768px) {
+    font-size: var(--typography-display-lg-decorative-size);
+    line-height: var(--typography-display-lg-line);
+    letter-spacing: var(--typography-display-lg-decorative-track);
+  }
+  font-style: normal;
+  font-weight: 400;
+}
+
+@utility type-display-md-decorative {
+  font-family: var(--typography-font-decorative);
+  font-size: var(--typography-display-md-decorative-size-mobile);
+  line-height: var(--typography-display-md-line-mobile);
+  @media (min-width: 768px) {
+    font-size: var(--typography-display-md-decorative-size);
+    line-height: var(--typography-display-md-line);
+  }
+  letter-spacing: 0;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@utility type-text-xl {
+  font-family: var(--typography-font-body);
+  font-size: var(--typography-text-xl-size);
+  line-height: var(--typography-text-xl-line);
+  letter-spacing: 0;
+  font-weight: 400;
+}
+
+@utility type-text-xl-semibold {
+  font-family: var(--typography-font-body);
+  font-size: var(--typography-text-xl-size);
+  line-height: var(--typography-text-xl-line);
+  letter-spacing: 0;
+  font-weight: 600;
+}
+
+@utility type-text-lg {
+  font-family: var(--typography-font-body);
+  font-size: var(--typography-text-lg-size);
+  line-height: var(--typography-text-lg-line);
+  letter-spacing: 0;
+  font-weight: 400;
+}
+
+@utility type-text-lg-semibold {
+  font-family: var(--typography-font-body);
+  font-size: var(--typography-text-lg-size);
+  line-height: var(--typography-text-lg-line);
+  letter-spacing: 0;
+  font-weight: 600;
+}
+
+@utility type-text-md {
+  font-family: var(--typography-font-body);
+  font-size: var(--typography-text-md-size);
+  line-height: var(--typography-text-md-line-mobile);
+  @media (min-width: 768px) {
+    line-height: var(--typography-text-md-line);
+  }
+  letter-spacing: 0;
+  font-weight: 400;
+}
+
+@utility type-text-md-semibold {
+  font-family: var(--typography-font-body);
+  font-size: var(--typography-text-md-size);
+  line-height: var(--typography-text-md-line-mobile);
+  @media (min-width: 768px) {
+    line-height: var(--typography-text-md-line);
+  }
+  letter-spacing: 0;
+  font-weight: 600;
+}
+
+@utility type-text-sm {
+  font-family: var(--typography-font-body);
+  font-size: var(--typography-text-sm-size);
+  line-height: var(--typography-text-sm-line);
+  letter-spacing: 0;
+  font-weight: 400;
+}
+
+@utility type-text-sm-semibold {
+  font-family: var(--typography-font-body);
+  font-size: var(--typography-text-sm-size);
+  line-height: var(--typography-text-sm-line);
+  letter-spacing: 0;
+  font-weight: 600;
+}
+
+@utility type-name-testimonial {
+  font-family: var(--typography-font-display);
+  font-size: 18px;
+  line-height: 1.5;
+  letter-spacing: 0;
+  font-weight: 400;
+}
+
+@utility type-input-label {
+  font-family: var(--typography-font-display);
+  font-size: var(--typography-input-label-size);
+  line-height: var(--typography-input-label-line);
+  letter-spacing: var(--typography-input-label-track);
+  font-weight: 400;
+}
+
+@utility type-decorative {
+  font-family: var(--typography-font-decorative);
+  font-style: normal;
+  font-weight: 400;
+}
+
+@utility layout-container {
+  width: 100%;
+  max-width: var(--layout-container-max);
+  margin-inline: auto;
+  padding-inline: var(--layout-page-padding-mobile);
+  @media (min-width: 768px) {
+    padding-inline: var(--layout-page-padding-tablet);
+  }
+  @media (min-width: 1024px) {
+    padding-inline: var(--layout-page-padding-desktop);
+  }
+}
+
+@utility layout-section {
+  padding-block: var(--layout-section-space-mobile);
+  @media (min-width: 768px) {
+    padding-block: var(--layout-section-space-tablet);
+  }
+  @media (min-width: 1024px) {
+    padding-block: var(--layout-section-space-desktop);
+  }
+}
+
+@utility layout-stack {
+  display: grid;
+  gap: var(--layout-grid-gutter-mobile);
+  @media (min-width: 768px) {
+    gap: var(--layout-grid-gutter-tablet);
+  }
+  @media (min-width: 1024px) {
+    gap: var(--layout-grid-gutter-desktop);
+  }
+}
+
+@utility transition-color-figma {
+  transition-property: color, background-color, border-color, fill, stroke;
+  transition-duration: 250ms;
+  transition-timing-function: ease-out;
+}
+
+@utility transition-move-figma {
+  transition-property: transform, opacity;
+  transition-duration: 700ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@layer components {
+  .home-section {
+    padding-top: 80px;
+    padding-bottom: 0;
+  }
+
+  @media (max-width: 767px) {
+    .home-section {
+      padding-top: 56px;
+    }
+  }
+
+  .home-timeline-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: min(224px, 85%);
+    height: 1px;
+    background: rgba(8, 57, 54, 0.35);
+  }
+
+  .home-quote-card {
+    position: relative;
+  }
+
+  .home-quote-card::after {
+    content: "";
+    position: absolute;
+    left: 22px;
+    bottom: -19px;
+    border-width: 19px 11px 0 11px;
+    border-style: solid;
+    border-color: #f8f8f8 transparent transparent transparent;
+  }
+
+  .home-guide-bg {
+    background:
+      radial-gradient(circle at 0 0, rgba(156, 204, 87, 0.22), transparent 42%),
+      radial-gradient(circle at 100% 100%, rgba(8, 57, 54, 0.1), transparent 35%),
+      #f8f8f8;
+  }
+
+  .home-contact-bg::before {
+    content: "";
+    position: absolute;
+    inset: -20% -10% 40% -10%;
+    pointer-events: none;
+    transform: rotate(-14deg);
+    background:
+      radial-gradient(circle at 18% 20%, rgba(156, 204, 87, 0.2), transparent 32%),
+      radial-gradient(circle at 55% 25%, rgba(94, 152, 148, 0.18), transparent 35%),
+      radial-gradient(circle at 85% 35%, rgba(156, 204, 87, 0.16), transparent 28%);
+    opacity: 0.6;
+  }
+
+  .redesign-footer-pattern {
+    background-color: rgba(8, 57, 54, 1);
+    background-image: url('/img/svg/pattern-cta.svg');
+    background-repeat: repeat;
+    background-size: 80.64px 57.6px;
+    background-position: top left;
+  }
+
+  .redesign-cta-pattern {
+    background-color: rgba(8, 57, 54, 1);
+    background-image: url('/img/svg/pattern-cta.svg');
+    background-repeat: repeat;
+    background-size: 80.64px 57.6px;
+    background-position: top left;
+  }
+
+  .redesign-fade-enter-active,
+  .redesign-fade-leave-active {
+    transition: opacity 250ms ease-in-out;
+  }
+
+  .redesign-fade-enter-from,
+  .redesign-fade-leave-to {
+    opacity: 0;
+  }
+
+  .redesign-slide-down-enter-active,
+  .redesign-slide-down-leave-active {
+    transition: opacity 250ms ease-in-out, transform 250ms ease-in-out;
+    transform-origin: top center;
+  }
+
+  .redesign-slide-down-enter-from,
+  .redesign-slide-down-leave-to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  .redesign-accordion-enter-active,
+  .redesign-accordion-leave-active {
+    transition: opacity 250ms ease-in-out, transform 250ms ease-in-out;
+    transform-origin: top center;
+  }
+
+  .redesign-accordion-enter-from,
+  .redesign-accordion-leave-to {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@layer utilities {
+  [x-cloak] {
+    display: none !important;
+  }
+  [v-cloak] {
+    display: none !important;
+  }
+}
+
+/* width */
+.scroll-smooth::-webkit-scrollbar {
+    height: 8px;
+}
+  
+/* Track */
+.scroll-smooth::-webkit-scrollbar-track {
+    background: #fefefe;
+}
+
+  
+/* Handle on hover */
+.scroll-smooth::-webkit-scrollbar-thumb:hover {
+    background: #E65100;
+}   
+
+@media (max-width: 1023px) {
+  .testimonials-track-mobile-hide-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .testimonials-track-mobile-hide-scrollbar::-webkit-scrollbar {
+    display: none;
+    height: 0;
+  }
+}
+
+.scroll-smooth {
+    scroll-behavior: smooth;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .scroll-smooth::-webkit-scrollbar-thumb {
+    background-color: #E65100;
+    border-radius: 0px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .scroll-smooth::-webkit-scrollbar-thumb:hover {
+    background-color: #E65100;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .novinky-post A{
+    text-decoration: underline;
+    color: #0E4A32;
+  }
+
+  .fade {
+    animation: fade 3s infinite;
+  }
+
+  @keyframes fade {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+/* ---- irskostudy custom helpers (adapted to new brand tokens) ---- */
 :root {
-    --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-    --color-primary: #064D45; /* dark green */
-    --color-emerald: #5FBA89;  /* secondary green */
-    --color-cta: #ffcc00;      /* CTA gold */
-    /* RGB fallbacks for CSS rgba with CSS variables */
-    --rgb-primary: 6,77,69; /* rgb(6,77,69) */
-    --rgb-emerald: 95,186,137; /* rgb(95,186,137) */
+  --rgb-brand-dark-green: 8, 57, 54;  /* #083936 */
+  --rgb-brand-light-green: 155, 204, 87; /* #9bcc57 */
 }
-
-html, body {
-    font-family: var(--font-sans);
-}
-
-/* Small utilities (kept minimal — prefer Tailwind classes) */
-.site-hero {
-    background: linear-gradient(180deg, rgba(6,77,69,0.03) 0%, rgba(255,255,255,0) 100%);
-}
-
-.brand-link img { height: 48px; }
 
 /* Reveal-on-scroll helpers */
 .reveal {
-    opacity: 0;
-    transform: translateY(18px) scale(0.995);
-    transition: opacity 520ms cubic-bezier(.2,.9,.2,1), transform 520ms cubic-bezier(.2,.9,.2,1);
-    will-change: opacity, transform;
+  opacity: 0;
+  transform: translateY(18px) scale(0.995);
+  transition: opacity 520ms cubic-bezier(.2,.9,.2,1), transform 520ms cubic-bezier(.2,.9,.2,1);
+  will-change: opacity, transform;
 }
 .reveal.revealed {
-    opacity: 1;
-    transform: translateY(0) scale(1);
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
-
-/* directional variants */
 .reveal-from-left { transform: translateX(-18px) scale(0.995); }
 .reveal-from-right { transform: translateX(18px) scale(0.995); }
+.reveal-from-bottom { transform: translateY(18px) scale(0.995); }
 .reveal.revealed.reveal-from-left,
-.reveal.revealed.reveal-from-right { transform: translateX(0) scale(1); }
+.reveal.revealed.reveal-from-right,
+.reveal.revealed.reveal-from-bottom { transform: translateX(0) translateY(0) scale(1); }
+.reveal[data-reveal-delay] { transition-delay: 0ms; }
 
-/* reduced motion fallback */
 @media (prefers-reduced-motion: reduce) {
-    .reveal, .reveal.revealed { transition: none; transform: none; opacity: 1; }
+  .reveal, .reveal.revealed { transition: none; transform: none; opacity: 1; }
 }
 
 /* CTA animated gradient */
 .btn-cta {
-    background: linear-gradient(90deg, var(--color-primary), var(--color-emerald));
-    background-size: 200% 200%;
-    transition: background-position 450ms ease, transform 200ms ease, box-shadow 200ms ease;
+  background: linear-gradient(90deg, #083936, #5FBA89);
+  background-size: 200% 200%;
+  transition: background-position 450ms ease, transform 200ms ease, box-shadow 200ms ease;
 }
 .btn-cta:hover, .btn-cta:focus {
-    background-position: 100% 0;
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(6,77,69,0.12);
+  background-position: 100% 0;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(8,57,54,0.12);
 }
 .btn-cta:active { transform: translateY(-1px); }
 
-/* utility to stagger reveals via inline delay attribute */
-.reveal[data-reveal-delay] { transition-delay: 0ms; }
-
 /* Pointer-driven gradient overlay */
 .pointer-gradient { position: relative; overflow: hidden; }
-/* The overlay sits above background layers but below main content. Increase z-index to avoid being covered
-   by absolutely positioned background children that may create their own stacking contexts. */
 .pointer-gradient::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 50; /* higher to ensure visibility */
-    transition: opacity 280ms ease, transform 280ms ease;
-    /* radial gradient uses CSS variables --mx and --my set by JS (percentage values) */
-    background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(var(--rgb-emerald),0.36) 0%, rgba(var(--rgb-primary),0.22) 22%, rgba(var(--rgb-emerald),0.12) 40%, rgba(255,204,0,0.08) 58%, transparent 82%);
-    /* Use normal blending for predictable color on light backgrounds */
-    mix-blend-mode: normal;
-    opacity: 0.85;
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  transition: opacity 280ms ease, transform 280ms ease;
+  background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(var(--rgb-brand-light-green),0.36) 0%, rgba(var(--rgb-brand-dark-green),0.22) 22%, rgba(var(--rgb-brand-light-green),0.12) 40%, rgba(255,204,0,0.08) 58%, transparent 82%);
+  mix-blend-mode: normal;
+  opacity: 0.85;
+  will-change: transform, background-position, opacity;
+  transform: translate3d(var(--px, 0px), var(--py, 0px), 0);
 }
-
-/* Ensure content sits above the overlay */
 .pointer-gradient > * { position: relative; z-index: 60; }
-/* keep explicit background layer below the overlay when present (hero uses bg-gradient-to-r or bg-gradient-to-br) */
 .pointer-gradient > .bg-gradient-to-r,
 .pointer-gradient > .bg-gradient-to-br { z-index: 0; }
-/* ensure normal content renders above the overlay */
 .pointer-gradient > *:not(.bg-gradient-to-r):not(.bg-gradient-to-br) { z-index: 60; }
-
-/* subtle pointer-driven parallax on large artwork inside pointer-gradient */
-.pointer-gradient .parallax {
-    transform: translateZ(0);
-    transition: transform 320ms cubic-bezier(.2,.9,.2,1);
-    will-change: transform;
-}
-
-/* Move only the gradient overlay based on pointer — do not shift the section itself */
-.pointer-gradient::before {
-    will-change: transform, background-position, opacity;
-    transform: translate3d(var(--px, 0px), var(--py, 0px), 0);
-}
-

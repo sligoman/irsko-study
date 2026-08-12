@@ -3,17 +3,16 @@
 namespace App\Events;
 
 use App\Models\Lead;
+use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Events\ShouldDispatchAfterCommit;
 
-class LeadSubmitted
+class LeadSubmitted implements ShouldDispatchAfterCommit
 {
-    use Dispatchable, SerializesModels;
+    use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $lead;
-
-    public function __construct(Lead $lead)
+    public function __construct(public Lead $lead)
     {
-        $this->lead = $lead;
     }
 }

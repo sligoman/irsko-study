@@ -10,7 +10,37 @@ import UniversitySlideshow from './components/university-slideshow.vue';
 import CourseFinder from './components/course-finder.vue';
 import InstagramWidget from './components/instagram-widget.vue';
 
-const app = createApp({});
+const app = createApp({
+  data() {
+    return {
+      mobileOpen: false,
+      showContactForm: false,
+    };
+  },
+  watch: {
+    mobileOpen(isOpen) {
+      document.body.classList.toggle('overflow-hidden', isOpen);
+    },
+    showContactForm(isOpen) {
+      document.body.classList.toggle('overflow-hidden', isOpen);
+    },
+  },
+  methods: {
+    openContactForm() {
+      this.showContactForm = true;
+      if (typeof window.gtag !== 'undefined') {
+        window.gtag('event', 'form_open');
+      }
+    },
+    closeContactForm() {
+      this.showContactForm = false;
+    },
+  },
+  beforeUnmount() {
+    document.body.classList.remove('overflow-hidden');
+  },
+});
+
 app.component('faq-accordion', FaqAccordion);
 app.component('contact-form', ContactForm);
 app.component('blog-dynamic', BlogDynamic);
@@ -20,23 +50,14 @@ app.component('course-finder', CourseFinder);
 app.component('instagram-widget', InstagramWidget);
 app.mount('#app');
 
-// Mobile nav toggle: attach in bundled JS to avoid inline <script> inside Blade templates
-document.addEventListener('DOMContentLoaded', function(){
-	const btn = document.getElementById('nav-toggle');
-	const menu = document.getElementById('mobile-menu');
-	if (btn && menu) btn.addEventListener('click', () => menu.classList.toggle('hidden'));
-});
-
 // Initialize reveal-on-scroll animations
 import initReveal from './reveal';
 document.addEventListener('DOMContentLoaded', function(){
-  // small timeout so initial paint can happen
   setTimeout(() => initReveal('.reveal'), 120);
 });
 
 // Pointer-driven gradient (cursor-follow) initialization
 import initPointerGradient from './pointerGradient';
 document.addEventListener('DOMContentLoaded', function(){
-	// initialize pointer gradient behavior
-	try { initPointerGradient('.pointer-gradient'); } catch (e) { /* ignore in non-browser env */ }
+  try { initPointerGradient('.pointer-gradient'); } catch (e) { /* ignore in non-browser env */ }
 });

@@ -33,6 +33,8 @@
     <a href="{{ route('contact') }}" class="inline-block btn-cta text-white px-6 py-3 rounded-lg">Chci být jedním z úspěšných studentů</a>
   </div> --}}
 
+  @include('components.contact-panel')
+
   <!-- Silné CTA (cta komponenta) -->
   @include('components.cta')
 
