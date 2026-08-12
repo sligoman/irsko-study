@@ -5,7 +5,7 @@ $providers = [
 ];
 
 // Don't register the aiblog provider during testing to avoid DB schema checks
-if (env('APP_ENV') !== 'testing') {
+if (($_ENV['APP_ENV'] ?? getenv('APP_ENV')) !== 'testing') {
     $providers[] = Sligoman\AiblogApiWeb\BlogApiServiceProvider::class;
 }
 

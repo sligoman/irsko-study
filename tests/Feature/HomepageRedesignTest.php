@@ -21,6 +21,9 @@ class HomepageRedesignTest extends TestCase
         $response->assertSee('img/video.mp4', false);
         $response->assertSee('brand-orange', false);
         $response->assertSee('university-slideshow', false);
+        $response->assertDontSee('radial-gradient', false);
+        $response->assertSee('id="redesign-nav"', false);
+        $response->assertSee('sticky top-0 z-50 bg-brand-dark-green', false);
     }
 
     public function test_hero_university_slideshow_assets_are_available(): void

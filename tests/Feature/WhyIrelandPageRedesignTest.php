@@ -18,5 +18,6 @@ class WhyIrelandPageRedesignTest extends TestCase
         $response->assertSee('data-redesign-section="why-ireland-benefits"', false);
         $response->assertSee('data-redesign-section="why-ireland-summary"', false);
         $response->assertSee('text-brand-orange', false);
+        $response->assertDontSee('radial-gradient', false);
     }
 }

@@ -28,7 +28,7 @@
                     </svg>
                 </button>
 
-                <contact-form position="floating" :on-close="closeContactForm"></contact-form>
+                <contact-form position="bottom"></contact-form>
             </div>
         </div>
     </transition>

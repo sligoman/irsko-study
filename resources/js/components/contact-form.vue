@@ -65,6 +65,12 @@
                 <p v-if="errors.message" class="text-red-600 text-sm mt-1">{{ errors.message[0] }}</p>
               </div>
 
+              <label class="mt-4 flex items-start gap-2 text-sm text-gray-700">
+                <input v-model="form.consent" required type="checkbox" name="consent" class="mt-1">
+                <span>Souhlasím se zpracováním osobních údajů za účelem vyřízení mého dotazu.</span>
+              </label>
+              <p v-if="errors.consent" class="text-red-600 text-sm mt-1">{{ errors.consent[0] }}</p>
+
               <div v-if="selectedCourses && selectedCourses.length > 0" class="mb-2">
                 <label class="block text-sm font-medium">Poptávané kurzy</label>
                 <div class="flex flex-wrap mt-2">
@@ -137,6 +143,12 @@
           <p v-if="errors.message" class="text-red-600 text-sm mt-1">{{ errors.message[0] }}</p>
         </div>
 
+        <label class="flex items-start gap-2 text-sm text-gray-700">
+          <input v-model="form.consent" required type="checkbox" name="consent" class="mt-1">
+          <span>Souhlasím se zpracováním osobních údajů za účelem vyřízení mého dotazu.</span>
+        </label>
+        <p v-if="errors.consent" class="text-red-600 text-sm mt-1">{{ errors.consent[0] }}</p>
+
         <div class="flex items-center gap-4">
           <button :disabled="submitting" class="bg-[color:var(--color-brand-dark-green)] text-white px-4 py-2 rounded disabled:opacity-60">{{ submitting ? 'Odesílám…' : 'Odeslat' }}</button>
           <p v-if="isSubmitted" class="text-green-600">Děkujeme, zpráva byla odeslána.</p>
@@ -160,7 +172,7 @@ export default {
   },
   data() {
     return {
-      form: { name: '', email: '', message: '', phone: '', page: this.page || '', position: this.position },
+      form: { name: '', email: '', message: '', phone: '', page: this.page || '', position: this.position, consent: false, source: 'website' },
       errors: {},
       submitting: false,
       isSubmitted: false,

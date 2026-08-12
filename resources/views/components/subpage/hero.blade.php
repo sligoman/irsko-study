@@ -7,7 +7,6 @@
 ])
 
 <section data-component="subpage-hero" class="relative overflow-hidden rounded-b-[24px] bg-brand-dark-green text-white">
-  <div class="absolute inset-0 bg-[radial-gradient(circle_at_14%_22%,rgba(255,120,46,0.26),transparent_28%),radial-gradient(circle_at_88%_18%,rgba(156,204,87,0.2),transparent_30%)]"></div>
   <div class="layout-container relative py-20 md:py-28">
     <div class="max-w-[940px]">
       @if($eyebrow)

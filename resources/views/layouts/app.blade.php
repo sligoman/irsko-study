@@ -3,11 +3,20 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title', 'Irsko STUDY')</title>
     <meta name="description" content="@yield('meta_description', 'IrskoStudy — pomoc s přihláškami, ubytováním a studiem v Irsku pro studenty z ČR a SK')">
 
     <meta name="theme-color" content="#0E4A32">
+    <link rel="icon" type="image/svg+xml" href="{{ asset('img/svg/favicon.svg') }}?v=6">
+    <link rel="icon" type="image/x-icon" href="{{ asset('img/svg/favicon.ico') }}?v=6">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/svg/favicon-32x32.png') }}?v=6">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/svg/favicon-16x16.png') }}?v=6">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/svg/apple-touch-icon.png') }}?v=6">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('img/svg/android-chrome-192x192.png') }}?v=6">
+    <link rel="icon" type="image/png" sizes="512x512" href="{{ asset('img/svg/android-chrome-512x512.png') }}?v=6">
+    <link rel="manifest" href="{{ asset('img/site.webmanifest') }}?v=6">
     <link rel="canonical" href="@yield('canonical', url()->current())">
 
     @if(app()->environment(['local', 'testing']))
@@ -29,8 +38,7 @@
       case 'about':
       case 'why':
       case 'universities':
-      case 'blog':
-      case 'blog.post':
+
       case 'services':
       case 'faq':
       case 'contact':
@@ -58,11 +66,7 @@
         @yield('content')
 
         @if(Route::currentRouteName() != 'home')
-        <div class="bg-brand-dark-green p-4">
-            <a href="#app" class="flex flex-col gap-1 text-sm text-gray-300 hover:text-brand-orange items-center justify-center">
-                <x-svg.chevron direction="up" />Skoč na začátek stránky
-            </a>
-        </div>
+        <x-back-to-top />
         @endif
 
         @include('components.footer')

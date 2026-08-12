@@ -1,9 +1,10 @@
 @php
 $year = date('Y');
 $footerLinksClass = 'type-text-md transition-color-figma block py-2 text-white hover:underline underline-offset-4';
+$isBlogPage = in_array(Route::currentRouteName(), ['blog', 'blog.show'], true);
 @endphp
 
-<footer class="pt-10 text-white">
+<footer class="{{ $isBlogPage ? 'pt-0' : 'pt-10' }} text-white">
   <div class="redesign-footer-pattern overflow-hidden rounded-t-[24px] px-4 py-12 md:px-16 md:py-16">
     <div class="mx-auto flex w-full max-w-[1280px] flex-col gap-10 md:gap-12 md:px-8">
 

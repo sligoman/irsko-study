@@ -5,31 +5,18 @@
 
 @section('content')
   <main data-redesign-page="about" class="bg-base-white">
-    <section data-redesign-section="about-hero" class="relative overflow-hidden rounded-b-[24px] bg-brand-dark-green text-white">
-      <div class="absolute inset-0 bg-[radial-gradient(circle_at_14%_22%,rgba(255,120,46,0.26),transparent_28%),radial-gradient(circle_at_88%_18%,rgba(156,204,87,0.2),transparent_30%)]"></div>
-      <div class="layout-container relative py-20 md:py-28">
-        <div class="max-w-[900px]">
-          <p class="type-text-md-semibold inline-flex rounded-full bg-white/10 px-4 py-2 text-white ring-1 ring-white/15">O nás</p>
-          <h1 class="type-display-2xl mt-6 text-white">Irsko známe <span class="text-brand-orange">zevnitř</span>, ne z katalogu</h1>
-          <p class="type-text-lg mt-6 max-w-[720px] text-white/85">Pomáháme českým a slovenským studentům splnit sen o studiu v Irsku. Studium v Irsku pro nás není jen téma, ale vlastní zkušenost a každodenní realita.</p>
-        </div>
+    <x-subpage.hero
+      eyebrow="O nás"
+      title="Irsko známe"
+      accent="zevnitř, ne z katalogu"
+      text="Pomáháme českým a slovenským studentům splnit sen o studiu v Irsku. Studium v Irsku pro nás není jen téma, ale vlastní zkušenost a každodenní realita."
+      :stats="[
+        ['value' => '20 let', 'label' => 'života v Irsku'],
+        ['value' => '1 země', 'label' => 'specializujeme se na Irsko'],
+        ['value' => 'A-Z', 'label' => 'podpora před i po příjezdu'],
+      ]"
+    />
 
-        <div class="mt-12 grid max-w-[900px] gap-4 sm:grid-cols-3">
-          <div class="rounded-[12px] bg-white/10 p-5 ring-1 ring-white/15">
-            <p class="type-display-xs text-white">20 let</p>
-            <p class="type-text-sm mt-1 text-white/80">života v Irsku</p>
-          </div>
-          <div class="rounded-[12px] bg-white/10 p-5 ring-1 ring-white/15">
-            <p class="type-display-xs text-white">1 země</p>
-            <p class="type-text-sm mt-1 text-white/80">specializujeme se na Irsko</p>
-          </div>
-          <div class="rounded-[12px] bg-white/10 p-5 ring-1 ring-white/15">
-            <p class="type-display-xs text-white">A-Z</p>
-            <p class="type-text-sm mt-1 text-white/80">podpora před i po příjezdu</p>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <section data-redesign-section="about-values" class="home-section">
       <div class="layout-container">

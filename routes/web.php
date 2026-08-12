@@ -31,7 +31,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 // Contact form POST handler (accepts JSON or form data) - use LeadController
-Route::post('/contact', [LeadController::class, 'store'])->name('lead.store');
+Route::post('/contact', [LeadController::class, 'store'])->middleware('throttle:leads')->name('lead.store');
 
 // Finder - schools & courses (uses models from sligoman/caofinder package)
 // Czech-friendly routes:

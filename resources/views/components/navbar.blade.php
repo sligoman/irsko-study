@@ -4,6 +4,9 @@ $routeName = Route::currentRouteName() ?? '';
 $photoHeroRoutes = ['finder.courses', 'finder.course.show', 'finder.school.show'];
 $isPhotoHero = in_array($routeName, $photoHeroRoutes, true);
 
+$solidDarkRoutes = ['home'];
+$isSolidDark = in_array($routeName, $solidDarkRoutes, true);
+
 $isRouteActive = function (string $name) use ($routeName): bool {
     return match ($name) {
         'home' => $routeName === 'home',
@@ -40,7 +43,7 @@ $mobileLinks = [
   id="redesign-nav"
   v-cloak
   @keydown.escape.window="mobileOpen = false"
-  class="{{ $isPhotoHero ? 'absolute inset-x-0 top-0 z-50' : 'sticky top-0 z-50' }}"
+  class="{{ $isPhotoHero ? 'absolute inset-x-0 top-0 z-50' : 'sticky top-0 z-50' }} {{ $isSolidDark ? 'bg-brand-dark-green' : '' }}"
 >
   <div class="px-2 py-2 md:px-4">
     <div class="flex items-center rounded-[16px] bg-brand-dark-green p-4 md:h-[72px] md:px-4 md:py-0">

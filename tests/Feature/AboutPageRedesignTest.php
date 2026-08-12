@@ -12,7 +12,8 @@ class AboutPageRedesignTest extends TestCase
 
         $response->assertOk();
         $response->assertSee('data-redesign-page="about"', false);
-        $response->assertSee('data-redesign-section="about-hero"', false);
+        $response->assertSee('data-component="subpage-hero"', false);
+        $response->assertDontSee('radial-gradient', false);
         $response->assertSee('data-redesign-section="about-values"', false);
         $response->assertSee('data-redesign-section="about-team"', false);
         $response->assertSee('data-redesign-section="about-contact"', false);

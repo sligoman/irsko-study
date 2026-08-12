@@ -34,10 +34,10 @@ class BlogImageVariantsTest extends TestCase
 
             $html = (string) view('blog.show', ['post' => $post])->render();
 
-            $this->assertStringContainsString('/img/blog/test-featured-1x.jpg 640w', $html);
-            $this->assertStringContainsString('/img/blog/test-featured-2x.jpg 960w', $html);
-            $this->assertStringContainsString('/img/blog/test-featured-3x.jpg 1200w', $html);
             $this->assertStringContainsString('/img/blog/test-featured-4x.jpg 1600w', $html);
+            $this->assertStringNotContainsString('/img/blog/test-featured-1x.jpg 640w', $html);
+            $this->assertStringNotContainsString('/img/blog/test-featured-2x.jpg 960w', $html);
+            $this->assertStringNotContainsString('/img/blog/test-featured-3x.jpg 1200w', $html);
             $this->assertStringNotContainsString('/img/blog/medium/test-featured.jpg', $html);
             $this->assertStringNotContainsString('/img/blog/large/test-featured.jpg', $html);
         } finally {

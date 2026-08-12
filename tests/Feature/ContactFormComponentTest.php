@@ -12,5 +12,7 @@ class ContactFormComponentTest extends TestCase
 
         $this->assertStringContainsString('v-show="position === \'floating\' && visible"', $component);
         $this->assertStringNotContainsString('v-show="visible" class="fixed inset-0 z-50 flex items-center justify-center"', $component);
+        $this->assertStringContainsString('v-model="form.consent"', $component);
+        $this->assertStringContainsString('Souhlasím se zpracováním osobních údajů', $component);
     }
 }

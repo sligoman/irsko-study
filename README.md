@@ -2,104 +2,84 @@
 
 This README contains developer-focused documentation for the lead/contact flow implemented in this repository.
 
-## Lead (contact) flow — overview
+## Lead (contact) flow — n8n review and CRM handoff
 
-The project includes a small lead capture system used by the public contact form. It persists leads, sends a notification email, and dispatches an event for further processing (logging, CRM integration, etc.).
+Public contact forms submit to `POST /contact`. The application validates the request, requires consent, rate-limits requests to two per minute per IP, and stores each lead as `pending_review`. Submission does **not** send email or contact the CRM.
 
-Key pieces:
+n8n owns qualification:
 
-- `app/Http/Controllers/LeadController.php` — handles POST `/contact` requests, validates input, creates the `Lead` model, sends the `LeadStored` mailable, dispatches `LeadSubmitted` event, and returns a JSON response.
-- `app/Models/Lead.php` — the Eloquent model representing a captured lead. Fillable fields: `name`, `email`, `phone`, `message`, `page`.
-- `database/migrations/*create_leads_table.php` — migration that creates the `leads` table.
-- `app/Mail/LeadStored.php` and `resources/views/emails/lead-stored.blade.php` — the mailable used to notify the configured recipient about a new lead.
-- `app/Events/LeadSubmitted.php` — an event that carries the saved `Lead` instance and can be listened to for side effects (analytics, CRM sync, Slack, etc.).
-- `routes/web.php` — route declaration for the contact endpoint:
+1. n8n fetches unprocessed leads with `GET /api/internal/leads/pending?mark_fetched=1`.
+2. n8n checks the lead for spam and validates it.
+3. n8n calls `PATCH /api/internal/leads/{id}/review` with `approved` or `rejected`, spam score, notes, and optional payload.
+4. The first approval dispatches `LeadSubmitted` after commit.
+5. Queued listeners send the internal notification, applicant confirmation, and CRM payload to `CRM_LEAD_URL`.
+
+Rejected leads remain stored with their spam/qualification details and never receive CRM or email handoff. Repeating a review request after processing returns `already_processed: true`, so external handoff runs once.
+
+### n8n authentication
+
+The review API uses Sanctum bearer tokens. Create a dedicated local `User` for n8n and create a token in the irskostudy application; do not reuse the irsko.ie token because Sanctum tokens are application-specific.
+
+```sh
+php artisan tinker
+```
 
 ```php
-Route::post('/contact', [\App\Http\Controllers\LeadController::class, 'store'])->name('lead.store');
+$user = \App\Models\User::firstOrCreate(
+    ['email' => 'n8n@irskostudy.cz'],
+    ['name' => 'n8n Lead Review', 'password' => \Illuminate\Support\Facades\Hash::make(\Illuminate\Support\Str::random(40))],
+);
+$token = $user->createToken('n8n-lead-review')->plainTextToken;
 ```
 
-## Request contract (inputs/outputs)
+Store the printed token only in n8n credentials and send it as `Authorization: Bearer <token>`.
 
-- Inputs (POST JSON or form-encoded):
-	- `name` (string, required)
-	- `email` (string, required, valid email)
-	- `phone` (string, optional)
-	- `message` (string, optional)
-	- `page` (string, optional) — optional page identifier where the lead originated
+### n8n API contract
 
-- Success response: HTTP 201 JSON { "ok": true, "message": "Lead stored" }
-- Failure: HTTP 422 on validation errors with standard Laravel validation payload.
+`GET /api/internal/leads/pending?mark_fetched=1`
 
-## Where the email is sent
+- Requires Sanctum bearer token.
+- Optional `limit` query parameter, range 1–100; default 50.
+- `mark_fetched=1` writes `n8n_fetched_at` and transitions `unprocessed` leads to `in_review`.
 
-The recipient is read from the site configuration `config('contacts.email')`. If you need to change the address used for notifications, update the `contacts` config file or the `.env` variables that populate it.
+`PATCH /api/internal/leads/{lead}/review`
 
-## Lead logging (separate channel)
+```json
+{
+  "approval_status": "approved",
+  "qualification_status": "qualified",
+  "qualification_source": "n8n",
+  "spam_score": 0.1,
+  "qualification_notes": "Validated by n8n.",
+  "qualification_payload": {
+    "decision": "approve"
+  }
+}
+```
 
-Lead intake and mail delivery status are logged to a dedicated channel named `leads`. By default it writes to `storage/logs/leads.log` with daily rotation (30 days). You can adjust levels and retention with:
+Use `approval_status: "rejected"` and `qualification_status: "disqualified"` for spam. The approval endpoint accepts only the first decision; subsequent calls return the stored lead with `already_processed: true`.
 
-- `LOG_LEADS_LEVEL` (default: `info`)
-- `LOG_LEADS_DAYS` (default: `30`)
+### CRM and queue configuration
 
-## How to run locally
+```dotenv
+CRM_LEAD_URL=https://crm.irsko.ie/api/lead
+CRM_LEAD_TIMEOUT=10
+QUEUE_CONNECTION=database
+```
 
-1. Install dependencies and build front-end assets if needed:
+Run a queue worker in production so approval handoff is retried outside the n8n/API request:
 
 ```sh
-composer install
-npm install
-npm run dev   # or npm run build for production
+php artisan queue:work --tries=3
 ```
 
-2. Run migrations (this will create the `leads` table):
+Key implementation files:
 
-```sh
-php artisan migrate
-```
-
-3. Start a local server (optional):
-
-```sh
-php artisan serve
-```
-
-4. Submit a lead from the frontend contact form or send a POST request to `/contact`.
-
-Example using curl:
-
-```sh
-curl -X POST http://localhost:8000/contact \
-	-H "Content-Type: application/json" \
-	-d '{"name":"Test User","email":"test@example.com","phone":"+420123456789","message":"Interested in help","page":"services"}'
-```
-
-## Tests
-
-- There is a feature test that covers the lead creation flow: `tests/Feature/LeadTest.php`.
-- The test uses `Mail::fake()` and `Event::fake()` to assert that the mailable was queued/sent and the event dispatched.
-
-Run the tests with:
-
-```sh
-./vendor/bin/phpunit --filter=LeadTest
-```
-
-Note: Some tests or vendor code in this repository perform database inspection queries that assume MySQL. If you run tests under SQLite you may encounter SQL errors (for example, `SHOW COLUMNS` is MySQL-specific). If that happens, run the test suite using a MySQL test database or temporarily mock/guard vendor calls during testing.
-
-## Extending the flow
-
-- Queue the mailable: change `Mail::to(...)->send()` to `->queue()` and configure your queue worker.
-- Add a listener for `LeadSubmitted` in `EventServiceProvider` to push leads to a CRM or send Slack notifications.
-- Add IP throttling / rate limiting in `LeadController` to prevent spam.
-
-## Troubleshooting
-
-- If you don't receive emails locally, ensure `MAIL_MAILER` and related mail settings in `.env` are configured (or use `log` driver in `.env` for development).
-- If migrations fail, inspect migration files in `database/migrations` and ensure the DB connection in `.env` is correct.
-
-If you'd like, I can add a small README section that documents how to wire a queue listener for `LeadSubmitted` or create a sample listener that forwards leads to an external CRM.
-
+- `app/Http/Controllers/LeadController.php` — stores pending public leads.
+- `app/Http/Controllers/Api/LeadReviewController.php` — Sanctum review API for n8n.
+- `app/Services/LeadApprovalService.php` — idempotent approval/rejection transitions.
+- `app/Listeners/PostLeadToCRM.php` — CRM delivery, invoked only after approval.
+- `app/Listeners/SendLeadStoredNotification.php` and `SendLeadNotification.php` — approval-only emails.
 
 ## Finder (courses & universities)
 

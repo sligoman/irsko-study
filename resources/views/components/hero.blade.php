@@ -1,7 +1,4 @@
 <section data-redesign-section="hero-stats" class="relative overflow-hidden rounded-b-[24px] bg-brand-dark-green text-white">
-  <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,120,46,0.22),transparent_30%),radial-gradient(circle_at_82%_24%,rgba(156,204,87,0.18),transparent_28%)]"></div>
-  <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/20 to-transparent"></div>
-
   <div class="layout-container relative grid min-h-[720px] gap-10 pb-12 pt-32 lg:grid-cols-12 lg:items-center lg:pt-40">
     <div class="lg:col-span-7">
       <p class="type-text-md-semibold inline-flex rounded-full bg-white/10 px-4 py-2 text-white ring-1 ring-white/15">Najdeš nás přímo v Irsku</p>

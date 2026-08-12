@@ -15,18 +15,16 @@
     $image3x = \App\Support\ResponsiveImageResolver::urlForScale($article, 'blog', 3);
     $image4x = \App\Support\ResponsiveImageResolver::urlForScale($article, 'blog', 4);
 
-    $src = $preferredScale === 3
-      ? ($image3x ?? $image2x ?? $image1x ?? $image4x)
-      : ($image2x ?? $image3x ?? $image1x ?? $image4x);
+    $src = $preferredScale === 4
+      ? ($image4x ?? $image3x ?? $image2x ?? $image1x)
+      : ($preferredScale === 3
+        ? ($image3x ?? $image2x ?? $image1x ?? $image4x)
+        : ($image2x ?? $image3x ?? $image1x ?? $image4x));
 
     return [
       'src' => $src,
-      'srcset' => collect([
-        $image1x ? "{$image1x} 640w" : null,
-        $image2x ? "{$image2x} 960w" : null,
-        $image3x ? "{$image3x} 1200w" : null,
-        $image4x ? "{$image4x} 1600w" : null,
-      ])->filter()->implode(', '),
+      // Blog cards intentionally use the highest-quality variant to avoid blurry thumbnails.
+      'srcset' => $image4x ? "{$image4x} 1600w" : null,
     ];
   };
 @endphp
@@ -39,12 +37,12 @@
         <a href="{{ route('blog') }}" class="type-text-sm inline-flex text-brand-dark-green underline decoration-brand-light-green underline-offset-4">Zpět na blog</a>
 
         <div class="mt-5 grid gap-6 rounded-[16px] bg-white p-6 md:grid-cols-[1fr_1fr] md:p-8">
-          <div class="overflow-hidden rounded-[8px] bg-base-white ring-1 ring-neutral-200">
-            @php($postImage = $blogImageSet($post, 3))
+          <div class="h-[320px] overflow-hidden rounded-[8px] bg-base-white ring-1 ring-neutral-200 md:h-[420px]">
+            @php($postImage = $blogImageSet($post, 4))
             @if(!empty($postImage['src']))
-              <img src="{{ $postImage['src'] }}" @if(!empty($postImage['srcset'])) srcset="{{ $postImage['srcset'] }}" @endif sizes="(max-width: 768px) 100vw, 50vw" alt="{{ $post->title }}" title="{{ $post->title }}" class="h-[320px] w-full object-cover md:h-[420px]">
+              <img src="{{ $postImage['src'] }}" @if(!empty($postImage['srcset'])) srcset="{{ $postImage['srcset'] }}" @endif sizes="(max-width: 768px) 100vw, 50vw" alt="{{ $post->title }}" title="{{ $post->title }}" class="h-full w-full object-cover" loading="eager" decoding="async">
             @else
-              <div class="flex h-[320px] items-end bg-gradient-to-br from-brand-light-gray via-white to-brand-orange/20 p-6 md:h-[420px]">
+              <div class="flex h-[320px] items-end bg-brand-light-gray p-6 md:h-[420px]">
                 <span class="type-display-md text-brand-dark-green">Irsko<span class="text-brand-orange">Study</span></span>
               </div>
             @endif
@@ -87,29 +85,29 @@
 
           <div class="mt-8 grid gap-6 md:grid-cols-3">
             @foreach($morePosts as $item)
-              @php($morePostImage = $blogImageSet($item, 3))
-              <article class="overflow-hidden rounded-[12px] bg-white ring-1 ring-neutral-200 transition hover:-translate-y-1 hover:ring-brand-orange/30">
-                <a href="{{ route('blog.show', $item->slug) }}" class="block bg-base-white">
+              @php($morePostImage = $blogImageSet($item, 4))
+              <article class="flex h-full flex-col overflow-hidden rounded-[12px] bg-white ring-1 ring-neutral-200 transition hover:-translate-y-1 hover:ring-brand-orange/30">
+                <a href="{{ route('blog.show', $item->slug) }}" class="block h-56 bg-base-white">
                   @if(!empty($morePostImage['src']))
-                    <img src="{{ $morePostImage['src'] }}" @if(!empty($morePostImage['srcset'])) srcset="{{ $morePostImage['srcset'] }}" @endif sizes="(max-width: 768px) 100vw, 33vw" alt="{{ $item->title }}" title="{{ $item->title }}" class="h-56 w-full object-cover">
+                    <img src="{{ $morePostImage['src'] }}" @if(!empty($morePostImage['srcset'])) srcset="{{ $morePostImage['srcset'] }}" @endif sizes="(max-width: 768px) 100vw, 33vw" alt="{{ $item->title }}" title="{{ $item->title }}" class="h-full w-full object-cover" loading="lazy" decoding="async">
                   @else
-                    <div class="flex h-56 items-end bg-gradient-to-br from-brand-light-gray via-white to-brand-orange/20 p-5">
+                    <div class="flex h-56 items-end bg-brand-light-gray p-5">
                       <span class="type-display-xs text-brand-dark-green">Irsko<span class="text-brand-orange">Study</span></span>
                     </div>
                   @endif
                 </a>
-                <div class="p-5">
+                <div class="flex flex-1 flex-col p-5">
                   <div class="mb-3 flex flex-wrap items-center gap-2">
                     @foreach(($item->categories ?? collect())->take(2) as $category)
                       <span class="type-text-sm rounded-full bg-neutral-200 px-3 py-1 text-brand-dark-green">{{ $category->name }}</span>
                     @endforeach
                     <span class="type-text-sm text-utility-text-placeholder-dark">{{ optional($item->created_at)->format('j. n. Y') }}</span>
                   </div>
-                  <h3 class="type-display-xs text-brand-dark-green">{{ $item->title }}</h3>
+                  <h3 class="type-display-sm text-brand-dark-green">{{ $item->title }}</h3>
                   @if(!empty($item->excerpt))
                     <p class="type-text-sm mt-2 text-utility-text-placeholder-dark">{{ \Illuminate\Support\Str::limit(strip_tags($item->excerpt), 120) }}</p>
                   @endif
-                  <a href="{{ route('blog.show', $item->slug) }}" class="type-text-sm mt-4 inline-flex text-brand-dark-green underline decoration-brand-light-green underline-offset-4">Přečíst</a>
+                  <x-subpage.text-link href="{{ route('blog.show', $item->slug) }}" class="mt-auto pt-6">Přečíst</x-subpage.text-link>
                 </div>
               </article>
             @endforeach
@@ -123,25 +121,25 @@
         <div class="flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
             <p class="type-text-sm-semibold text-brand-orange">Další čtení</p>
-            <h2 class="type-display-lg mt-2 text-brand-dark-green">Praktický průvodce ke studiu v Irsku</h2>
+            <h2 class="type-display-lg mt-2 text-brand-dark-green">Praktický průvodce pro studenty z Česka</h2>
           </div>
           <x-button href="{{ route('blog') }}" variant="secondary" class="w-full md:w-auto">Všechny články</x-button>
         </div>
 
         <div class="mt-8 grid gap-4 md:grid-cols-3">
           <article class="rounded-[12px] bg-brand-light-gray p-5">
-            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-brand-orange/15 text-brand-orange">01</div>
-            <h3 class="type-display-xs mt-4 text-brand-dark-green">Co řešit před cestou</h3>
+            <img src="{{ asset('img/svg/suitcase-rolling.svg') }}" alt="" class="h-8 w-8" aria-hidden="true">
+            <h3 class="type-display-xs mt-4 text-brand-dark-green">Přihláška z Česka</h3>
             <p class="type-text-sm mt-3 text-utility-text-placeholder-dark">Dokumenty, termíny a praktické kroky před odjezdem.</p>
           </article>
           <article class="rounded-[12px] bg-brand-light-gray p-5">
-            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-brand-orange/15 text-brand-orange">02</div>
+            <img src="{{ asset('img/svg/book-open-text.svg') }}" alt="" class="h-8 w-8" aria-hidden="true">
             <h3 class="type-display-xs mt-4 text-brand-dark-green">Studium a školy</h3>
             <p class="type-text-sm mt-3 text-utility-text-placeholder-dark">Jak fungují přihlášky, obory a studijní podmínky.</p>
           </article>
           <article class="rounded-[12px] bg-brand-light-gray p-5">
-            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-brand-orange/15 text-brand-orange">03</div>
-            <h3 class="type-display-xs mt-4 text-brand-dark-green">Život na místě</h3>
+            <img src="{{ asset('img/svg/lightbulb-thin.svg') }}" alt="" class="h-8 w-8" aria-hidden="true">
+            <h3 class="type-display-xs mt-4 text-brand-dark-green">Život studenta v Irsku</h3>
             <p class="type-text-sm mt-3 text-utility-text-placeholder-dark">Ubytování, brigády, doprava a první týdny v Irsku.</p>
           </article>
         </div>

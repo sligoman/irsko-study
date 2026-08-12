@@ -13,5 +13,7 @@ class FloatingLeadModalTest extends TestCase
         $response->assertOk();
         $response->assertSee('[v-cloak]{display:none!important}', false);
         $response->assertSee('v-show="showContactForm" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6" style="display: none;"', false);
+        $response->assertSee('<contact-form position="bottom"></contact-form>', false);
+        $response->assertDontSee('<contact-form position="floating"', false);
     }
 }
