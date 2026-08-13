@@ -36,7 +36,7 @@ class SitemapGenerator
             ['loc' => URL::to('/faq'), 'lastmod' => now()->toAtomString(), 'changefreq' => 'monthly', 'priority' => '0.6'],
             ['loc' => URL::to('/kontakt'), 'lastmod' => now()->toAtomString(), 'changefreq' => 'monthly', 'priority' => '0.5'],
             ['loc' => URL::to('/ochrana-soukromi'), 'lastmod' => now()->toAtomString(), 'changefreq' => 'yearly', 'priority' => '0.3'],
-            ['loc' => URL::to('/blog'), 'lastmod' => now()->toAtomString(), 'changefreq' => 'daily', 'priority' => '0.9'],
+            ['loc' => URL::to('/prakticky-pruvodce'), 'lastmod' => now()->toAtomString(), 'changefreq' => 'daily', 'priority' => '0.9'],
         ];
 
         try {
@@ -45,7 +45,7 @@ class SitemapGenerator
             })->orderBy('updated_at', 'desc')->get();
             foreach ($posts as $post) {
                 $staticUrls[] = [
-                    'loc' => URL::to('/blog/' . $post->slug),
+                    'loc' => URL::to('/prakticky-pruvodce/' . $post->slug),
                     'lastmod' => optional($post->updated_at)->toAtomString(),
                     'changefreq' => 'weekly',
                     'priority' => '0.8',

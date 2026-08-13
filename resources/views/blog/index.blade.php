@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Blog - IrskoStudy')
-@section('meta_description', 'Aktuální články a novinky o studiu v Irsku — poradíme s přihláškami, ubytováním a adaptací.')
+@section('title', 'Praktický průvodce - IrskoStudy')
+@section('meta_description', 'Praktický průvodce s aktuálními články a novinky o studiu v Irsku — poradíme s přihláškami, ubytováním a adaptací.')
 
 @php
   $studyKeywords = ['stud', 'student', 'přihl', 'šk', 'obor', 'anglič', 'ubyt', 'univerzit', 'čes', 'kolej'];
@@ -34,8 +34,20 @@
     ];
   };
 
+  $posts->onEachSide(1);
+  $guideCanonical = $posts->currentPage() > 1 ? $posts->url($posts->currentPage()) : route('blog');
   $plainExcerpt = fn ($article, $limit = 150) => \Illuminate\Support\Str::limit(strip_tags($article->excerpt ?? $article->content ?? ''), $limit);
 @endphp
+
+@section('canonical', $guideCanonical)
+@section('head')
+  @if($posts->currentPage() > 1)
+    <link rel="prev" href="{{ $posts->previousPageUrl() }}">
+  @endif
+  @if($posts->hasMorePages())
+    <link rel="next" href="{{ $posts->nextPageUrl() }}">
+  @endif
+@endsection
 
 @section('content')
   <main data-redesign-page="blog-index" class="pb-16">
@@ -151,7 +163,7 @@
 
           @if($posts->hasPages())
             <div class="mt-10">
-              {{ $posts->links() }}
+              {{ $posts->links('vendor.pagination.guide') }}
             </div>
           @endif
         @else

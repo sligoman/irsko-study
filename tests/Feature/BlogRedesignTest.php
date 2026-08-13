@@ -91,7 +91,9 @@ class BlogRedesignTest extends TestCase
         $this->assertStringContainsString('data-redesign-section="blog-post-hero"', $html);
         $this->assertStringContainsString('data-redesign-section="blog-post-content"', $html);
         $this->assertStringContainsString('class="blog-post type-text-md text-brand-dark-green"', $html);
-        $this->assertStringContainsString('Zpět na blog', $html);
+        $this->assertStringContainsString('Zpět na praktického průvodce', $html);
+        $this->assertStringContainsString('group-hover:-translate-x-[2px]', $html);
+        $this->assertStringContainsString('<path d="M11.5 7L8.5 10L11.5 13"', $html);
         $this->assertStringContainsString('Praktický průvodce pro studenty z Česka', $html);
     }
 

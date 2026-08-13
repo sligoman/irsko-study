@@ -25,4 +25,11 @@ class RoutesCleanupTest extends TestCase
         $this->assertStringNotContainsString("return view('welcome');", $routes);
         $this->assertStringNotContainsString("'/welcome'", $routes);
     }
+    public function test_guide_uses_a_czech_path_and_redirects_legacy_blog_urls(): void
+    {
+        $this->assertSame(url("/prakticky-pruvodce"), route("blog"));
+        $this->assertSame(url("/prakticky-pruvodce/example"), route("blog.show", "example"));
+        $this->get("/blog")->assertRedirect("/prakticky-pruvodce");
+        $this->get("/blog/example")->assertRedirect("/prakticky-pruvodce/example");
+    }
 }

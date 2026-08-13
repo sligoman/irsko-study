@@ -28,7 +28,7 @@ $desktopLinks = [
     ['name' => 'universities', 'label' => 'Vysoké školy', 'href' => route('universities')],
     ['name' => 'kurzy', 'label' => 'Kurzy', 'href' => route('finder.courses')],
     ['name' => 'services', 'label' => 'Služby', 'href' => route('services')],
-    ['name' => 'blog', 'label' => 'Blog', 'href' => route('blog')],
+    ['name' => 'blog', 'label' => 'Praktický průvodce', 'href' => route('blog')],
     ['name' => 'faq', 'label' => 'Co tě zajímá', 'href' => route('faq')],
 ];
 

@@ -34,7 +34,7 @@ $isBlogPage = in_array(Route::currentRouteName(), ['blog', 'blog.show'], true);
             <h3 class="type-decorative text-[24px] leading-6 text-brand-light-green md:text-[16px]">Informace</h3>
             <div class="mt-2 flex flex-col">
               <a href="{{ route('faq') }}" class="{{ $footerLinksClass }}">Co tě zajímá</a>
-              <a href="{{ route('blog') }}" class="{{ $footerLinksClass }}">Blog</a>
+              <a href="{{ route('blog') }}" class="{{ $footerLinksClass }}">Praktický průvodce</a>
               <a href="{{ route('sitemap') }}" class="{{ $footerLinksClass }}">Sitemap</a>
             </div>
           </div>

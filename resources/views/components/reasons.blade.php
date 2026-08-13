@@ -29,7 +29,7 @@
     </div>
 
     <div class="mt-8">
-      <a href="{{ route('why') }}" class="type-input-label inline-flex items-center gap-2 text-brand-dark-green hover:text-brand-orange">Zjisti víc o studiu v Irsku <span aria-hidden="true">→</span></a>
+      <x-text-link href="{{ route('why') }}">Zjisti víc o studiu v Irsku</x-text-link>
     </div>
   </div>
 </section>

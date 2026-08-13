@@ -18,6 +18,7 @@
     <link rel="icon" type="image/png" sizes="512x512" href="{{ asset('img/svg/android-chrome-512x512.png') }}?v=6">
     <link rel="manifest" href="{{ asset('img/site.webmanifest') }}?v=6">
     <link rel="canonical" href="@yield('canonical', url()->current())">
+    @yield('head')
 
     @if(app()->environment(['local', 'testing']))
         <meta name="robots" content="noindex,nofollow" />

@@ -12,7 +12,7 @@
 
 @foreach($posts as $post)
   <url>
-    <loc>{{ url('/blog/' . $post->slug) }}</loc>
+    <loc>{{ url('/prakticky-pruvodce/' . $post->slug) }}</loc>
     @if(!empty($post->updated_at))<lastmod>{{ $post->updated_at->toAtomString() }}</lastmod>@endif
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

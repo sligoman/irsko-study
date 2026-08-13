@@ -17,18 +17,7 @@
 /public/hot
 /public/storage
 /public/img
-!/public/img/
-/public/img/*
-!/public/img/site.webmanifest
-!/public/img/svg/
 /public/img/svg/*
-!/public/img/svg/favicon.svg
-!/public/img/svg/favicon.ico
-!/public/img/svg/favicon-16x16.png
-!/public/img/svg/favicon-32x32.png
-!/public/img/svg/apple-touch-icon.png
-!/public/img/svg/android-chrome-192x192.png
-!/public/img/svg/android-chrome-512x512.png
 /storage/*.key
 /storage/pail
 /vendor
@@ -36,5 +25,4 @@ Homestead.json
 Homestead.yaml
 Thumbs.db
 .cache
-
 /vendor.zip

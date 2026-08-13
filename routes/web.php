@@ -17,8 +17,10 @@ Route::get('/faq', [FaqController::class, 'index'])->name('faq');
 Route::view('/kontakt', 'pages.contact')->name('contact');
 // Privacy policy (Czech)
 Route::view('/ochrana-soukromi', 'pages.privacy-cs')->name('privacy.cs');
-Route::get('/blog', [BlogController::class, 'index'])->name('blog');
-Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
+Route::get('/prakticky-pruvodce', [BlogController::class, 'index'])->name('blog');
+Route::get('/prakticky-pruvodce/{slug}', [BlogController::class, 'show'])->name('blog.show');
+Route::permanentRedirect('/blog', '/prakticky-pruvodce');
+Route::permanentRedirect('/blog/{slug}', '/prakticky-pruvodce/{slug}');
 
 
 // Sitemap for search engines (XML) and a human-readable sitemap page

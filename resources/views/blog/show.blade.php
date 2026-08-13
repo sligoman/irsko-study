@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', ($post->title ?? 'Článek') . ' - Blog')
+@section('title', ($post->title ?? 'Článek') . ' - Praktický průvodce')
 @php
   $__sitemap_desc = null;
   if (!empty($post->excerpt)) {
@@ -34,7 +34,13 @@
   <main data-redesign-page="blog-post" class="pb-16">
     <section data-redesign-section="blog-post-hero" class="pb-12 pt-8 md:pt-12">
       <div class="layout-container">
-        <a href="{{ route('blog') }}" class="type-text-sm inline-flex text-brand-dark-green underline decoration-brand-light-green underline-offset-4">Zpět na blog</a>
+        <a href="{{ route('blog') }}" class="group type-input-label inline-flex items-center gap-2 text-brand-dark-green underline underline-offset-4 transition-color-figma hover:text-[#041b19]">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" class="h-5 w-5 shrink-0 transition-move-figma group-hover:-translate-x-[2px]">
+            <rect width="20" height="20" rx="10" fill="#9BCC57" />
+            <path d="M11.5 7L8.5 10L11.5 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span>Zpět na praktického průvodce</span>
+        </a>
 
         <div class="mt-5 grid gap-6 rounded-[16px] bg-white p-6 md:grid-cols-[1fr_1fr] md:p-8">
           <div class="h-[320px] overflow-hidden rounded-[8px] bg-base-white ring-1 ring-neutral-200 md:h-[420px]">
@@ -80,7 +86,7 @@
         <div class="layout-container">
           <div class="flex flex-col justify-between gap-4 md:flex-row md:items-end">
             <h2 class="type-display-lg text-brand-dark-green">Další články</h2>
-            <x-button href="{{ route('blog') }}" variant="secondary" class="w-full md:w-auto">Všechny články</x-button>
+            <x-button href="{{ route('blog') }}" variant="secondary" class="w-full md:w-auto">Všechny články z průvodce</x-button>
           </div>
 
           <div class="mt-8 grid gap-6 md:grid-cols-3">
@@ -123,7 +129,7 @@
             <p class="type-text-sm-semibold text-brand-orange">Další čtení</p>
             <h2 class="type-display-lg mt-2 text-brand-dark-green">Praktický průvodce pro studenty z Česka</h2>
           </div>
-          <x-button href="{{ route('blog') }}" variant="secondary" class="w-full md:w-auto">Všechny články</x-button>
+          <x-button href="{{ route('blog') }}" variant="secondary" class="w-full md:w-auto">Všechny články z průvodce</x-button>
         </div>
 
         <div class="mt-8 grid gap-4 md:grid-cols-3">
