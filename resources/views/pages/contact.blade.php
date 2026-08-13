@@ -47,7 +47,7 @@
             <p class="type-text-lg mt-6 text-brand-dark-green">Ozveme se s dalším krokem: doporučíme školy, vysvětlíme termíny a řekneme, co připravit jako první.</p>
           </div>
           <div class="bg-white p-6 md:p-10 lg:p-12">
-            <contact-form position="bottom" page="{{ route('contact') }}"></contact-form>
+            <contact-form variant="inline" page="{{ route('contact') }}"></contact-form>
           </div>
         </div>
       </div>

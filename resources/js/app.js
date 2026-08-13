@@ -35,6 +35,9 @@ const app = createApp({
     closeContactForm() {
       this.showContactForm = false;
     },
+    closeContactFormAfterSubmission() {
+      window.setTimeout(() => this.closeContactForm(), 2500);
+    },
   },
   beforeUnmount() {
     document.body.classList.remove('overflow-hidden');

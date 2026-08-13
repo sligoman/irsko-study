@@ -6,6 +6,16 @@ use Tests\TestCase;
 
 class HomepageRedesignTest extends TestCase
 {
+    public function test_homepage_uses_reference_style_consultation_panel(): void
+    {
+        $response = $this->get("/");
+
+        $response->assertOk();
+        $response->assertSee("redesign-footer-pattern", false);
+        $response->assertSee("img/static/irsko_formular_brozura_detail-1x.webp", false);
+        $response->assertSee("<contact-form variant=\"inline\"></contact-form>", false);
+    }
+
     public function test_homepage_uses_redesign_section_patterns(): void
     {
         $response = $this->get('/');

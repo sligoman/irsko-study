@@ -1,23 +1,14 @@
 <section data-redesign-section="contact-panel" class="home-section">
   <div class="layout-container">
-    <div class="grid overflow-hidden rounded-[16px] bg-brand-light-gray lg:grid-cols-2">
-      <div class="p-6 md:p-10 lg:p-12">
-        <p class="type-text-md-semibold text-brand-orange">Bezplatná konzultace</p>
-        <h2 class="type-display-lg mt-2 text-brand-dark-green">Napiš nám, kde teď jsi a kam se chceš dostat</h2>
-        <p class="type-text-lg mt-6 text-brand-dark-green">Ozveme se s dalším krokem: doporučíme školy, vysvětlíme termíny a řekneme, co připravit jako první.</p>
-        <div class="mt-8 grid gap-4 sm:grid-cols-2">
-          <div class="rounded-[12px] bg-white p-5">
-            <p class="type-display-xs text-brand-dark-green">30 min</p>
-            <p class="type-text-sm mt-1 text-brand-dark-green">úvodní rozhovor</p>
-          </div>
-          <div class="rounded-[12px] bg-white p-5">
-            <p class="type-display-xs text-brand-dark-green">0 Kč</p>
-            <p class="type-text-sm mt-1 text-brand-dark-green">nezávazný začátek</p>
-          </div>
-        </div>
+    <div class="redesign-footer-pattern grid overflow-hidden rounded-[16px] lg:grid-cols-[1fr_568px] lg:gap-20">
+      <div class="p-6 text-white md:p-10 lg:p-16">
+        <p class="type-text-md-semibold text-brand-light-green">Bezplatná konzultace</p>
+        <h2 class="type-display-lg mt-2">Napiš nám, kde teď jsi a kam se chceš dostat</h2>
+        <p class="type-text-lg mt-6 text-white/85">Ozveme se s dalším krokem: doporučíme školy, vysvětlíme termíny a řekneme, co připravit jako první.</p>
+        <img src="{{ asset('img/static/irsko_formular_brozura_detail-1x.webp') }}" alt="Konzultace ke studiu v Irsku" class="mt-8 h-[320px] w-full rounded-[8px] object-cover object-top-left lg:h-[570px]" loading="lazy" decoding="async">
       </div>
-      <div class="bg-white p-6 md:p-10 lg:p-12">
-        <contact-form></contact-form>
+      <div class="bg-base-white p-6 md:p-12">
+        <contact-form variant="inline"></contact-form>
       </div>
     </div>
   </div>
