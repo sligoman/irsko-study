@@ -18,18 +18,10 @@ Rejected leads remain stored with their spam/qualification details and never rec
 
 ### n8n authentication
 
-The review API uses Sanctum bearer tokens. Create a dedicated local `User` for n8n and create a token in the irskostudy application; do not reuse the irsko.ie token because Sanctum tokens are application-specific.
+The review API uses Sanctum bearer tokens. Create a dedicated local `User` for n8n and create a token in the irskostudy application; do not reuse the irsko.ie token because Sanctum tokens are application-specific. See [`docs/sanctum-commands.md`](docs/sanctum-commands.md) for the complete command reference.
 
 ```sh
-php artisan tinker
-```
-
-```php
-$user = \App\Models\User::firstOrCreate(
-    ['email' => 'n8n@irskostudy.cz'],
-    ['name' => 'n8n Lead Review', 'password' => \Illuminate\Support\Facades\Hash::make(\Illuminate\Support\Str::random(40))],
-);
-$token = $user->createToken('n8n-lead-review')->plainTextToken;
+php artisan sanctum:create-user "n8n Lead Review" "n8n@irskostudy.cz" "use-a-strong-password"
 ```
 
 Store the printed token only in n8n credentials and send it as `Authorization: Bearer <token>`.
@@ -200,4 +192,3 @@ $schedule->command('sitemap:generate')->dailyAt('02:00');
 ```
 
 This keeps the public sitemap files static and fast to serve; Search Console and crawlers can fetch `https://your-site/sitemap.xml` which routes to the generated index.
-
