@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('qualification_source', 50)->nullable()->after('qualification_status');
             $table->decimal('spam_score', 5, 2)->nullable()->after('qualification_source');
             $table->text('qualification_notes')->nullable()->after('spam_score');
-            $table->json('qualification_payload')->nullable()->after('qualification_notes');
+            $table->text('qualification_payload')->nullable()->after('qualification_notes');
             $table->timestamp('reviewed_at')->nullable()->after('qualification_payload');
             $table->timestamp('approved_at')->nullable()->after('reviewed_at');
             $table->timestamp('rejected_at')->nullable()->after('approved_at');

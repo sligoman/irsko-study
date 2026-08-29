@@ -15,7 +15,7 @@ return new class extends Migration
             $table->timestamp('consent_at')->nullable()->after('user_agent');
             $table->string('status', 40)->default('pending')->after('consent_at');
             $table->string('crm_status', 40)->default('pending')->after('status');
-            $table->json('crm_response')->nullable()->after('crm_status');
+            $table->text('crm_response')->nullable()->after('crm_status');
             $table->timestamp('crm_sent_at')->nullable()->after('crm_response');
             $table->text('crm_error')->nullable()->after('crm_sent_at');
 
