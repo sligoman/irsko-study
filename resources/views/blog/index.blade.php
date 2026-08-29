@@ -54,7 +54,7 @@
     <section data-redesign-section="blog-guide-hero" class="pb-12 pt-8 md:pt-12">
       <div class="layout-container">
         <p class="type-text-sm text-utility-text-placeholder-dark">
-          <a href="{{ route('home') }}" class="hover:text-brand-dark-green">Domů</a> › Blog
+          <a href="{{ route('home') }}" class="hover:text-brand-dark-green">Domů</a> › Praktický průvodce
         </p>
 
         <div class="mt-6 rounded-[16px] bg-white p-6 md:p-10">

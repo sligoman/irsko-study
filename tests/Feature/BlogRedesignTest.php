@@ -30,7 +30,7 @@ class BlogRedesignTest extends TestCase
         $this->assertStringContainsString('Číst článek', $html);
         $this->assertStringContainsString('href="' . route('home') . '"', $html);
         $this->assertStringContainsString('Domů', $html);
-        $this->assertStringContainsString('Blog', $html);
+        $this->assertStringContainsString('Domů</a> › Praktický průvodce', $html);
         $this->assertStringContainsString('suitcase-rolling.svg', $html);
         $this->assertStringContainsString('studenty z Česka', $html);
         $this->assertStringContainsString('Výběr školy a oboru', $html);

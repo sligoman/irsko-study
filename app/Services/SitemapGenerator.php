@@ -40,9 +40,10 @@ class SitemapGenerator
         ];
 
         try {
-            $posts = AiblogPost::with('type')->whereHas('type', function ($q) {
-                $q->whereIn('name', ['blog', 'news']);
-            })->orderBy('updated_at', 'desc')->get();
+            $posts = AiblogPost::with('contentType')
+                ->whereIn('content_type_id', [1, 2])
+                ->orderBy('updated_at', 'desc')
+                ->get();
             foreach ($posts as $post) {
                 $staticUrls[] = [
                     'loc' => URL::to('/prakticky-pruvodce/' . $post->slug),

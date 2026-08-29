@@ -17,7 +17,8 @@ Route::get('/faq', [FaqController::class, 'index'])->name('faq');
 Route::view('/kontakt', 'pages.contact')->name('contact');
 // Privacy policy (Czech)
 Route::view('/ochrana-soukromi', 'pages.privacy-cs')->name('privacy.cs');
-Route::get('/prakticky-pruvodce', [BlogController::class, 'index'])->name('blog');
+Route::get('/prakticky-pruvodce', [BlogController::class, 'index'])->defaults('contentType', 1)->name('blog');
+Route::get('/novinky', [BlogController::class, 'index'])->defaults('contentType', 2)->name('news');
 Route::get('/prakticky-pruvodce/{slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::permanentRedirect('/blog', '/prakticky-pruvodce');
 Route::permanentRedirect('/blog/{slug}', '/prakticky-pruvodce/{slug}');

@@ -9,11 +9,12 @@ use Sligoman\AiblogApiWeb\Models\AiblogPost;
 
 class BlogController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, int $contentType = 1)
     {
-        $posts = AiblogPost::with('type')->whereHas('type', function ($query) {
-            $query->whereIn('name', ['blog', 'news']);
-        })->orderBy('created_at', 'desc')->paginate(10);
+        $posts = AiblogPost::with('contentType')
+            ->where('content_type_id', $contentType)
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
 
         $posts->setCollection($posts->getCollection()->transform(function ($post) {
             $this->normalizePostImage($post);
@@ -35,11 +36,9 @@ class BlogController extends Controller
             $post->content = $this->addWFullToYoutubeIframes($post->content);
         }
 
-        $morePosts = AiblogPost::with('type')
+        $morePosts = AiblogPost::with('contentType')
             ->where('slug', '!=', $slug)
-            ->whereHas('type', function ($query) {
-                $query->whereIn('name', ['blog', 'news']);
-            })
+            ->whereIn('content_type_id', [1, 2])
             ->orderBy('created_at', 'desc')
             ->take(3)
             ->get()

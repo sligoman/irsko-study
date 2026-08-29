@@ -47,7 +47,10 @@ class SitemapController extends Controller
     {
         $posts = collect();
         try {
-            $posts = AiblogPost::orderBy('updated_at', 'desc')->limit(100)->where('type_id', 2)->get();
+            $posts = AiblogPost::orderBy('updated_at', 'desc')
+                ->whereIn('content_type_id', [1, 2])
+                ->limit(100)
+                ->get();
         } catch (\Throwable $e) {
             Log::warning('SitemapController::page - could not load posts: ' . $e->getMessage());
         }
