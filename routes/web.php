@@ -5,7 +5,10 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\LeadController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FinderController;
+use App\Http\Controllers\PageController;
 
+// Security token route - sets session so testing environment can be viewed
+Route::get('/token', [PageController::class, 'setToken'])->name('token');
 
 // Static pages (blade views in resources/views/pages)
 Route::view('/', 'pages.home')->name('home');
