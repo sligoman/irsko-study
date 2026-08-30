@@ -97,6 +97,19 @@ class BlogRedesignTest extends TestCase
         $this->assertStringContainsString('Praktický průvodce pro studenty z Česka', $html);
     }
 
+    public function test_blog_post_uses_seo_title_and_description_when_present(): void
+    {
+        $post = $this->article('seo-clanek', 'Viditelný název článku');
+        $post->seo_title = 'SEO název článku';
+        $post->seo_description = 'SEO popis článku';
+
+        $html = (string) view('blog.show', ['post' => $post])->render();
+
+        $this->assertStringContainsString('<title>SEO název článku</title>', $html);
+        $this->assertStringContainsString('<meta name="description" content="SEO popis článku">', $html);
+        $this->assertStringNotContainsString('Viditelný název článku - Praktický průvodce', $html);
+    }
+
 
     public function test_blog_post_can_render_more_article_cards(): void
     {

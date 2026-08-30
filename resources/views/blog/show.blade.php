@@ -1,9 +1,16 @@
 @extends('layouts.app')
 
-@section('title', ($post->title ?? 'Článek') . ' - Praktický průvodce')
 @php
+  $postTitle = filled($post->seo_title ?? null)
+    ? $post->seo_title
+    : (($post->title ?? 'Článek') . ' - Praktický průvodce');
+  $postDescription = filled($post->seo_description ?? null)
+    ? strip_tags($post->seo_description)
+    : null;
   $__sitemap_desc = null;
-  if (!empty($post->excerpt)) {
+  if ($postDescription !== null) {
+    $__sitemap_desc = $postDescription;
+  } elseif (!empty($post->excerpt)) {
     $__sitemap_desc = strip_tags($post->excerpt);
   } elseif (!empty($post->content)) {
     $__sitemap_desc = \Illuminate\Support\Str::limit(strip_tags($post->content), 150);
@@ -28,6 +35,7 @@
     ];
   };
 @endphp
+@section('title', $postTitle)
 @section('meta_description', $__sitemap_desc ?? 'Článek na blogu IrskoStudy o studiu v Irsku')
 
 @section('content')

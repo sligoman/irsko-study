@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', 'Irsko STUDY')</title>
-    <meta name="description" content="@yield('meta_description', 'IrskoStudy — pomoc s přihláškami, ubytováním a studiem v Irsku pro studenty z ČR a SK')">
+    <title>{{ $__env->yieldContent('title', 'Irsko STUDY') }}</title>
+    <meta name="description" content="{{ $__env->yieldContent('meta_description', 'IrskoStudy — pomoc s přihláškami, ubytováním a studiem v Irsku pro studenty z ČR a SK') }}">
 
     <meta name="theme-color" content="#0E4A32">
     <link rel="icon" type="image/svg+xml" href="{{ asset('img/svg/favicon.svg') }}?v=6">
