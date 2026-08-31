@@ -23,6 +23,9 @@
     @if(app()->environment(['local', 'testing']))
         <meta name="robots" content="noindex,nofollow" />
     @endif
+    @hasSection('robots')
+        <meta name="robots" content="@yield('robots')" />
+    @endif
 
     <script>
         window.__CONTACTS = {!! json_encode(config('contacts')) !!};
