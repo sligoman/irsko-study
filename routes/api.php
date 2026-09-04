@@ -14,5 +14,6 @@ Route::get('/instagram/feed', [InstagramController::class, 'feed']);
 
 Route::middleware(['auth:sanctum'])->prefix('internal/leads')->group(function (): void {
     Route::get('/pending', [LeadReviewController::class, 'index']);
+    Route::get('/report', [LeadReviewController::class, 'report']);
     Route::patch('/{lead}/review', [LeadReviewController::class, 'update']);
 });

@@ -14,6 +14,8 @@ n8n owns qualification:
 4. The first approval dispatches `LeadSubmitted` after commit.
 5. Queued listeners send the internal notification, applicant confirmation, and CRM payload to `CRM_LEAD_URL`.
 
+The sandbox n8n workflows are `IRSKOSTUDY - Lead Review (Sandbox)` and `Weekly IrskoStudy.cz Lead Status Report (Sandbox)`. They use `IRSKOSTUDY_SANDBOX_BASE_URL` and the sandbox Sanctum token.
+
 Rejected leads remain stored with their spam/qualification details and never receive CRM or email handoff. Repeating a review request after processing returns `already_processed: true`, so external handoff runs once.
 
 ### n8n authentication
@@ -55,11 +57,12 @@ Use `approval_status: "rejected"` and `qualification_status: "disqualified"` for
 
 ```dotenv
 CRM_LEAD_URL=https://crm.irsko.ie/api/lead
+CRM_LEAD_TOKEN=
 CRM_LEAD_TIMEOUT=10
 QUEUE_CONNECTION=database
 ```
 
-Run a queue worker in production so approval handoff is retried outside the n8n/API request:
+Run a queue worker so approval handoff is retried outside the n8n/API request:
 
 ```sh
 php artisan queue:work --tries=3

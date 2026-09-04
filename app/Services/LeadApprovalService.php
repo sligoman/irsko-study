@@ -44,7 +44,9 @@ class LeadApprovalService
             'rejected_at' => $approvalStatus === Lead::APPROVAL_REJECTED ? ($lead->rejected_at ?? $now) : null,
         ])->save();
 
-        if (! $wasApproved && $lead->approval_status === Lead::APPROVAL_APPROVED) {
+        if (! $wasApproved
+            && $lead->approval_status === Lead::APPROVAL_APPROVED
+            && $lead->qualification_status === Lead::QUALIFICATION_QUALIFIED) {
             LeadSubmitted::dispatch($lead);
         }
 

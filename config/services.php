@@ -30,6 +30,8 @@ return [
 
     'crm' => [
         'lead_url' => env('CRM_LEAD_URL', 'https://crm.irsko.ie/api/lead'),
+        'token' => env('CRM_LEAD_TOKEN'),
+        'host' => env('CRM_LEAD_HOST'),
         'timeout' => (int) env('CRM_LEAD_TIMEOUT', 10),
     ],
 
