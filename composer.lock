@@ -3556,12 +3556,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:sligoman/aiblog-api-web.git",
-                "reference": "6a910d8980af10b3d81208ea24757ab6a0c49153"
+                "reference": "4943cdaeaf5918d630243dbd7bb2b2ed8385df8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sligoman/aiblog-api-web/zipball/6a910d8980af10b3d81208ea24757ab6a0c49153",
-                "reference": "6a910d8980af10b3d81208ea24757ab6a0c49153",
+                "url": "https://api.github.com/repos/sligoman/aiblog-api-web/zipball/4943cdaeaf5918d630243dbd7bb2b2ed8385df8e",
+                "reference": "4943cdaeaf5918d630243dbd7bb2b2ed8385df8e",
                 "shasum": ""
             },
             "require": {
